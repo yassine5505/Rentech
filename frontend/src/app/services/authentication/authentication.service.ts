@@ -2,8 +2,8 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 
 @Injectable()
-export class JarwisService {
-  private baseUrl = 'http://127.0.0.1:8080/api';
+export class AuthenticationService {
+  private baseUrl = 'http://127.0.0.1:8000/api';
 
   constructor(private http: HttpClient) { }
 

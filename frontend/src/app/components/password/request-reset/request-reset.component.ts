@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { JarwisService } from '../../../services/jarwis.service';
+import { AuthenticationService } from '../../../services/authentication/authentication.service';
 import { SnotifyService } from 'ng-snotify';
 
 @Component({
@@ -14,7 +14,7 @@ export class RequestResetComponent implements OnInit {
 
 
   constructor(
-    private Jarvis: JarwisService,
+    private authenticationSerice: AuthenticationService,
     private notify: SnotifyService,
     private Notfiy: SnotifyService
   ) { }
@@ -25,7 +25,7 @@ export class RequestResetComponent implements OnInit {
 
   onSubmit() {
     this.Notfiy.info('Wait...' , {timeout: 5000 } );
-    this.Jarvis.sendPasswordResetLink(this.form).subscribe(
+    this.authenticationSerice.sendPasswordResetLink(this.form).subscribe(
       data => this.handleResponse(data),
       error => this.notify.error(error.error.error)
     );
