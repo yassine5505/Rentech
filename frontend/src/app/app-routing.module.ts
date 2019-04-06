@@ -14,6 +14,10 @@ import { SignupComponent } from './components/signup/signup.component';
 
 const appRoutes: Routes = [
   {
+    path: '',
+    component: HomeComponent
+  },
+  {
     path: 'home',
     component: HomeComponent
   },
