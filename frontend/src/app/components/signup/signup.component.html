@@ -1,58 +1,154 @@
-<div class="mt-4 col-8 offset-2">
-  <div class="card">
-    <div class="card-header">Register Here</div>
-    <div class="card-body">
-      <form #signupForm=ngForm (ngSubmit)="onSubmit()">
-        <div class="form-group row">
-          <label for="inputName3" class="col-sm-2 col-form-label">Name</label>
-          <div class="col-sm-10">
-            <input type="text" name="name" class="form-control" id="inputname3" placeholder="Name" [(ngModel)]="form.name" required>
-            <div class="alert alert-danger" [hidden]="!error.name">
-              {{error.name}}
+<div class="wrapper">
+    <div class="page-header" style="background-image: url('./assets/img/login-image.jpg');">
+        <div class="filter"></div>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-10 mr-auto ml-auto" id="col-lg-4 col-sm-6">
+                    <div class="card card-register">
+                        <h3 class="title">Inscription </h3>
+                       <!--  <div class="social-line text-center">
+                              <a href="#pablo" class="btn btn-neutral btn-facebook btn-just-icon">
+                                  <i class="fa fa-facebook-square"></i>
+                              </a>
+                              <a href="#pablo" class="btn btn-neutral btn-google btn-just-icon">
+                                  <i class="fa fa-google-plus"></i>
+                              </a>
+                              <a href="#pablo" class="btn btn-neutral btn-twitter btn-just-icon">
+                                  <i class="fa fa-twitter"></i>
+                              </a>
+                        </div>     -->
+                        <form class="register-form">
+                            <div class="row form-group">
+                                <div class="col-md-12">
+                                    <label for="inputGender" class="col-sm-12 control-label">Titre </label>  
+                                
+                                    <select id="inputGender" [(ngModel)]="form.title" class="col-sm-5 browser-default custom-select">
+                                        <option value="M." selected>M.</option>
+                                        <option value="Mme" >Mme</option>
+                                        <option value="Melle" >Melle</option>
+                                        <option value="Dr" >Dr</option>
+                                    </select> 
+                                </div>
+                            </div>
+                            <div class="row form-group">
+                               <div class="col-md-6">
+                                    <label for="inputNom"  class="control-label">Nom</label>  
+                                    <div class="nputGroupContainer">
+                                        <div class="input-group">
+                                            <span class="input-group-addon"><i class="fa fa-user"></i></span>
+                                            <input  name="nom" id="inputNom" [(ngModel)]="form.name" placeholder="Nom" class="form-control"  type="text">
+                                        </div>
+                                    </div>
+                               </div>
+                               <div class="col-md-6">
+                                    <label for="inputPrenom" class="control-label">Prénom</label>  
+                                    <div class="inputGroupContainer">
+                                        <div class="input-group">
+                                            <span class="input-group-addon"><i class="fa fa-user"></i></span>
+                                            <input  name="prenom" id="inputPrenom"  [(ngModel)]="form.surname"  placeholder="Prénom" class="form-control"  type="text">
+                                        </div>
+                                    </div>
+                               </div>
+                            </div>
+                            
+                            <div class="row form-group">
+                               <div class="col-md-6">
+                                    <label for="inputCategory" class="col-sm-12 control-label">Vous êtes : </label>  
+                                
+                                    <select id="inputCategory"  [(ngModel)]="form.type_account"  class="col-sm-12 browser-default custom-select">
+                                        <option selected>Client (Chercheur d'offres)</option>
+                                        <option >Partenaire (Prestataire ayant au moins une voiture)</option>
+                                    </select>
+                               </div>
+                               <div class="col-md-6">
+                                    <label for="inputCity" class="col-sm-12 control-label">Ville de résidence : </label>  
+                                
+                                    <select id="inputCity"  [(ngModel)]="form.city" class="col-sm-12 browser-default custom-select">
+                                        <option value="tanger">Tanger</option>
+                                        <option value="tetouan" selected>Tétouan</option>
+                                    </select>
+                               </div>
+                            </div>
+                           <div class="row form-group">
+                                <label for="inputCity" class="col-sm-12 control-label">Numéro de téléphone : </label>  
+                                <div class="col-sm-12 ">
+                                    <div class="input-group form-group-no-border" >
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text">
+                                                <i class="nc-icon nc-phone-85"></i>
+                                            </span>
+                                        </div>
+                                        <input type="tel"  [(ngModel)]="form.phone"id="inputPhone" class="form-control" placeholder="Numéro de téléphone ">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="inputEmail" class="col-sm-12 col-form-label">Adresse électronique</label>
+                                <div class="col-sm-12 ">
+                                    <div class="input-group form-group-no-border">
+                                        <div class="input-group-prepend">
+                                        <span class="input-group-text">
+                                            <i class="nc-icon nc-email-85"></i>
+                                        </span>
+                                        </div>
+
+                                        <input type="email"  [(ngModel)]="form.email" id="inputEmail" class="form-control" placeholder="Email" >
+                                    </div>
+                                    <div class="alert alert-danger" [hidden]="!error.email">
+                                        {{error.email}}
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row form-group">
+                               <div class="col-md-6">
+                                    <label for="inputPassword">Password</label>
+                                    <div class="input-group form-group-no-border">
+                                        <div class="input-group-prepend">
+                                        <span class="input-group-text">
+                                            <i class="nc-icon nc-key-25"></i>
+                                        </span>
+                                        </div>
+                                        <input type="text"  [(ngModel)]="form.password" id="inputPassword" class="form-control" placeholder="Password" >
+                                    </div>
+                               </div>
+                               <div class="col-md-6">
+                                    <label for="inputConfirmPassword">Confirm Password</label>
+                                    <div class="input-group form-group-no-border">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text">
+                                                <i class="nc-icon nc-key-25"></i>
+                                            </span>
+                                        </div>
+                                        <input type="password"  [(ngModel)]="form.password_confirmation" class="form-control" id="inputConfirmPassword" placeholder="Password" required>
+                                    </div>
+                               </div>
+                            </div>
+                            
+                            <div class="row form-group">
+                                <div class="offset-1 col-md-10">
+                                    <div class="form-check">
+                                        <label class="form-check-label">
+                                            <input class="form-check-input"  [(ngModel)]="form.contrat" type="checkbox" checked="true" >
+                                                J'ai lu et j'accepte les 
+                                                <a href="#"> Conditions Générales d'Utilisation </a> et la
+                                                <a href="#">  Politique de Protection des Données Personnelles </a>
+                                            <span class="form-check-sign"></span>
+                                        </label>
+                                    </div>
+                                    
+                                </div> 
+                            </div>
+                            <div class="form-group row">
+                                <button class="btn btn-danger btn-block btn-round">S'INSCRIRE</button>
+                            </div>
+                            
+                        </form>  
+                    </div>
+                    
+                </div>  
             </div>
-          </div>
         </div>
-
-        <div class="form-group row">
-          <label for="inputEmail3" class="col-sm-2 col-form-label">Email</label>
-          <div class="col-sm-10">
-            <input type="email" name="email" class="form-control" id="inputEmail3" placeholder="Email" [(ngModel)]="form.email" required>
-            <div class="alert alert-danger" [hidden]="!error.email">
-              {{error.email}}
-            </div>
-          </div>
-        </div>
-
-        <div class="form-group row">
-          <label for="inputPasswordConfirmation3" class="col-sm-2 col-form-label">Password</label>
-          <div class="col-sm-10">
-            <input type="password" name="password" class="form-control" id="inputPasswordConfirmation3" placeholder="Confirm Password"
-              [(ngModel)]="form.password" required>
-            <div class="alert alert-danger" [hidden]="!error.password">
-              {{error.password}}
-            </div>
-          </div>
-        </div>
-
-        <div class="form-group row">
-          <label for="inputPassword3" class="col-sm-2 col-form-label">Confirm Password</label>
-          <div class="col-sm-10">
-            <input type="password" name="password_confirmation" class="form-control" id="inputPassword3" placeholder="Password" [(ngModel)]="form.password_confirmation"
-              required>
-          </div>
-        </div>
-
-        <div class="form-group row">
-          <div class="col-sm-10 offset-2">
-
-            <button type="submit" class="btn btn-primary" [disabled]="!signupForm.valid">Sign Up</button>
-
-            <a routerLink="/login" class="btn btn-info float-right">Sign in</a>
-
-          </div>
-        </div>
-
-      </form>
     </div>
-  </div>
 </div>
+
+       

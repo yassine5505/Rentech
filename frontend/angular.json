@@ -21,8 +21,10 @@
               "src/favicon.ico"
             ],
             "styles": [
-              "node_modules/ng-snotify/styles/material.css",
-              "src/styles.css"
+              "node_modules/bootstrap/dist/css/bootstrap.min.css",
+              "src/assets/sass/paper-kit.scss",
+              "src/assets/css/demo.css",
+              "src/assets/css/nucleo-icons.css"
             ],
             "scripts": []
           },
@@ -73,7 +75,11 @@
             "scripts": [],
             "styles": [
               "node_modules/ng-snotify/styles/material.css",
-              "src/styles.css"
+              "src/styles.css",
+              "node_modules/bootstrap/dist/css/bootstrap.min.css",
+              "src/assets/sass/paper-kit.scss",
+              "src/assets/css/demo.css",
+              "src/assets/css/nucleo-icons.css"
             ],
             "assets": [
               "src/assets",
@@ -125,7 +131,7 @@
   "schematics": {
     "@schematics/angular:component": {
       "prefix": "app",
-      "styleext": "css"
+      "styleext": "scss"
     },
     "@schematics/angular:directive": {
       "prefix": "app"
