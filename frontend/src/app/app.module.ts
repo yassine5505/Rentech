@@ -26,6 +26,7 @@ import { ReservationSearchComponent } from './components/shared/reservation-sear
 import {NgxMaterialTimepickerModule} from 'ngx-material-timepicker';
 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { AuthGuard } from './guards/auth-guard/auth-guard';
 
 @NgModule({
   declarations: [

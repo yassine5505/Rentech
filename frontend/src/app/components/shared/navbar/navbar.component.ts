@@ -79,6 +79,8 @@ export class NavbarComponent implements OnInit {
         event.preventDefault();
         this.Token.remove();
         this.Auth.changeAuthStatus(false);
+        this.Auth.changeCurrentUserSubject(null);
+        this.Auth.remove();
         this.router.navigateByUrl('/login');
     }
 }

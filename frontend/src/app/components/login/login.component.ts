@@ -4,6 +4,7 @@ import { AuthenticationService } from '../../services/authentication/authenticat
 import { TokenService } from '../../services/authentication/token.service';
 import { Router } from '@angular/router';
 import { AuthService } from '../../services/authentication/auth.service';
+import { User } from './../../models/user.model';
 
 @Component({
   selector: 'app-login',
@@ -36,6 +37,9 @@ export class LoginComponent implements OnInit {
   handleResponse(data) {
     this.Token.handle(data.access_token);
     this.Auth.changeAuthStatus(true);
+
+    const user = new User(data.user);
+    this.Auth.changeCurrentUserSubject(user);
     this.router.navigateByUrl('/profile');
   }
 

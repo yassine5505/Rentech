@@ -11,11 +11,15 @@ import { ResponseResetComponent } from './components/password/response-reset/res
 import { BeforeLoginService } from './guards/before-login/before-login.service';
 import { AfterLoginService } from './guards/after-login/after-login.service';
 import { SignupComponent } from './components/signup/signup.component';
+import { Role } from './models/role.model';
+import { AuthGuard } from './guards/auth-guard/auth-guard';
 
 const appRoutes: Routes = [
   {
     path: '',
-    component: HomeComponent
+    component: HomeComponent,
+    canActivate: [AuthGuard],
+    data: { roles: [Role.ADMIN] }
   },
   {
     path: 'home',
