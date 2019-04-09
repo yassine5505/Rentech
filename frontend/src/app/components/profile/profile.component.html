@@ -1,31 +1,49 @@
-<h1>Profile Section</h1>
-<p>
-  Lorem ipsum dolor sit amet consectetur, adipisicing elit. Officiis, deserunt.
-  Lorem ipsum dolor sit amet consectetur, adipisicing elit. Officiis, deserunt.
-  Lorem ipsum dolor sit amet consectetur, adipisicing elit. Officiis, deserunt.
-  Lorem ipsum dolor sit amet consectetur 
-  adipisicing elit. Consectetur eaque sed dolores tempore animi?
-</p>
-<p>
-  Lorem ipsum dolor sit amet consectetur, adipisicing elit. Officiis, deserunt.
-  Lorem ipsum dolor sit amet consectetur, adipisicing elit. Officiis, deserunt.
-  Lorem ipsum dolor sit amet consectetur, adipisicing elit. Officiis, deserunt.
-  Lorem ipsum dolor sit amet consectetur 
-  adipisicing elit. Consectetur eaque sed dolores tempore animi?
-</p>
-
-<h1>Profile Section</h1>
-<p>
-  Lorem ipsum dolor sit amet consectetur, adipisicing elit. Officiis, deserunt.
-  Lorem ipsum dolor sit amet consectetur, adipisicing elit. Officiis, deserunt.
-  Lorem ipsum dolor sit amet consectetur, adipisicing elit. Officiis, deserunt.
-  Lorem ipsum dolor sit amet consectetur 
-  adipisicing elit. Consectetur eaque sed dolores tempore animi?
-</p>
-<p>
-  Lorem ipsum dolor sit amet consectetur, adipisicing elit. Officiis, deserunt.
-  Lorem ipsum dolor sit amet consectetur, adipisicing elit. Officiis, deserunt.
-  Lorem ipsum dolor sit amet consectetur, adipisicing elit. Officiis, deserunt.
-  Lorem ipsum dolor sit amet consectetur 
-  adipisicing elit. Consectetur eaque sed dolores tempore animi?
-</p>
+<div class="wrapper">
+    <div class="page-header page-header-xs" data-parallax="true" style="background:darkblue;">
+        <div class="filter"></div>
+    </div>
+    <div class="section profile-content">
+        <div class="container">
+            <div class="owner">
+                <div class="avatar">
+                    <img src="./assets/img/faces/kaci-baum-2.jpg" alt="Circle Image" class="img-circle img-no-padding img-responsive">
+                </div>
+               
+            </div>
+            
+            <div class="nav-tabs-navigation">
+                <div class="nav-tabs-wrapper">
+                    <ngb-tabset [justify]="'left'">
+                        <ngb-tab title="Mes informations">
+                            <ng-template ngbTabContent >
+                                <div class="row following" id="follows">
+                                    <div class="col-md-6 ml-auto mr-auto">
+                                        <p>
+                                            Lorem ipsum dolor sit, amet consectetur adipisicing elit. Delectus, labore?
+                                            Lorem ipsum dolor sit, amet consectetur adipisicing elit. Delectus, labore?
+                                            Lorem ipsum dolor sit, amet consectetur adipisicing elit. Delectus, labore?
+                                        </p>
+                                    </div>
+                                </div>
+                            </ng-template>
+                        </ngb-tab>
+                        <ngb-tab title="Mes annonces">
+                            <ng-template ngbTabContent>
+                                <h3 class="text-muted">Pas d'annonce actuellement  :(</h3>
+                                <br>
+                                <button class="btn btn-warning btn-round">Publier une annonce !</button>
+                            </ng-template>
+                        </ngb-tab>
+                        <ngb-tab title="Mes voitures">
+                            <ng-template ngbTabContent>
+                                <h3 class="text-muted">No car available now :(</h3>
+                                <br>
+                                <button class="btn btn-success btn-round">Add a car</button>
+                            </ng-template>
+                        </ngb-tab>
+                    </ngb-tabset>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
