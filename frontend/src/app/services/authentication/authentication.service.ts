@@ -15,6 +15,10 @@ export class AuthenticationService {
     return this.http.post(`${this.baseUrl}/login`, data);
   }
 
+  logout() {
+    return this.http.post(`${this.baseUrl}/logout`, {});
+  }
+
   sendPasswordResetLink(data) {
     return this.http.post(`${this.baseUrl}/sendPasswordResetLink`, data);
   }
