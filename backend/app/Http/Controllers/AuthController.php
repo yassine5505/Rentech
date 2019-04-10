@@ -43,16 +43,15 @@ class AuthController extends Controller
 
     public function signup(Request $request)
     {
-        $this->validateSignUpRequest($request);
+        $this->validateRequest($request, "signup");
         try{
-            // First Create User
+            // First Create User (Might throw DB or Validator exceptions)
             $user = User::create($request->all());
             
             // Then Upload Image and Insert in DB
             if($request->hasFile('image')){
-                $path = $request->file('image')->store('user-images');
                 $imageToInsert = new Image();
-                $imageToInsert->url = $path;
+                $imageToInsert->url = $request->file('image')->store('user-images');
                 $imageToInsert->user_id = $user->id;
                 $imageToInsert->save();
             }
@@ -70,8 +69,20 @@ class AuthController extends Controller
      */
     public function me()
     {
-        return response()->json(Auth::user());
+        return response()->json(auth()->user()->only(['id', 'name', 'email', 'driving_license_number', 'address', 'telephone', 'role', 'status', 'city_id', 'image', 'city']));
     }
+
+
+    /**
+     * Update authenticated User.
+     *
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function update(Request $request){
+        $this->validateRequest($request, "update");
+        dd(auth()->user());
+    }
+
 
     /**
      * Log the user out (Invalidate the token).
@@ -112,30 +123,50 @@ class AuthController extends Controller
         ]);
     }
 
+
     /*
-     * Validate User Input when Signing up or Updating thei info
+     * Validate User Input when  Signing Up or Updating
      * 
      * @param Request 
      * 
      * @return Response || true
      * 
      */
-    public function validateSignUpRequest(Request $request)
+    public function validateRequest(Request $request, $validationType)
     {
-        $validator = Validator::make($request->toArray(), [
-            'image' => ['required', 'mimes:jpg,jpeg,png,svg'],
-            'cin' => ['required', 'string', 'max:191'],
-            'name' => ['required', 'string', 'max:191'],
-            'driving_license_number' => ['required', 'string', 'max:191'],
-            'address' => ['required', 'string' , 'max:191'],
-            'telephone' => ['required', 'string', 'max:191'],
-            'role' => ['required', 'string', 'max:191'],
-            'status' => ['required', 'boolean'],
-            'city_id' => ['required', 'int'],
-            'email' => ['required', 'string', 'email', 'max:191', 'unique:users'],
-            'password' => ['required', 'string']
-        ]);
-        
+        $rule = [];
+        if($validationType == "signup"){
+            $rule = [
+                'image' => ['required', 'mimes:jpg,jpeg,png,svg'],
+                'cin' => ['required', 'string', 'max:191'],
+                'name' => ['required', 'string', 'max:191'],
+                'driving_license_number' => ['required', 'string', 'max:191'],
+                'address' => ['required', 'string' , 'max:191'],
+                'telephone' => ['required', 'string', 'max:191'],
+                'role' => ['required', 'string', 'max:191'],
+                'status' => ['required', 'boolean'],
+                'city_id' => ['required', 'int'],
+                'email' => ['required', 'string', 'email', 'max:191', 'unique:users'],
+                'password' => ['required', 'string']
+            ];
+        }
+        else if ($validationType == "update"){
+            $rule = [
+                'image' => ['mimes:jpg,jpeg,png,svg'],
+                'cin' => ['string', 'max:191'],
+                'name' => ['string', 'max:191'],
+                'driving_license_number' => ['string', 'max:191'],
+                'address' => ['string' , 'max:191'],
+                'telephone' => ['string', 'max:191'],
+                'role' => ['string', 'max:191'],
+                'status' => ['boolean'],
+                'city_id' => ['int'],
+                'email' => ['required', 'string', 'email', 'max:191', 'unique:users'],
+                'password' => ['string']
+            ];
+        }
+
+        $validator = Validator::make($request->all(), $rule);
         if ($validator->fails()){
             return response()->json(["message" => $validator->messages()->toArray()]);
         }

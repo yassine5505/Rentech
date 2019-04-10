@@ -28,29 +28,35 @@ class User extends Authenticatable implements JWTSubject
         'password', 'remember_token',
     ];
 
-
-    protected $assigns = ['image'];
     // Custom Model Methods 
 
     /*
      * User Relationship with Image
-     * 
-     * @return Image related to this user
      * 
      */ 
     public function image(){
         return $this->hasOne('\App\Image');
     }
 
+
+
     /*
      * Get User Cars 
-     * 
-     * @return \App\Car
      * 
      */ 
     public function cars(){
         return $this->hasMany('\App\Car');  
     }
+
+
+    /*
+     * User relationship With City 
+     * 
+     */ 
+    public function city(){
+        return $this->belongsTo('\App\City');
+    }
+
 
     /*
      * Verify User role
