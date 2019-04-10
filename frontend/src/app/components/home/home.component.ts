@@ -10,7 +10,7 @@ import { ReservationSearchComponent } from './../shared/reservation-search/reser
 
 export class HomeComponent implements OnInit {
 
-    @ViewChild(ReservationSearchComponent) reservationComponent: ReservationSearchComponent;
+    @ViewChild(ReservationSearchComponent)
     model = {
         left: true,
         middle: false,
