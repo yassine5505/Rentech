@@ -15,7 +15,7 @@ import { RequestResetComponent } from './components/password/request-reset/reque
 import { ResponseResetComponent } from './components/password/response-reset/response-reset.component';
 import { AppRoutingModule } from './/app-routing.module';
 import { FormsModule } from '@angular/forms';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AuthenticationService } from './services/authentication/authentication.service';
 import { TokenService } from './services/authentication/token.service';
 import { AuthService } from './services/authentication/auth.service';
@@ -27,6 +27,8 @@ import {NgxMaterialTimepickerModule} from 'ngx-material-timepicker';
 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AuthGuard } from './guards/auth-guard/auth-guard';
+import { JwtInterceptor } from './_helpers/jwt.interceptor';
+import { ErrorInterceptor } from './_helpers/error.interceptor';
 
 @NgModule({
   declarations: [
@@ -50,9 +52,25 @@ import { AuthGuard } from './guards/auth-guard/auth-guard';
     NgxMaterialTimepickerModule,
     BrowserAnimationsModule
   ],
-  providers: [AuthenticationService, TokenService, AuthService, AfterLoginService, BeforeLoginService,
+  providers: [
+    AuthenticationService,
+    TokenService,
+    AuthService,
+    AfterLoginService,
+    BeforeLoginService,
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: JwtInterceptor,
+      multi: true
+    },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: ErrorInterceptor,
+      multi: true
+    },
     { provide: 'SnotifyToastConfig', useValue: ToastDefaults },
-    SnotifyService],
+    SnotifyService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -1,28 +1,32 @@
-import { Component, OnInit, ElementRef } from '@angular/core';
+import { Component, OnInit, ElementRef, OnDestroy } from '@angular/core';
 import { Location, LocationStrategy, PathLocationStrategy } from '@angular/common';
 import { AuthService } from '../../../services/authentication/auth.service';
 import { Router } from '@angular/router';
 import { TokenService } from '../../../services/authentication/token.service';
-
+import { AuthenticationService } from '../../../services/authentication/authentication.service';
+import { Subscription } from 'rxjs';
 @Component({
     selector: 'app-navbar',
     templateUrl: './navbar.component.html',
     styleUrls: ['./navbar.component.scss']
 })
-export class NavbarComponent implements OnInit {
+export class NavbarComponent implements OnInit, OnDestroy {
     private toggleButton: any;
     private sidebarVisible: boolean;
     public loggedIn: boolean;
+    public logoutSubscription: Subscription;
 
     constructor(
         public location: Location,
         private element: ElementRef,
         private Auth: AuthService,
         private router: Router,
-        private Token: TokenService
+        private Token: TokenService,
+        private authService: AuthenticationService
         ) {
         this.sidebarVisible = false;
     }
+
 
     ngOnInit() {
         const navbar: HTMLElement = this.element.nativeElement;
@@ -77,10 +81,20 @@ export class NavbarComponent implements OnInit {
     }
     logout(event: MouseEvent) {
         event.preventDefault();
-        this.Token.remove();
-        this.Auth.changeAuthStatus(false);
-        this.Auth.changeCurrentUserSubject(null);
-        this.Auth.remove();
-        this.router.navigateByUrl('/login');
+        this.logoutSubscription = this.authService.logout().subscribe(
+            data => {
+                // Successfully logged out
+                console.log(data);
+                this.Token.remove();
+                this.Auth.changeAuthStatus(false);
+                this.Auth.changeCurrentUserSubject(null);
+                this.Auth.remove();
+                this.router.navigateByUrl('/login');
+            }
+        );
+    }
+
+    ngOnDestroy() {
+        this.logoutSubscription.unsubscribe();
     }
 }
