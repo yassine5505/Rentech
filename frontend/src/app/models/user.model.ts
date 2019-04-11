@@ -1,16 +1,17 @@
+import { Role } from './role.model';
 
 export class User {
-  id: number;
-  email: string;
-  username: string;
-  password: string;
-  firstName: string;
-  lastName: string;
-  role: string;
-  token?: string;
 
-  constructor(username: string) {
-    this.username = username;
+
+  constructor(
+    private username: string,
+    private id?: number,
+    private email?: string,
+    private firstName?: string,
+    private lastName?: string,
+    private role?: Role,
+    private token?: string) {
+
   }
 
 }

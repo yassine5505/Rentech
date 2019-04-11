@@ -7,17 +7,20 @@ import { AuthenticationService } from './../services/authentication/authenticati
 
 @Injectable()
 export class ErrorInterceptor implements HttpInterceptor {
+    public exceptedRoutes = [
+        'login'
+    ];
     constructor(private authenticationService: AuthenticationService) { }
 
     intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
         return next.handle(request).pipe(catchError(err => {
-            if (err.status === 401) {
+            const routeName = request.url.split('/');
+            if (err.status === 401 && this.exceptedRoutes.indexOf(routeName[routeName.length - 1 ]) <= -1) {
                 // auto logout if 401 response returned from api
                 this.authenticationService.logout();
                 location.reload(true);
             }
-
-            const error = err.error.message || err.statusText;
+            const error = err.error || err.statusText;
             return throwError(error);
         }));
     }

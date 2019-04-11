@@ -5,6 +5,7 @@ import { TokenService } from '../../services/authentication/token.service';
 import { Router } from '@angular/router';
 import { AuthService } from '../../services/authentication/auth.service';
 import { User } from './../../models/user.model';
+import { LoadingScreenService } from '../../services/shared/loading-screen/loading-screen.service';
 
 @Component({
   selector: 'app-login',
@@ -24,13 +25,23 @@ export class LoginComponent implements OnInit {
     private autenticationService: AuthenticationService,
     private Token: TokenService,
     private router: Router,
-    private Auth: AuthService
+    private Auth: AuthService,
+    private loadingScreenService: LoadingScreenService
   ) { }
 
   onSubmit() {
+    this.loadingScreenService.startLoading();
     this.autenticationService.login(this.form).subscribe(
-      data => this.handleResponse(data),
-      error => this.handleError(error)
+      data => {
+        this.handleResponse(data);
+      },
+      error => {
+        this.loadingScreenService.stopLoading();
+        this.handleError(error);
+      },
+      () => {
+        this.loadingScreenService.stopLoading();
+      }
     );
   }
 
@@ -44,7 +55,7 @@ export class LoginComponent implements OnInit {
   }
 
   handleError(error) {
-    this.error = error.error.error;
+    this.error = error.error;
   }
   ngOnInit() {
   }
