@@ -16,7 +16,7 @@ class User extends Authenticatable implements JWTSubject
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password',
+        'name', 'email', 'password','cin', 'driving_license_number', 'address', 'telephone','role', 'status', 'city_id'
     ];
 
     /**
@@ -27,6 +27,60 @@ class User extends Authenticatable implements JWTSubject
     protected $hidden = [
         'password', 'remember_token',
     ];
+
+    // Custom Model Methods 
+
+    /*
+     * User Relationship with Image
+     * 
+     */ 
+    public function image(){
+        return $this->hasOne('\App\Image');
+    }
+
+
+
+    /*
+     * Get User Cars 
+     * 
+     */ 
+    public function cars(){
+        return $this->hasMany('\App\Car');  
+    }
+
+
+    /*
+     * User relationship With City 
+     * 
+     */ 
+    public function city(){
+        return $this->belongsTo('\App\City');
+    }
+
+    /*
+     * User relationship With Score 
+     * 
+     */
+    public function scores(){
+        return $this->hasMany('\App\score');
+    }
+
+
+    /*
+     * Verify User role
+     * 
+     * @param String 
+     * 
+     * @return boolean
+     * 
+     */ 
+    public function hasRole($role){
+        if(strtolower($this->role) == strtolower($role)){
+            return true;
+        }
+        return false;
+    }
+
 
     // Rest omitted for brevity
 
