@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 import { TokenService } from '../../../services/authentication/token.service';
 import { AuthenticationService } from '../../../services/authentication/authentication.service';
 import { Subscription } from 'rxjs';
+import { LoadingScreenService } from '../../../services/shared/loading-screen/loading-screen.service';
 @Component({
     selector: 'app-navbar',
     templateUrl: './navbar.component.html',
@@ -22,7 +23,8 @@ export class NavbarComponent implements OnInit, OnDestroy {
         private Auth: AuthService,
         private router: Router,
         private Token: TokenService,
-        private authService: AuthenticationService
+        private authService: AuthenticationService,
+        private loaderService: LoadingScreenService
         ) {
         this.sidebarVisible = false;
     }
@@ -79,8 +81,9 @@ export class NavbarComponent implements OnInit, OnDestroy {
             return false;
         }
     }
-    logout(event: MouseEvent) {
+    async logout(event: MouseEvent) {
         event.preventDefault();
+        await this.loaderService.startLoading();
         this.logoutSubscription = this.authService.logout().subscribe(
             data => {
                 // Successfully logged out
@@ -90,8 +93,14 @@ export class NavbarComponent implements OnInit, OnDestroy {
                 this.Auth.changeCurrentUserSubject(null);
                 this.Auth.remove();
                 this.router.navigateByUrl('/login');
+            },
+            error => {
+            },
+            () => {
+                this.loaderService.stopLoading();
             }
         );
+
     }
 
     ngOnDestroy() {

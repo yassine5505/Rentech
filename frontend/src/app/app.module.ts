@@ -29,6 +29,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AuthGuard } from './guards/auth-guard/auth-guard';
 import { JwtInterceptor } from './_helpers/jwt.interceptor';
 import { ErrorInterceptor } from './_helpers/error.interceptor';
+import { LoadingScreenComponent } from './components/shared/loading-screen/loading-screen.component';
 
 @NgModule({
   declarations: [
@@ -40,7 +41,8 @@ import { ErrorInterceptor } from './_helpers/error.interceptor';
     ProfileComponent,
     RequestResetComponent,
     ResponseResetComponent,
-    ReservationSearchComponent
+    ReservationSearchComponent,
+    LoadingScreenComponent
   ],
   imports: [
     BrowserModule,
