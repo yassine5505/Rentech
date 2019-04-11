@@ -19,8 +19,8 @@ class CreateAdsTable extends Migration
             $table->dateTime('start_date');
             $table->dateTime('end_date');
             $table->boolean('status');
-            $table->integer('car_id');
-            $table->integer('city_id');
+            $table->integer('car_id')->unsigned();
+            $table->integer('city_id')->unsigned();
             $table->foreign('car_id')->references('id')->on('cars');
             $table->foreign('city_id')->references('id')->on('cities');
             $table->timestamps();
