@@ -31,4 +31,12 @@ class Car extends Model
         return $this->belongsTo('\App\User');
     }
 
+    /*
+     * Relationship with Ad
+     *
+     */
+    public function ad(){
+        return $this->hasOne('\App\User');
+    }
+
 }

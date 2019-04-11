@@ -15,4 +15,9 @@ class City extends Model
     public function users(){
         return $this->hasMany('\App\User');
     }
+
+    // Relationship with City
+    public function city(){
+        return $this->hasOne('\App\Ad');
+    }
 }

@@ -57,6 +57,14 @@ class User extends Authenticatable implements JWTSubject
         return $this->belongsTo('\App\City');
     }
 
+    /*
+     * User relationship With Score 
+     * 
+     */
+    public function scores(){
+        return $this->hasMany('\App\score');
+    }
+
 
     /*
      * Verify User role
