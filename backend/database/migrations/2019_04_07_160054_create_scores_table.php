@@ -17,9 +17,9 @@ class CreateScoresTable extends Migration
             $table->increments('id');
             $table->integer('amount');
             $table->string('comment');
-            $table->integer('user_id')->nullable();
-            $table->integer('car_id')->nullable();
-            $table->integer('reservation_id');
+            $table->integer('user_id')->nullable()->unsigned();
+            $table->integer('car_id')->nullable()->unsigned();
+            $table->integer('reservation_id')->unsigned();
             $table->foreign('user_id')->references('id')->on('users');    
             $table->foreign('car_id')->references('id')->on('cars');    
             $table->foreign('reservation_id')->references('id')->on('reservations');

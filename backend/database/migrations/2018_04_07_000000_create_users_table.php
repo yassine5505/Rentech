@@ -22,7 +22,7 @@ class CreateUsersTable extends Migration
             $table->string('telephone');
             $table->string('role')->default("client"); //["accepted_values" => "client", "partner" , "admin"]
             $table->boolean('status')->default(false);
-            $table->integer('city_id');
+            $table->integer('city_id')->unsigned();
             $table->string('email')->unique();
             $table->string('password');
             $table->rememberToken();

@@ -17,8 +17,8 @@ class CreateImagesTable extends Migration
             $table->increments('id');
             $table->string('url');
             $table->string('description')->nullable();
-            $table->integer('user_id')->nullable();
-            $table->integer('car_id')->nullable();
+            $table->integer('user_id')->nullable()->unsigned();
+            $table->integer('car_id')->nullable()->unsigned();
             $table->timestamps();
             // Foreign Keys on Users and Cars
             $table->foreign('user_id')->references('id')->on('users');

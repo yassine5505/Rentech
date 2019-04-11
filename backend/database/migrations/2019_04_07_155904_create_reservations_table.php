@@ -17,7 +17,7 @@ class CreateReservationsTable extends Migration
             $table->increments('id');
             $table->string('comment');
             $table->boolean('status');
-            $table->integer('ad_id');
+            $table->integer('ad_id')->unsigned();
             $table->foreign('ad_id')->references('id')->on('ads');
             $table->timestamps();
         });
