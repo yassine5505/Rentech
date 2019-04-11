@@ -4,9 +4,13 @@ namespace App\Http\Controllers;
 
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Controller;
+use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 use App\Http\Requests\SignUpRequest;
+use Illuminate\Support\Facades\Validator;
+use \Illuminate\Database\QueryException ;
 use App\User;
-
+use App\Image;
 
 class AuthController extends Controller
 {
@@ -27,19 +31,35 @@ class AuthController extends Controller
      */
     public function login()
     {
+
         $credentials = request(['email', 'password']);
 
         if (!$token = auth()->attempt($credentials)) {
             return response()->json(['error' => 'Email or password does\'t exist'], 401);
         }
-
         return $this->respondWithToken($token);
     }
 
-    public function signup(SignUpRequest $request)
+
+    public function signup(Request $request)
     {
-        User::create($request->all());
-        return $this->login($request);
+        $this->validateRequest($request, "signup");
+        try{
+            // First Create User (Might throw DB or Validator exceptions)
+            $user = User::create($request->all());
+            
+            // Then Upload Image and Insert in DB
+            if($request->hasFile('image')){
+                $imageToInsert = new Image();
+                $imageToInsert->url = $request->file('image')->store('user-images');
+                $imageToInsert->user_id = $user->id;
+                $imageToInsert->save();
+            }
+        }
+        catch(QueryException $ex){
+            return response()->json(["message" => $ex->errorInfo], 409);
+        }
+        return $this->login();
     }
 
     /**
@@ -49,8 +69,20 @@ class AuthController extends Controller
      */
     public function me()
     {
-        return response()->json(auth()->user());
+        return response()->json(auth()->user()->only(['id', 'name', 'email', 'driving_license_number', 'address', 'telephone', 'role', 'status', 'city_id', 'image', 'city']));
     }
+
+
+    /**
+     * Update authenticated User.
+     *
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function update(Request $request){
+        $this->validateRequest($request, "update");
+        dd(auth()->user());
+    }
+
 
     /**
      * Log the user out (Invalidate the token).
@@ -87,7 +119,57 @@ class AuthController extends Controller
             'access_token' => $token,
             'token_type' => 'bearer',
             'expires_in' => auth()->factory()->getTTL() * 60,
-            'user' => auth()->user()->name
+            'user' => auth()->user()->only(['id', 'name', 'email', 'driving_license_number', 'address', 'telephone', 'role', 'status', 'city_id', 'image']),
         ]);
+    }
+
+
+    /*
+     * Validate User Input when  Signing Up or Updating
+     * 
+     * @param Request 
+     * 
+     * @return Response || true
+     * 
+     */
+    public function validateRequest(Request $request, $validationType)
+    {
+        $rule = [];
+        if($validationType == "signup"){
+            $rule = [
+                'image' => ['required', 'mimes:jpg,jpeg,png,svg'],
+                'cin' => ['required', 'string', 'max:191'],
+                'name' => ['required', 'string', 'max:191'],
+                'driving_license_number' => ['required', 'string', 'max:191'],
+                'address' => ['required', 'string' , 'max:191'],
+                'telephone' => ['required', 'string', 'max:191'],
+                'role' => ['required', 'string', 'max:191'],
+                'status' => ['required', 'boolean'],
+                'city_id' => ['required', 'int'],
+                'email' => ['required', 'string', 'email', 'max:191', 'unique:users'],
+                'password' => ['required', 'string']
+            ];
+        }
+        else if ($validationType == "update"){
+            $rule = [
+                'image' => ['mimes:jpg,jpeg,png,svg'],
+                'cin' => ['string', 'max:191'],
+                'name' => ['string', 'max:191'],
+                'driving_license_number' => ['string', 'max:191'],
+                'address' => ['string' , 'max:191'],
+                'telephone' => ['string', 'max:191'],
+                'role' => ['string', 'max:191'],
+                'status' => ['boolean'],
+                'city_id' => ['int'],
+                'email' => ['required', 'string', 'email', 'max:191', 'unique:users'],
+                'password' => ['string']
+            ];
+        }
+
+        $validator = Validator::make($request->all(), $rule);
+        if ($validator->fails()){
+            return response()->json(["message" => $validator->messages()->toArray()]);
+        }
+        return true;
     }
 }
