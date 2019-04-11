@@ -48,4 +48,20 @@ class UserController extends Controller
             return response()->json(["message" => "User not found"], 404);
         return response()->json($user->only(['id', 'name', 'email', 'driving_license_number', 'address', 'telephone', 'role', 'status', 'city_id', 'image', 'city']));  
     }
+
+    /**
+     * 
+     * Delete User by Id
+     * 
+     * @return Response
+     * 
+     */
+    public function delete(){
+        $userToDelete = User::find(request('id'));
+        if(User::destroy(request('id'))){
+            return response()->json(["message" => "User deleted"]);
+        }
+        return response()->json(["message" => "User not deleted"], 404);
+    }
+    
 }
