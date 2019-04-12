@@ -28,6 +28,16 @@ class User extends Authenticatable implements JWTSubject
         'password', 'remember_token',
     ];
 
+    /**
+     * The Role Types a User can have
+     * 
+     * @var array
+     */
+    public static $ROLES = [
+        "admin" => "Admin",
+        "partner" => "Partner",
+        "client" => "Client"
+    ];
     // Custom Model Methods 
 
     /*

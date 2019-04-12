@@ -29,7 +29,7 @@ class UserController extends Controller
      * 
      */
     public function index(){
-        if(auth()->user()->hasRole("admin")){
+        if(auth()->user()->hasRole(User::$ROLES["admin"])){
             return response()->json(User::all());
         }
         return response()->json(["message" => "Unauthorized"], 409);
