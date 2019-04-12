@@ -111,7 +111,7 @@ class CarController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function delete($id)
     {
         //
     }
@@ -119,7 +119,7 @@ class CarController extends Controller
     /**
      * Validate Request when Creating or Updating a Car
      * 
-     * 
+     * @return Response
      */
     public function validateRequest(Request $request, $validationType)
     {
