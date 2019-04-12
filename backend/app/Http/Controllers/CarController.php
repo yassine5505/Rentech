@@ -102,7 +102,21 @@ class CarController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $car = Car::find($id)->first();
+        if($car == null)
+            return response()->json(["message" => "Car not found"],404);
+
+        $this->validateRequest($request, "update");
+        $car->update($request->all());
+        if($request->hasFile("images")){
+            foreach($request->file("images") as $image){
+                $car->image = new Image;
+                $car->image->car_id = $id;
+                $car->image->url = $image->store('car-images');
+                $car->image->description = $car->model . " " . $car->Brand;
+                $car->image->save();
+            }
+        }
     }
 
     /**

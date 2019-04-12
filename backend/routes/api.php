@@ -30,6 +30,7 @@ Route::group(['middleware' => 'api'], function () {
     // Car Routes
     Route::group(['prefix' => 'cars'], function(){
         Route::post('create', 'CarController@create');
+        Route::post('{id}/update', 'CarController@update');
         Route::post('/', 'CarController@index'); 
     });
 });
