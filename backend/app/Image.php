@@ -18,7 +18,7 @@ class Image extends Model
      * 
      */
     public function user(){
-        return $this->belongsTo('App\User', 'user_id');
+        return $this->belongsTo('\App\User', 'user_id');
     }
 
 
@@ -29,6 +29,6 @@ class Image extends Model
      * 
      */
     public function car(){
-        return $this->belongsTo('App\Car', 'car_id');
+        return $this->belongsTo('\App\Car', 'car_id');
     }
 }

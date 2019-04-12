@@ -23,7 +23,10 @@ Route::group(['middleware' => 'api'], function () {
     // User Routes
     Route::group(['prefix' => 'users'], function(){
         Route::post('/', 'UserController@index'); // All Users  
-        Route::post('/{id}', 'UserController@user'); // Get user by Id
-        Route::post('/delete/{id}', 'UserController@delete'); // Get user by Id
+        Route::post('{id}', 'UserController@show'); // Get user by Id
+        Route::post('delete/{id}', 'UserController@delete'); // Get user by Id
+
+        Route::post('car/create', 'CarController@create'); // Get user by Id
+        
     });
 });

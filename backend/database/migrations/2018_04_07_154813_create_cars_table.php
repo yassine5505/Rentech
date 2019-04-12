@@ -18,9 +18,16 @@ class CreateCarsTable extends Migration
             $table->integer('user_id')->unsigned();
             $table->string('brand');
             $table->string('model');
-            $table->string('production_year');
-            $table->decimal('mileage',10,2);
-            $table->string('color');
+            $table->string('production_year')->nullable();
+            $table->integer('mileage')->nullable();
+            $table->string('color')->nullable();
+            $table->string('category')->nullable();
+            $table->string('matricule')->nullable();
+            $table->string('transmission')->nullable(); // Vitesse
+            $table->string('motor')->nullable();
+            $table->boolean('airbag')->default(false);
+            $table->boolean('centralized')->default(false);
+            $table->boolean('abs')->default(false);
             $table->timestamps();
             $table->foreign('user_id')->references('id')->on('users');
         });

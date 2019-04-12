@@ -137,7 +137,7 @@ class AuthController extends Controller
         $rule = [];
         if($validationType == "signup"){
             $rule = [
-                'image' => ['required', 'mimes:jpg,jpeg,png,svg'],
+                'image' => ['mimes:jpg,jpeg,png,svg'],
                 'cin' => ['required', 'string', 'max:191'],
                 'name' => ['required', 'string', 'max:191'],
                 'driving_license_number' => ['required', 'string', 'max:191'],
