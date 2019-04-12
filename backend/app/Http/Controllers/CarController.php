@@ -82,14 +82,18 @@ class CarController extends Controller
 
 
     /**
-     * Display the specified resource.
+     * Return the specified Car.
      *
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
     public function show($id)
     {
-        //
+        $car = Car::find($id);
+        if($car == null)
+            return response()->json(["message" => "Car not found"], 404);
+        return new CarResource($car);
+        
     }
 
 
@@ -127,7 +131,14 @@ class CarController extends Controller
      */
     public function delete($id)
     {
-        //
+        // Only Car owner is allowed to delete their Car
+        // User has this Car
+        if($exists = auth()->user()->cars->contains(request("id"))){
+            // Delete car 
+            Car::destroy(request("id"));
+            return response()->json(["message" => "Car deleted successfully"], 200);
+        }
+        return response()->json(["message" => "Unauthorized"], 401);
     }
 
     /**

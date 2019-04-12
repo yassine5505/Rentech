@@ -22,15 +22,25 @@ Route::group(['middleware' => 'api'], function () {
     
     // User Routes
     Route::group(['prefix' => 'users'], function(){
-        Route::post('/', 'UserController@index'); // All Users  
-        Route::post('{id}', 'UserController@show'); // Get user by Id
-        Route::post('delete/{id}', 'UserController@delete'); // Get user by Id        
+        Route::post('/', 'UserController@index');
+        Route::post('{id}', 'UserController@show');
+        Route::post('{id}/delete', 'UserController@delete');    
     });
 
     // Car Routes
     Route::group(['prefix' => 'cars'], function(){
+        Route::post('/', 'CarController@index');
         Route::post('create', 'CarController@create');
+        Route::post('{id}', 'CarController@show');
         Route::post('{id}/update', 'CarController@update');
-        Route::post('/', 'CarController@index'); 
+        Route::post('{id}/delete', 'CarController@delete');
+    });
+
+    // City Routes
+    Route::group(['prefix' => 'cities'], function(){
+        Route::post('/', 'CityController@index');
+        Route::post('create', 'CityController@create');
+        Route::post('{id}', 'CityController@show');
+        Route::post('{id}/update', 'CityController@update');
     });
 });
