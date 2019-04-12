@@ -14,7 +14,7 @@ import { HomeComponent } from './components/home/home.component';
 import { RequestResetComponent } from './components/password/request-reset/request-reset.component';
 import { ResponseResetComponent } from './components/password/response-reset/response-reset.component';
 import { AppRoutingModule } from './/app-routing.module';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AuthenticationService } from './services/authentication/authentication.service';
 import { TokenService } from './services/authentication/token.service';
@@ -52,7 +52,8 @@ import { LoadingScreenComponent } from './components/shared/loading-screen/loadi
     HttpClientModule,
     SnotifyModule,
     NgxMaterialTimepickerModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    ReactiveFormsModule
   ],
   providers: [
     AuthenticationService,

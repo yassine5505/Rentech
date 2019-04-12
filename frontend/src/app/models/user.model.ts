@@ -4,14 +4,15 @@ export class User {
 
 
   constructor(
-    private username: string,
-    private id?: number,
-    private email?: string,
-    private firstName?: string,
-    private lastName?: string,
-    private role?: Role,
-    private token?: string) {
+    public username: string,
+    public id?: number,
+    public email?: string,
+    public firstName?: string,
+    public lastName?: string,
+    public role?: Role,
+    public token?: string) {
 
   }
+
 
 }
