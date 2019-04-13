@@ -34,7 +34,15 @@ class CarController extends Controller
      */
     public function index()
     {
-        return new CarCollection(Car::all());
+        if(auth()->user()->hasRole(User::$ROLES["admin"])){
+            // Send all Cars
+            return new CarCollection(Car::all());
+        }
+        if(auth()->user()->hasRole(User::$ROLES["partner"])){
+            // Send Cars owned by connected User
+            return new CarCollection(auth()->user()->cars);
+        }
+        return response()->json(["message" => "Unauthorized"], 401);
     }
 
     /**
