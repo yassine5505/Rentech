@@ -39,4 +39,15 @@ class Car extends Model
         return $this->hasOne('\App\User');
     }
 
+    /**
+     * 
+     * Check if Car exists
+     */
+    public static function carExists($id){
+        if(Car::find($id) == null){
+            return false;
+        }
+        return true;
+    }
+
 }
