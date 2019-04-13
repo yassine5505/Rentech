@@ -28,7 +28,6 @@ export class SignupComponent implements OnInit, OnDestroy {
     cities: City[] = [];
 
     citySubscription: Subscription;
-    defaultCity: City = new City(2, 'Tetouan');
     public error = [];
 
     constructor(
@@ -44,6 +43,7 @@ export class SignupComponent implements OnInit, OnDestroy {
         this.loaderService.startLoading();
         // stop here if form is invalid
         if (this.registerForm.invalid) {
+            alert('Error iN FoRm');
             return;
         }
         this.authenticationService.signup(this.registerForm.value).subscribe(
@@ -51,8 +51,8 @@ export class SignupComponent implements OnInit, OnDestroy {
             this.handleResponse(data);
           },
           error => {
-            this.handleError(error);
             this.loaderService.stopLoading();
+            this.handleError(error);
           },
           () => this.loaderService.stopLoading()
         );
@@ -64,7 +64,7 @@ export class SignupComponent implements OnInit, OnDestroy {
     }
 
     handleError(error) {
-        this.error = error.error.errors;
+        this.error = error.message;
     }
 
     ngOnInit() {
@@ -81,7 +81,6 @@ export class SignupComponent implements OnInit, OnDestroy {
             () => this.loaderService.stopLoading()
         );
         this.registerForm = this.formBuilder.group({
-            image: [null, []],
             cin : ['',
                 [ Validators.required,
                 Validators.minLength(10),
@@ -105,7 +104,7 @@ export class SignupComponent implements OnInit, OnDestroy {
             ],
             role: new FormControl('CLIENT'),
             status: new FormControl(true),
-            city_id: new FormControl(null),
+            city_id: [ '1' ],
             email: ['', [Validators.required, Validators.email]],
             password: ['', [Validators.required, Validators.minLength(6)]],
             password_confirmation: ['', Validators.required],
@@ -115,8 +114,8 @@ export class SignupComponent implements OnInit, OnDestroy {
         });
 
         // Setting default city value
-        this.registerForm.controls.city_id.setValue(this.defaultCity.id, {onlySelf: true});
         this.registerForm.controls.status.setValue(true, {onlySelf: true});
+        this.registerForm.controls.city_id.setValue('1', {onlySelf: true});
 
     }
 
@@ -132,6 +131,7 @@ export class SignupComponent implements OnInit, OnDestroy {
         const file = $event.target.files[0];
         const reader = new FileReader();
         reader.readAsDataURL(file);
-        this.registerForm.controls.image.setValue(file ? file.name : '');
+        console.log(reader);
+        // this.registerForm.controls.image.setValue(file ? file.name : '');
     }
 }
