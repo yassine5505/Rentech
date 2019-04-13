@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { AuthenticationService } from './../../services/authentication/authentication.service';
 import { TokenService } from './../../services/authentication/token.service';
 import { Router } from '@angular/router';
@@ -6,6 +6,9 @@ import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms'
 import { City } from '../../models/city.model';
 // import custom validator to validate that password and confirm password fields match
 import { MustMatch } from './../../_helpers/must-match.validator';
+import { Subscription } from 'rxjs';
+import { CityService } from './../../services/shared/city/city.service';
+import { LoadingScreenService } from './../../services/shared/loading-screen/loading-screen.service';
 
 
 class ImageSnippet {
@@ -17,15 +20,14 @@ class ImageSnippet {
     templateUrl: './signup.component.html',
     styleUrls: ['./signup.component.scss']
 })
-export class SignupComponent implements OnInit {
+export class SignupComponent implements OnInit, OnDestroy {
+
     registerForm: FormGroup;
     submitted = false;
     selectedFile: ImageSnippet;
-    cities: City[] = [
-        new City(1, 'Rabat'),
-        new City(2, 'Tetouan'),
-        new City(3, 'Casablanca')
-    ];
+    cities: City[] = [];
+
+    citySubscription: Subscription;
     defaultCity: City = new City(2, 'Tetouan');
     public error = [];
 
@@ -33,20 +35,26 @@ export class SignupComponent implements OnInit {
         private formBuilder: FormBuilder,
         private authenticationService: AuthenticationService,
         private Token: TokenService,
-        private router: Router
+        private router: Router,
+        private cityService: CityService,
+        private loaderService: LoadingScreenService
       ) { }
     onSubmit() {
         this.submitted = true;
-        console.log(this.registerForm);
+        this.loaderService.startLoading();
         // stop here if form is invalid
         if (this.registerForm.invalid) {
             return;
         }
         this.authenticationService.signup(this.registerForm.value).subscribe(
-          data => this.handleResponse(data),
+          data => {
+            this.handleResponse(data);
+          },
           error => {
             this.handleError(error);
-          }
+            this.loaderService.stopLoading();
+          },
+          () => this.loaderService.stopLoading()
         );
     }
 
@@ -60,6 +68,18 @@ export class SignupComponent implements OnInit {
     }
 
     ngOnInit() {
+        this.loaderService.startLoading();
+        this.citySubscription = this.cityService.getAll().subscribe(
+            (data) => {
+                this.cities = data;
+                this.loaderService.stopLoading();
+            },
+            (error) => {
+                console.log(error);
+                this.loaderService.stopLoading();
+            },
+            () => this.loaderService.stopLoading()
+        );
         this.registerForm = this.formBuilder.group({
             image: [null, []],
             cin : ['',
@@ -98,6 +118,10 @@ export class SignupComponent implements OnInit {
         this.registerForm.controls.city_id.setValue(this.defaultCity.id, {onlySelf: true});
         this.registerForm.controls.status.setValue(true, {onlySelf: true});
 
+    }
+
+    ngOnDestroy(): void {
+        this.citySubscription.unsubscribe();
     }
 
      // convenience getter for easy access to form fields

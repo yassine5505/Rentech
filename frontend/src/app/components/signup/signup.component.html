@@ -35,8 +35,8 @@
                                 
                                     <select id="inputCity" formControlName="city_id"  class="col-sm-12 form-control">
                                         <option *ngFor="let city of cities" 
-                                        [ngValue]="city._id" [selected]="city.id == defaultCity.id" >
-                                        {{ city._name }}
+                                        [ngValue]="city.id" [selected]="city.id == defaultCity.id" >
+                                        {{ city.name }}
                                         </option>
                                     </select>
                                </div>
