@@ -34,9 +34,9 @@ class User extends Authenticatable implements JWTSubject
      * @var array
      */
     public static $ROLES = [
-        "admin" => "Admin",
-        "partner" => "Partner",
-        "client" => "Client"
+        "admin" => "ADMIN",
+        "partner" => "PARTNER",
+        "client" => "CLIENT"
     ];
     // Custom Model Methods 
 
@@ -85,7 +85,7 @@ class User extends Authenticatable implements JWTSubject
      * 
      */ 
     public function hasRole($role){
-        if(strtolower($this->role) == strtolower($role)){
+        if(strtoupper($this->role) == strtoupper($role)){
             return true;
         }
         return false;
