@@ -15,14 +15,13 @@ class CreateScoresTable extends Migration
     {
         Schema::create('scores', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('amount');
-            $table->string('comment');
+            $table->integer('amount')->nullable();
+            $table->string('comment')->nullable();
+            $table->string('to_id')->nullable(); // User qui va etre commente
             $table->integer('user_id')->nullable()->unsigned();
             $table->integer('car_id')->nullable()->unsigned();
-            $table->integer('reservation_id')->unsigned();
             $table->foreign('user_id')->references('id')->on('users');    
             $table->foreign('car_id')->references('id')->on('cars');    
-            $table->foreign('reservation_id')->references('id')->on('reservations');
             $table->timestamps();
         });
     }
