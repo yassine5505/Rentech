@@ -6,6 +6,7 @@ import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms'
 import { City } from '../../models/city.model';
 // import custom validator to validate that password and confirm password fields match
 import { MustMatch } from './../../_helpers/must-match.validator';
+import { LoadingScreenService } from './../../services/shared/loading-screen/loading-screen.service';
 
 
 class ImageSnippet {
@@ -33,20 +34,29 @@ export class SignupComponent implements OnInit {
         private formBuilder: FormBuilder,
         private authenticationService: AuthenticationService,
         private Token: TokenService,
-        private router: Router
+        private router: Router,
+        private loaderService: LoadingScreenService
       ) { }
     onSubmit() {
         this.submitted = true;
-        console.log(this.registerForm);
+        this.loaderService.startLoading();
         // stop here if form is invalid
         if (this.registerForm.invalid) {
+            this.loaderService.stopLoading();
             return;
         }
         this.authenticationService.signup(this.registerForm.value).subscribe(
-          data => this.handleResponse(data),
+          data => {
+            this.handleResponse(data);
+          },
           error => {
             this.handleError(error);
+            this.loaderService.stopLoading();
+          },
+          () => {
+            this.loaderService.stopLoading();
           }
+
         );
     }
 
@@ -61,17 +71,19 @@ export class SignupComponent implements OnInit {
 
     ngOnInit() {
         this.registerForm = this.formBuilder.group({
-            image: [null, []],
+            image: ['',
+                [ Validators.required]
+            ],
             cin : ['',
                 [ Validators.required,
-                Validators.minLength(10),
-                Validators.maxLength(50)]
+                Validators.minLength(6),
+                Validators.maxLength(40)]
             ],
             name: ['', Validators.required],
             driving_license_number: ['',
                 [ Validators.required,
-                Validators.minLength(10),
-                Validators.maxLength(50)]
+                Validators.minLength(7),
+                Validators.maxLength(15)]
             ],
             address: ['',
                 [ Validators.required,
