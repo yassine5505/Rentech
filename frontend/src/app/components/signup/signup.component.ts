@@ -43,7 +43,7 @@ export class SignupComponent implements OnInit, OnDestroy {
         this.loaderService.startLoading();
         // stop here if form is invalid
         if (this.registerForm.invalid) {
-            alert('Error iN FoRm');
+            this.loaderService.stopLoading();
             return;
         }
         this.authenticationService.signup(this.registerForm.value).subscribe(
@@ -53,8 +53,12 @@ export class SignupComponent implements OnInit, OnDestroy {
           error => {
             this.loaderService.stopLoading();
             this.handleError(error);
+            this.loaderService.stopLoading();
           },
-          () => this.loaderService.stopLoading()
+          () => {
+            this.loaderService.stopLoading();
+          }
+
         );
     }
 
@@ -81,16 +85,17 @@ export class SignupComponent implements OnInit, OnDestroy {
             () => this.loaderService.stopLoading()
         );
         this.registerForm = this.formBuilder.group({
+            image: [''],
             cin : ['',
                 [ Validators.required,
-                Validators.minLength(10),
-                Validators.maxLength(50)]
+                Validators.minLength(6),
+                Validators.maxLength(40)]
             ],
             name: ['', Validators.required],
             driving_license_number: ['',
                 [ Validators.required,
-                Validators.minLength(10),
-                Validators.maxLength(50)]
+                Validators.minLength(7),
+                Validators.maxLength(15)]
             ],
             address: ['',
                 [ Validators.required,
