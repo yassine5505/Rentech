@@ -44,9 +44,13 @@ class AuthController extends Controller
     public function signup(Request $request)
     {
         $this->validateRequest($request, "signup");
+        $request["status"] = false;
+        if($this->hasParams($request, ["driving_license_number", "address", "telephone", "cin"])){
+            $request["status"] = true;
+        }
         try{
             // First Create User (Might throw DB or Validator exceptions)
-            $user = User::create($request->all());
+            $user = User::create(request(["cin", "name", "driving_license_number", "address", "telephone", "role", "city_id", "email", "password", "status"]));
             
             // Then Upload Image and Insert in DB
             if($request->hasFile('image')){
@@ -138,14 +142,13 @@ class AuthController extends Controller
         if($validationType == "signup"){
             $rule = [
                 'image' => ['mimes:jpg,jpeg,png,svg'],
-                'cin' => ['required', 'string', 'max:191'],
+                'cin' => ['string', 'max:191'],
                 'name' => ['required', 'string', 'max:191'],
-                'driving_license_number' => ['required', 'string', 'max:191'],
-                'address' => ['required', 'string' , 'max:191'],
-                'telephone' => ['required', 'string', 'max:191'],
-                'role' => ['required', 'string', 'max:191'],
-                'status' => ['required', 'boolean'],
-                'city_id' => ['required', 'int'],
+                'driving_license_number' => ['string', 'max:191'],
+                'address' => ['string' , 'max:191'],
+                'telephone' => ['string', 'max:191'],
+                'role' => ['string', 'max:191'],
+                'city_id' => ['int'],
                 'email' => ['required', 'string', 'email', 'max:191', 'unique:users'],
                 'password' => ['required', 'string']
             ];
@@ -171,5 +174,19 @@ class AuthController extends Controller
             return response()->json(["message" => $validator->messages()->toArray()]);
         }
         return true;
+    }
+    
+    /**
+     * Verify that request has specified parameters
+     * 
+     * @param $params
+     */
+    public function hasParams(Request $request, $params){
+        foreach($params as $p){
+            if(! $request->has($p)){
+                return false;
+            }
+            return true;
+        }
     }
 }
