@@ -20,7 +20,11 @@
                 {{currentUser.name}}
               </div>
               <div class="profile-usertitle-job">
-                {{currentUser.role}}
+                {{currentUser.role}} 
+                <span >
+                  <i class="ace-icon fa fa-circle smaller-80 align-middle" style="color:lawngreen;">
+                  </i>
+                </span>
               </div>
             </div>
             <!-- END SIDEBAR USER TITLE -->
@@ -28,28 +32,31 @@
             <div class="profile-userbuttons">
                 <span *ngFor="let score of [1 , 2 , 2]" class="fa fa-star checked"></span>
                 <span *ngFor="let score of  [1, 2]" class="fa fa-star"></span>
+                <br>
+                <br>
+                <a [routerLink]="['/profile/edit']" class="btn btn-info">Editer mon profil</a>
             </div>
             <!-- END SIDEBAR BUTTONS -->
             <!-- SIDEBAR MENU -->
             <div class="profile-usermenu">
               <ul class="nav">
-                <li class="active">
-                  <a href="#">
+                <li>
+                  <a [routerLink]="['/profile/overview']" routerLinkActive="active">
                     <i class="glyphicon glyphicon-home"></i>
                     Mes informations </a>
                 </li>
-                <li *ngIf="currentUser.role == 'PARTNER'">
-                  <a href="">
+                <li *ngIf="currentUser.role == 'PARTNER'" >
+                  <a [routerLink]="['/profile/ads']" routerLinkActive="active">
                     <i class="glyphicon glyphicon-user"></i>
-                    Mes offres </a>
+                    Mes annonces</a>
                 </li>
                 <li *ngIf="currentUser.role == 'PARTNER'">
-                  <a href="#" target="_blank">
+                  <a [routerLink]="['/profile/MyCars']" routerLinkActive="active">
                     <i class="glyphicon glyphicon-ok"></i>
                     Mes voitures </a>
                 </li>
                 <li *ngIf="currentUser.role == 'CLIENT'">
-                  <a href="#" >
+                  <a [routerLink]="['/profile/history']" routerLinkActive="active">
                     <i class="glyphicon glyphicon-flag"></i>
                     Mon historique </a>
                 </li>
@@ -93,10 +100,8 @@
             </div>
           </div>
         </div>
-        <div class="col-md-9">
-          <div class="profile-content">
-            Some user related content goes here...
-          </div>
+        <div class="col-md-9 profile-content">
+          <router-outlet></router-outlet>
         </div>
       </div>
     </div>

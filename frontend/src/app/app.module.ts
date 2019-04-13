@@ -30,6 +30,11 @@ import { AuthGuard } from './guards/auth-guard/auth-guard';
 import { JwtInterceptor } from './_helpers/jwt.interceptor';
 import { ErrorInterceptor } from './_helpers/error.interceptor';
 import { LoadingScreenComponent } from './components/shared/loading-screen/loading-screen.component';
+import { OverviewComponent } from './components/profile/overview/overview.component';
+import { MycarsComponent } from './components/profile/mycars/mycars.component';
+import { AdsComponent } from './components/profile/ads/ads.component';
+import { ClientHistoryComponent } from './components/profile/client-history/client-history.component';
+import { ProfileEditComponent } from './components/profile/profile-edit/profile-edit.component';
 
 @NgModule({
   declarations: [
@@ -42,7 +47,12 @@ import { LoadingScreenComponent } from './components/shared/loading-screen/loadi
     RequestResetComponent,
     ResponseResetComponent,
     ReservationSearchComponent,
-    LoadingScreenComponent
+    LoadingScreenComponent,
+    OverviewComponent,
+    MycarsComponent,
+    AdsComponent,
+    ClientHistoryComponent,
+    ProfileEditComponent
   ],
   imports: [
     BrowserModule,

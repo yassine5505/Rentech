@@ -97,11 +97,7 @@ Licensed under MIT
     color: #5b9bd1;
   }
   
-  .profile-usermenu ul li.active {
-    border-bottom: none;
-  }
-  
-  .profile-usermenu ul li.active a {
+  .profile-usermenu ul li a.active {
     color: #5b9bd1;
     background-color: #f6f9fb;
     border-left: 2px solid #5b9bd1;
@@ -111,8 +107,9 @@ Licensed under MIT
   /* Profile Content */
   .profile-content {
     padding: 20px;
+    margin: 0;
     background: #fff;
-    min-height: 560px;
+    min-height: 460px;
   }
   
   
