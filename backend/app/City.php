@@ -7,6 +7,9 @@ use Illuminate\Database\Eloquent\Model;
 class City extends Model
 {
     
+    protected $fillable = [
+        "name", "description"  
+    ];
 
     /**
      * City Relationship With User

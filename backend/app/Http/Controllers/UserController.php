@@ -29,7 +29,7 @@ class UserController extends Controller
      * 
      */
     public function index(){
-        if(auth()->user()->hasRole("admin")){
+        if(auth()->user()->hasRole(User::$ROLES["admin"])){
             return response()->json(User::all());
         }
         return response()->json(["message" => "Unauthorized"], 409);
@@ -42,7 +42,7 @@ class UserController extends Controller
      * @return Response
      * 
      */
-    public function user(){
+    public function show(){
         $user = User::find(request("id"));
         if($user == null)
             return response()->json(["message" => "User not found"], 404);
