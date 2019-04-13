@@ -46,7 +46,7 @@ class CarController extends Controller
     {
         $this->validateRequest($request, "create");
         $user = auth()->user();
-        if(! $user->hasRole(User::$ROLES["admin"]))
+        if(! $user->hasRole(User::$ROLES["partner"]))
             return response()->json(["message" => "Unauthorized. User must be of type Partner"],401);
         $user->car = new Car;
         $user->car->user_id  = $user->id;

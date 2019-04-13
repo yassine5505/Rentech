@@ -26,9 +26,8 @@ class AdController extends Controller
      */
     public function create(Request $request){
         if(auth()->user()->hasRole(User::$ROLES["partner"])){
-            // User Has Partner Role => Create Ad
             $this->validateRequest($request, "create");
-            if( Car::carExists(request('car_id')) && City::cityExists(request('city_id')) ){
+            if( Car::carExists(request('car_id')) && City::cityExists(request('city_id')) && auth()->user()->cars->contains(request("car_id"))){
                 $ad = new Ad;
                 $ad->car_id = request('car_id');
                 $ad->city_id = request('city_id');
@@ -42,7 +41,7 @@ class AdController extends Controller
                 }
                 return response()->json(["message" => "There was a problem creating the ad"], 500);
             }
-            return response()->json(["message" => "Car or city does not exist"], 404); 
+            return response()->json(["message" => "Car or city does not exist "], 404); 
         }
         return response()->json(["message" => "Unauthorized"], 401);
     }
@@ -84,7 +83,7 @@ class AdController extends Controller
      */
     public function checkCar($id){
         if(! Car::carExists($id)){
-            return response()->json("error");
+            return response()->json(["message" => "error"], 404);
         }
         return true;
     }
