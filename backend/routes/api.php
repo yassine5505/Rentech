@@ -43,4 +43,10 @@ Route::group(['middleware' => 'api'], function () {
         Route::post('{id}', 'CityController@show');
         Route::post('{id}/update', 'CityController@update');
     });
+
+    // Ad Routes
+    Route::group(['prefix' => 'ads'], function(){
+        Route::post('create', 'AdController@create');
+
+    });
 });

@@ -23,4 +23,16 @@ class City extends Model
     public function city(){
         return $this->hasOne('\App\Ad');
     }
+
+
+    /**
+     * 
+     * Check if Car exists
+     */
+    public static function cityExists($id){
+        if(City::find($id) == null){
+            return false;
+        }
+        return true;
+    }
 }
