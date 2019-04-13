@@ -87,7 +87,6 @@ export class NavbarComponent implements OnInit, OnDestroy {
         this.logoutSubscription = this.authService.logout().subscribe(
             data => {
                 // Successfully logged out
-                console.log(data);
                 this.Token.remove();
                 this.Auth.changeAuthStatus(false);
                 this.Auth.changeCurrentUserSubject(null);
