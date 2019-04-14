@@ -1,0 +1,143 @@
+<div class="container mt-5 mb-5">
+  <form (ngSubmit)="onSubmit()" [formGroup]="newCarForm" enctype="multipart/form-data" >
+    <h3>Nouvelle voiture </h3>
+    <div class="row mt-5">
+      <div class="col-sm-12">
+        <div class="card">
+          <div class="card-header d-flex align-items-center">
+            Informations générales
+          </div>
+          <div class="card-body">
+            <div class="form-group">
+              <label for="car_brand">Marque de la voiture</label>
+              <select formControlName="brand" class="form-control" id="car_brand"  (ngModelChange)="processModels($event)" type="text">
+                <option *ngFor="let brand of carBrands"  [ngValue]="brand">{{brand}}</option>
+              </select>
+            </div>
+            
+            <div class="form-row">
+              <div class="col-sm-6">
+                  <div class="form-group">
+                      <label for="car_model">Modèle de la voiture</label>
+                      <select formControlName="model" class="form-control" id="car_model" type="text">
+                        <option *ngFor="let model of carModels" value="{{model}}">{{model}}</option>
+                      </select>
+                    </div>
+              </div>
+              <div class="col-sm-6">
+                <div class="form-group">
+                  <label for="car_production_year">Année de production</label>
+                  <select formControlName="production_year" class="form-control" id="car_production_year" type="text">
+                    <option *ngFor="let year of carProductionYears" value="{{year}}">{{year}}</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="col-sm-4">
+                <div class="form-group">
+                  <label for="car_mileage"> Kilométrage</label>
+                  <input formControlName="mileage" class="form-control" id="car_mileage" min="1" type="number">
+                </div>
+              </div>
+              <div class="col-sm-4">
+                <div class="form-group">
+                  <label for="car_color">Couleur</label>
+                  <select formControlName="color" class="form-control" id="car_color" type="text">
+                      <option *ngFor="let color of carColors" value="{{color}}">{{color}}</option>
+                  </select>
+                </div>
+              </div>
+              <div class="col-sm-4">
+                <div class="form-group">
+                  <label for="car_category">Catégorie</label>
+                  <select formControlName="category" class="form-control" id="car_category" type="text">
+                    <option *ngFor="let category of carCategories" value="{{category}}" [selected]="category=='4X4/ SUV'" >{{category}}</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="col-sm-4">
+                <div class="form-group">
+                  <label for="car_matricule"> Matricule</label>
+                  <input formControlName="matricule" class="form-control" id="car_matricule" type="text">
+                </div>
+              </div>
+              <div class="col-sm-4">
+                <div class="form-group">
+                  <label for="car_transmission">Transmission</label>
+                  <select formControlName="transmission" class="form-control" id="car_transmission" type="text">
+                      <option *ngFor="let transmission of carTransmissions" value="{{transmission}}" [selected]="transmission=='TRANSMISSION AVANT'" >{{transmission}}</option>
+                  </select>
+                </div>
+              </div>
+              <div class="col-sm-4">
+                <div class="form-group">
+                  <label for="car_motor">Type de moteur</label>
+                  <select formControlName="motor" class="form-control" id="car_motor" type="text">
+                    <option *ngFor="let motor of carMotors" value="{{motor}}" [selected]="motor=='DIESEL'" >{{motor}}</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+            <hr>
+            <div class="form-row">
+              <div class="col-sm-4">
+                <div class="form-group">
+                  
+                  <label for="car_airbag">Présence Airbag ?</label>
+                  <br>
+                  <ui-switch formControlName="airbag" id="car_airbag"></ui-switch>
+                </div>
+              </div>
+              <div class="col-sm-4">
+                <div class="form-group">
+                  
+                  <label for="car_centralized">Système Centralisé ?</label>
+                  <br>
+                  <ui-switch formControlName="centralized" id="car_centralized"></ui-switch>
+                </div>
+              </div>
+              <div class="col-sm-4">
+                <div class="form-group">
+                  
+                  <label for="car_abs">Système freinage (ABS)</label>
+                  <br>
+                  <ui-switch formControlName="abs" id="car_abs"></ui-switch>
+                </div>
+              </div>
+              
+            </div>
+              
+            <div class="form-group">
+              <label for="car_images">Image</label>
+              <div id="file_target">
+                  <img
+                    src="" />
+              </div>
+              <input formControlName="images" class="form-control" type="file"
+               ng2FileSelect accept=".jpg, .jpeg, .png" 
+               id="car_images" [uploader]="uploader" multiple/>
+               <br/>
+            </div>
+
+            <div class="form-group d-flex justify-content-end mt-3">
+                <button type="reset" class="btn btn-danger d-flex align-items-center mr-3">
+                  Annuler
+                </button>
+                <button type="submit"
+                class="btn btn-primary d-flex align-items-center float-right"
+                 >
+                  Enregistrer
+                </button>
+            </div>
+           
+          </div>
+        </div>
+      </div>
+     
+    </div>
+   
+  </form>
+</div>

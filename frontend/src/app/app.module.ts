@@ -1,7 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-
+import { UiSwitchModule } from 'ngx-toggle-switch';
 import { AppComponent } from './app.component';
 // import { NavbarComponent } from './components/navbar/navbar.component';
 import { NavbarComponent } from './components/shared/navbar/navbar.component';
@@ -26,7 +26,7 @@ import { ReservationSearchComponent } from './components/shared/reservation-sear
 import {NgxMaterialTimepickerModule} from 'ngx-material-timepicker';
 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { AuthGuard } from './guards/auth-guard/auth-guard';
+import {FileSelectDirective} from 'ng2-file-upload';
 import { JwtInterceptor } from './_helpers/jwt.interceptor';
 import { ErrorInterceptor } from './_helpers/error.interceptor';
 import { LoadingScreenComponent } from './components/shared/loading-screen/loading-screen.component';
@@ -36,6 +36,7 @@ import { AdsComponent } from './components/profile/ads/ads.component';
 import { ClientHistoryComponent } from './components/profile/client-history/client-history.component';
 import { ProfileEditComponent } from './components/profile/profile-edit/profile-edit.component';
 import { CarItemComponent  } from './components/profile/mycars/car-item/car-item.component';
+import { AddCarComponent } from './components/profile/mycars/add-car/add-car.component';
 
 @NgModule({
   declarations: [
@@ -54,7 +55,9 @@ import { CarItemComponent  } from './components/profile/mycars/car-item/car-item
     AdsComponent,
     ClientHistoryComponent,
     ProfileEditComponent,
-    CarItemComponent
+    CarItemComponent,
+    AddCarComponent,
+    FileSelectDirective
   ],
   imports: [
     BrowserModule,
@@ -65,7 +68,8 @@ import { CarItemComponent  } from './components/profile/mycars/car-item/car-item
     SnotifyModule,
     NgxMaterialTimepickerModule,
     BrowserAnimationsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    UiSwitchModule
   ],
   providers: [
     AuthenticationService,

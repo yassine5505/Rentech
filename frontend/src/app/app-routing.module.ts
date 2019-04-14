@@ -18,6 +18,7 @@ import { MycarsComponent } from './components/profile/mycars/mycars.component';
 import { AdsComponent } from './components/profile/ads/ads.component';
 import { ClientHistoryComponent } from './components/profile/client-history/client-history.component';
 import { ProfileEditComponent } from './components/profile/profile-edit/profile-edit.component';
+import { AddCarComponent } from './components/profile/mycars/add-car/add-car.component';
 
 const appRoutes: Routes = [
   {
@@ -62,10 +63,14 @@ const appRoutes: Routes = [
         data: { roles: [Role.PARTNER , Role.CLIENT, Role.ADMIN] }
       },
       {
-        path: 'MyCars',
+        path: 'cars',
         component: MycarsComponent,
         canActivate: [AuthGuard],
         data: { roles: [Role.PARTNER] }
+      },
+      {
+        path: 'newcar',
+        component: AddCarComponent
       },
       {
         path: 'ads',
