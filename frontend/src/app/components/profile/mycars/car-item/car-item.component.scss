@@ -1,0 +1,135 @@
+.car-item{
+    box-shadow: 0 3px 6px rgba(142,159,189,0.16), 0 3px 6px rgba(142,159,189,0.23);
+    margin: 2px;
+    border: 2px inset rgba(142,159,189,0.16);
+    margin-top: 10px !important ;
+}
+.carousel{
+    max-width: 500px;
+    max-height: 310px;
+    padding: 0;
+    margin: .1em !important;
+    margin-top: .5em !important;
+
+    overflow: hidden !important;
+    .carousel-item {
+        width: 100%;
+        height: 100%;
+        overflow: hidden;
+        &.active img {
+            width: 100%;
+            height: 100%;
+        }
+    }
+    
+}
+
+.card{
+    padding: 0;
+    margin: .2em !important;
+    margin-top: .5em !important;
+    
+}
+
+.card{
+    font-family: 'Poppins', sans-serif;
+    box-sizing: border-box;
+    text-align:left;
+    border: none;
+    background: #fff;
+    /*transition: 50ms;*/
+    transition-property: box-shadow;
+    transition-timing-function: ease-out;
+    transition-delay: 50ms;
+}
+.card-body{
+    padding: 1em !important;
+}
+.card-heading{
+    color: #000;
+    font-size: 1em !important;
+    font-weight: bold;
+    margin : 0px !important;
+    padding : 0px !important;
+}
+.card-paragraph{
+    font-size: .75em;
+}
+.card-footer{
+    border: none !important;
+    border-radius: 0px !important;
+    background: rgba(55,125,255,.16);
+    height: 3em;
+    width: 100% !important;
+}
+.price{
+    font-weight: lighter;
+    font-size: 1em;
+    text-transform: uppercase;
+    color: #000;
+}
+.devise{
+    font-weight: light;
+    font-size: .6em;
+}
+.badge{
+    margin: .5em;
+    padding: .5em;
+    font-weight: lighter;
+}
+
+
+/* End Badges*/
+
+.add-to-cart{
+    margin: 0;
+    padding: .2em;
+    display: block;
+    width: 30px;
+    height: 30px;
+    border-radius: 30px;
+    background-color: white;
+}
+.add-to-cart i{
+    float: center;
+    font-size: .9em;
+    color: rgb(55,125,255);
+}
+ 
+/* Product description card */
+.card-custom{
+    box-sizing: border-box;
+    padding: 0;
+    padding: 0.4em;
+    height: 100%;
+    background-color: rgba(55,125,255,.05);
+    box-shadow: none;
+}
+.card-custom-heading{
+    font-size: 1.5em !important;
+}
+.card-custom-paragraph{
+    color: #000;/* #BDBDBD */
+    font-weight: 2em;
+    font-size: 1em;
+}
+
+.card-custom-footer{ 
+    width: auto;
+    height: auto;
+    background-color: rgba(0,201,167,.16);
+
+    .btn {
+        display: inline-block;
+        margin: 5px;
+    }
+}
+.custom-link{
+    color: rgb(0, 201, 17) !important;
+    text-decoration: none !important;
+    margin: 0px;
+    padding: 0px;
+
+}
+
+

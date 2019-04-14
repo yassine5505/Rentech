@@ -1,0 +1,61 @@
+<div class="row car-item">
+  <!-- Product Carousel -->
+  <div class="col-md-5" style="padding: 0px 5px;">
+    <ngb-carousel>
+      <ng-template ngbSlide>
+        <img src="./assets/img/car-renting.jpg" alt="Random first slide">
+        <div class="carousel-caption">
+          <p>Hyper Robuste</p>
+        </div>
+      </ng-template>
+      <ng-template ngbSlide>
+        <img src="./assets/img/nos-vehicules.jpg" alt="Random first slide">
+        <div class="carousel-caption">
+          <p>Une autre voiture spéciale</p>
+        </div>
+      </ng-template>
+    </ngb-carousel>
+  </div>
+
+  <!-- Product Info -->
+
+  <div class="col-md-7" style="padding: 0px;">
+    <div class="card card-custom">
+
+      <!-- Body -->
+      <div class="card-body">
+        <h1 class="card-heading card-custom-heading">BMW 125 Auto</h1>
+
+        <p class="card-paragraph card-custom-paragraph">
+          Une description technique sur ma voiture !
+        </p>
+
+        <div class="row">
+          <button type="button" class="btn btn-outline-danger btn-round" placement="top"
+            ngbPopover="Moteur Diesel puissant" popoverTitle="">
+            Moteur
+          </button>
+
+          <button type="button" class="btn btn-outline-danger btn-round" placement="right" ngbTooltip="Auto">
+            Vitesse
+          </button>
+        </div>
+
+      </div>
+
+      <div class="card-footer card-custom-footer text-center px-2">
+        <a href="" class="btn btn-success">
+          <i class="fa fa-shopping-cart"></i> Annoncer
+        </a>
+        <a href="" class="btn btn-warning">
+          <i class="fa fa-shopping-cart"></i> Editer
+        </a>
+        <a href="" class="btn btn-danger">
+          <i class="fa fa-shopping-cart"></i> Supprimer
+        </a>
+      </div>
+
+    </div>
+  </div>
+
+</div>

@@ -35,6 +35,7 @@ import { MycarsComponent } from './components/profile/mycars/mycars.component';
 import { AdsComponent } from './components/profile/ads/ads.component';
 import { ClientHistoryComponent } from './components/profile/client-history/client-history.component';
 import { ProfileEditComponent } from './components/profile/profile-edit/profile-edit.component';
+import { CarItemComponent  } from './components/profile/mycars/car-item/car-item.component';
 
 @NgModule({
   declarations: [
@@ -52,7 +53,8 @@ import { ProfileEditComponent } from './components/profile/profile-edit/profile-
     MycarsComponent,
     AdsComponent,
     ClientHistoryComponent,
-    ProfileEditComponent
+    ProfileEditComponent,
+    CarItemComponent
   ],
   imports: [
     BrowserModule,
