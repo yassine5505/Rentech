@@ -20,8 +20,8 @@ class CreateUsersTable extends Migration
             $table->string('driving_license_number')->nullable();
             $table->string('address')->nullable();
             $table->string('telephone')->nullable();
-            $table->string('role')->default("client"); //["accepted_values" => "client", "partner" , "admin"]
-            $table->boolean('status')->default(User::$ROLES["client"]);
+            $table->string('role')->default(User::$ROLES["client"]); //["accepted_values" => "client", "partner" , "admin"]
+            $table->boolean('status')->default(false);
             $table->integer('city_id')->unsigned();
             $table->string('email')->unique();
             $table->string('password');
