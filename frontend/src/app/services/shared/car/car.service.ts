@@ -29,8 +29,8 @@ export class CarService {
     return this.apiService.post(`${this.carResourcePrefix}/update`, car);
   }
 
-  add(car: Car): Observable<any> {
-    return this.apiService.post(`${this.carResourcePrefix}/create`, car);
+  add(data): Observable<any>  {
+    return this.apiService.post(`${this.carResourcePrefix}/create`, data);
   }
 
 }

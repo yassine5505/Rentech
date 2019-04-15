@@ -5,7 +5,6 @@ import { Car } from './../../../../models/car.model';
 import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
 import { LoadingScreenService } from './../../../../services/shared/loading-screen/loading-screen.service';
 import { Router } from '@angular/router';
-import {FileUploader} from 'ng2-file-upload';
 
 @Component({
   selector: 'app-add-car',
@@ -22,11 +21,8 @@ export class AddCarComponent implements OnInit {
   carCategories: string[] = [];
   carTransmissions: string[];
   carMotors: string[] = [];
-  error = [];
+  error: string[] = [];
   success = null;
-  public uploader: FileUploader = new FileUploader({
-    isHTML5: true
-  });
   constructor(
     private formBuilder: FormBuilder,
     private router: Router,
@@ -47,7 +43,7 @@ export class AddCarComponent implements OnInit {
 
     this.newCarForm = this.formBuilder.group(
       {
-        images: [null, Validators.required],
+        images: null,
         model : ['',
             [ Validators.required]
         ],
@@ -67,48 +63,69 @@ export class AddCarComponent implements OnInit {
       }
     );
   }
+
+  onFileChange(event) {
+    if (event.target.files.length > 0) {
+      const file = event.target.files;
+      this.newCarForm.get('images').setValue(file);
+    }
+    console.log(this.newCarForm);
+  }
+
   onSubmit() {
     this.submitted = true;
     this.loaderService.startLoading();
-    // stop here if form is invalid
-    this.error = [];
-    this.success = null;
     if (!this.validateImages()) {
       this.loaderService.stopLoading();
       return;
     }
-    const formData = new FormData();
-    for (let j = 0; j < this.uploader.queue.length; j++) {
-      const fileItem = this.uploader.queue[j]._file;
-      console.log(fileItem);
-      formData.append('file', fileItem);
+
+    if (this.newCarForm.invalid) {
+      this.loaderService.stopLoading();
+      this.error.push('Certaines informations du formulaire sont invalides !');
+      return;
     }
-    console.log(formData);
-    console.log(this.newCarForm);
-    this.carService.add(this.newCarForm.value).subscribe(
+    // tslint:disable-next-line:prefer-const
+    let formData: FormData = new FormData();
+    Object.keys(this.newCarForm.value).forEach(
+      key => {
+        if (['airbag', 'abs', 'centralized'].indexOf(key) > -1) {
+          formData.append( key, (this.newCarForm.get(key).value === true) ? '1' : '0');
+          return;
+        }
+        formData.append( key, this.newCarForm.get(key).value);
+      }
+    );
+
+    Object.values(this.newCarForm.get('images').value).forEach(
+      (file: File) => {
+        formData.append( 'images[]', file, file.name );
+      }
+    );
+    formData.delete('images');
+    this.carService.add(formData).subscribe(
       data => {
         this.handleResponse(data);
-        alert('Yes');
       },
       error => {
-        this.loaderService.stopLoading();
         this.handleError(error);
-        alert('Yo');
         this.loaderService.stopLoading();
       },
       () => {
         this.loaderService.stopLoading();
       }
-
     );
 }
 
 validateImages(): boolean {
-  for (const file of this.uploader.queue) {
-    const fileItem = file._file;
+  const carImages = this.newCarForm.get('images');
+  if (carImages.value == null || carImages.value.length < 1) {
+    this.error.push('Vous devez specifier au moins une image !');
+    return false;
+  }
+  for (const fileItem of this.newCarForm.get('images').value) {
     if (fileItem.size > 10000000) {
-      this.error.push('Taille des images très grande !');
-      alert('Each File should be less than 10 MB of size.');
+      this.error.push('Taille des images très grande (max 10M) !');
       return false;
     }
   }
@@ -116,7 +133,7 @@ validateImages(): boolean {
 }
 
 handleResponse(data) {
-  this.router.navigateByUrl('/');
+  this.success = data.message;
 }
 
 handleError(error) {

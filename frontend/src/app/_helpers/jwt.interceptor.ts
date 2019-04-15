@@ -15,8 +15,7 @@ export class JwtInterceptor implements HttpInterceptor {
         if (userToken && this.tokenService.isValid()) {
             request = request.clone({
                 setHeaders: {
-                    Authorization: `Bearer ${userToken}`,
-                    'Content-Type' : 'multipart/form-data; charset=utf-8; boundary=' + Math.random().toString().substr(2)
+                    Authorization: `Bearer ${userToken}`
                 }
             });
         }

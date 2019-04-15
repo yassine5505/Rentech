@@ -26,7 +26,6 @@ import { ReservationSearchComponent } from './components/shared/reservation-sear
 import {NgxMaterialTimepickerModule} from 'ngx-material-timepicker';
 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import {FileSelectDirective} from 'ng2-file-upload';
 import { JwtInterceptor } from './_helpers/jwt.interceptor';
 import { ErrorInterceptor } from './_helpers/error.interceptor';
 import { LoadingScreenComponent } from './components/shared/loading-screen/loading-screen.component';
@@ -56,8 +55,7 @@ import { AddCarComponent } from './components/profile/mycars/add-car/add-car.com
     ClientHistoryComponent,
     ProfileEditComponent,
     CarItemComponent,
-    AddCarComponent,
-    FileSelectDirective
+    AddCarComponent
   ],
   imports: [
     BrowserModule,
