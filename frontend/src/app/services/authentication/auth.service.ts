@@ -22,9 +22,15 @@ export class AuthService {
 
   remove() {
     localStorage.removeItem('currentUser');
+    this.Token.remove();
+    this.changeAuthStatus(false);
+    this.changeCurrentUserSubject(null);
   }
 
-  constructor(private Token: TokenService, private http: HttpClient) {
+  constructor(
+    private Token: TokenService,
+    private http: HttpClient
+     ) {
     this.currentUserSubject = new BehaviorSubject<User>(JSON.parse(localStorage.getItem('currentUser')));
     this.currentUser = this.currentUserSubject.asObservable();
   }
@@ -32,5 +38,6 @@ export class AuthService {
   public get currentUserValue(): User {
     return this.currentUserSubject.value;
   }
+
 
 }

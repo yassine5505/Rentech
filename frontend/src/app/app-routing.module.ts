@@ -79,6 +79,12 @@ const appRoutes: Routes = [
         data: { roles: [Role.PARTNER] }
       },
       {
+        path: 'anoncer',
+        component: AdsComponent,
+        canActivate: [AuthGuard],
+        data: { roles: [Role.PARTNER] }
+      },
+      {
         path: 'history',
         component: ClientHistoryComponent,
         canActivate: [AuthGuard],

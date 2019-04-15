@@ -6,6 +6,8 @@ import { TokenService } from '../../../services/authentication/token.service';
 import { AuthenticationService } from '../../../services/authentication/authentication.service';
 import { Subscription } from 'rxjs';
 import { LoadingScreenService } from '../../../services/shared/loading-screen/loading-screen.service';
+import { UserService } from 'src/app/services/user/user.service';
+import { User } from './../../../models';
 @Component({
     selector: 'app-navbar',
     templateUrl: './navbar.component.html',
@@ -16,14 +18,13 @@ export class NavbarComponent implements OnInit, OnDestroy {
     private sidebarVisible: boolean;
     public loggedIn: boolean;
     public logoutSubscription: Subscription;
-
+    public currentUser: User = null;
     constructor(
         public location: Location,
         private element: ElementRef,
-        private Auth: AuthService,
         private router: Router,
-        private Token: TokenService,
-        private authService: AuthenticationService,
+        private authService: AuthService,
+        private authenticationService: AuthenticationService,
         private loaderService: LoadingScreenService
         ) {
         this.sidebarVisible = false;
@@ -33,7 +34,8 @@ export class NavbarComponent implements OnInit, OnDestroy {
     ngOnInit() {
         const navbar: HTMLElement = this.element.nativeElement;
         this.toggleButton = navbar.getElementsByClassName('navbar-toggler')[0];
-        this.Auth.authStatus.subscribe(value => this.loggedIn = value);
+        this.authService.authStatus.subscribe(value => this.loggedIn = value);
+        this.currentUser = this.authService.currentUserValue;
     }
     sidebarOpen() {
         const toggleButton = this.toggleButton;
@@ -84,19 +86,19 @@ export class NavbarComponent implements OnInit, OnDestroy {
     async logout(event: MouseEvent) {
         event.preventDefault();
         await this.loaderService.startLoading();
-        this.logoutSubscription = this.authService.logout().subscribe(
+        this.logoutSubscription = this.authenticationService.logout().subscribe(
             data => {
                 // Successfully logged out
-                this.Token.remove();
-                this.Auth.changeAuthStatus(false);
-                this.Auth.changeCurrentUserSubject(null);
-                this.Auth.remove();
-                this.router.navigateByUrl('/login');
+                this.authService.remove();
             },
             error => {
+                this.authService.remove();
+                this.loaderService.stopLoading();
+                this.router.navigateByUrl('/login');
             },
             () => {
                 this.loaderService.stopLoading();
+                this.router.navigateByUrl('/login');
             }
         );
 
