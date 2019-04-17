@@ -1,10 +1,10 @@
 <div class="wrapper">
-    <div class="page-header" style="background-image: url('./assets/img/login-image.jpg');">
+    <div class="page-header" style="background-image: url('./assets/img/car-renting.jpg');">
         <div class="container">
             <div class="row no-pad" style="padding-bottom: 10px;">
-                <div class="col-lg-6 col-md-12 align-content-center" style="background: #FBC658;" >
+                <div class="col-lg-6 col-md-12 align-content-center" style="background: rgba(251, 197, 88, 0.74);" >
                     <form #loginForm=ngForm (ngSubmit)="onSubmit()" style="padding: 10px;">
-                        <h3 style="text-align: center; font-size: 2.5em;padding: 10px;">Connexion</h3>
+                        <h3 class="login-title">Connexion</h3>
                         <br>
                         <div class="alert alert-danger" *ngIf="error !== null ">
                             {{error}}
@@ -30,14 +30,14 @@
                             <input type="password" class="form-control" name="password" placeholder="Password"  [(ngModel)]="form.password"
                             required>
                         </div>
-                        <button class="btn btn-danger btn-block btn-round" style="margin-top: 25px;" [disabled]="!loginForm.valid">SE CONNECTER</button>
-                        
+                        <button class="btn btn-danger btn-block btn-round" style="margin-top: 25px; opacity: 1;" [disabled]="!loginForm.valid">SE CONNECTER</button>
+                            
+                        <div class="forgot">
+                            <a routerLink="/request-password-reset" class="btn btn-info btn-block btn-round">Forgot password?</a>
+                        </div>
                     </form>
-                    <div class="forgot">
-                        <a routerLink="/request-password-reset" class="btn btn-link btn-danger">Forgot password?</a>
-                    </div>
                 </div>
-                <div class="col-lg-6 col-md-12"  style="background-image: url('./assets/img/car-renting.jpg');">
+                <div class="col-lg-6 col-md-12"  style="background: transparent">
                 
                 </div>
             </div>

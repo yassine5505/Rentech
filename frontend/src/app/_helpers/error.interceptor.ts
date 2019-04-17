@@ -4,6 +4,7 @@ import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { AuthenticationService } from './../services/authentication/authentication.service';
 import { AuthService } from '../services/authentication/auth.service';
+import { Router } from '@angular/router';
 
 
 @Injectable()
@@ -13,6 +14,7 @@ export class ErrorInterceptor implements HttpInterceptor {
     ];
     constructor(
         private authenticationService: AuthenticationService,
+        private router: Router,
         private authService: AuthService,
         ) { }
 
@@ -22,15 +24,15 @@ export class ErrorInterceptor implements HttpInterceptor {
             if (err.status === 401 && this.exceptedRoutes.indexOf(routeName[routeName.length - 1 ]) <= -1) {
                 // auto logout if 401 response returned from api
                 this.authenticationService.logout().subscribe(
-                    () => {
+                    (data) => {
                         // Successfully logged out
                         this.authService.remove();
                     },
-                    () => {
+                    (error) => {
                         this.authService.remove();
                     }
                 );
-                location.reload(true);
+                this.router.navigateByUrl('/login');
             }
             const error = err.error || err.statusText;
             return throwError(error);

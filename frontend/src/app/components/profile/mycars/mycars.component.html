@@ -7,6 +7,7 @@
       </a>
   </div>
   <br>
-  <app-car-item></app-car-item>
-  <app-car-item></app-car-item>
+  <div>
+    <app-car-item *ngFor="let car of myCars" [car]=car ></app-car-item>
+  </div>
 </div>

@@ -1,0 +1,23 @@
+form{
+    padding-bottom: 40px;
+}
+.login-title{
+    text-align: center;
+    font-size: 3em;
+    padding: 10px;
+    font-weight: 900;
+    color: white;
+}
+
+form label {
+    padding-top: 10px;
+    font-weight: 700;
+    color: black;
+}
+.forgot {
+    padding-top: 10px;
+    padding-bottom: 20px;
+}
+.forgot a {
+    text-align: center !important;
+}

@@ -9,10 +9,10 @@
           </div>
           <div class="card-body">
             <div class="form-group" *ngIf="success !== null">
-              <span class="alert alert-success" style="width: 100% !important;">{{success | titlecase}}</span>
+              <div class="alert alert-success" role="alert" style="width: 100% !important;">{{success | titlecase}}</div>
             </div>
             <div class="form-group" *ngIf="error.length > 0">
-              <span *ngFor="let message of error" class="alert alert-danger"  style="width: 100% !important">{{message | titlecase}}</span>
+              <div *ngFor="let message of error" role="alert" class="alert alert-danger"  style="width: 100% !important">{{message | titlecase}}</div>
             </div>
 
             <div class="form-group">

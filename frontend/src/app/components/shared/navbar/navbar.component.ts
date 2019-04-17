@@ -6,7 +6,6 @@ import { TokenService } from '../../../services/authentication/token.service';
 import { AuthenticationService } from '../../../services/authentication/authentication.service';
 import { Subscription } from 'rxjs';
 import { LoadingScreenService } from '../../../services/shared/loading-screen/loading-screen.service';
-import { UserService } from 'src/app/services/user/user.service';
 import { User } from './../../../models';
 @Component({
     selector: 'app-navbar',

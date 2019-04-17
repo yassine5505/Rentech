@@ -31,7 +31,7 @@
                         Profile
                     </a>
                 </li>
-                <li class="nav-item" *ngIf="loggedIn && currentUser.role === 'PARTNER'" >
+                <li class="nav-item" *ngIf="loggedIn && currentUser && currentUser.role === 'PARTNER'" >
                     <a  [routerLink]="['/profile/anoncer']"
                       routerLinkActive="router-link-active" 
                       class="btn  btn-round btn-outline-success">

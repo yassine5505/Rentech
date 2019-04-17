@@ -24,21 +24,29 @@
 
       <!-- Body -->
       <div class="card-body">
-        <h1 class="card-heading card-custom-heading">BMW 125 Auto</h1>
-
-        <p class="card-paragraph card-custom-paragraph">
-          Une description technique sur ma voiture !
-        </p>
-
+        <h1 class="card-heading card-custom-heading">{{ car.brand }} - ({{ car.model }})</h1>
+        <br>
         <div class="row">
-          <button type="button" class="btn btn-outline-danger btn-round" placement="top"
-            ngbPopover="Moteur Diesel puissant" popoverTitle="">
-            Moteur
-          </button>
-
-          <button type="button" class="btn btn-outline-danger btn-round" placement="right" ngbTooltip="Auto">
-            Vitesse
-          </button>
+            <table class="table">
+                <thead class="thead-dark">
+                  <tr>
+                    <th scope="col">Caractéristiques</th>
+                    <th scope="col">Status</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <th scope="row">Catégorie</th>
+                    <td>{{car.category}}</td>
+                  </tr>
+                
+                  <tr>
+                    <th scope="row">Catégorie</th>
+                    <td>{{car.category}}</td>
+                  </tr>
+                
+                </tbody>
+              </table>
         </div>
 
       </div>

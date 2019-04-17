@@ -128,6 +128,10 @@ validateImages(): boolean {
       this.error.push('Taille des images très grande (max 10M) !');
       return false;
     }
+
+    if (['image/png', 'image/jpg' , 'image/jpeg', 'image/svg'].indexOf(fileItem.type) < 0) {
+      return false;
+    }
   }
   return true;
 }
