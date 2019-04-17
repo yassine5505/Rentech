@@ -53,7 +53,6 @@ export class SignupComponent implements OnInit, OnDestroy {
           error => {
             this.loaderService.stopLoading();
             this.handleError(error);
-            this.loaderService.stopLoading();
           },
           () => {
             this.loaderService.stopLoading();

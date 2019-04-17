@@ -1,5 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { Car } from './../../../../models/car.model';
+import { Router, ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-car-item',
@@ -8,9 +9,17 @@ import { Car } from './../../../../models/car.model';
 })
 export class CarItemComponent implements OnInit {
   @Input() car: Car;
-  constructor() { }
+  constructor(
+    private router: Router,
+    private activatedRoute: ActivatedRoute
+  ) { }
 
   ngOnInit() {
+  }
+
+  announceCar(selectedCarId) {
+    this.router.navigate(['../annoncer', {extraID: selectedCarId}],
+     { relativeTo: this.activatedRoute});
   }
 
 }

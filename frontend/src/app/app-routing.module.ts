@@ -19,6 +19,7 @@ import { AdsComponent } from './components/profile/ads/ads.component';
 import { ClientHistoryComponent } from './components/profile/client-history/client-history.component';
 import { ProfileEditComponent } from './components/profile/profile-edit/profile-edit.component';
 import { AddCarComponent } from './components/profile/mycars/add-car/add-car.component';
+import { AdCreateComponent } from './components/profile/ads/ad-create/ad-create.component';
 
 const appRoutes: Routes = [
   {
@@ -79,8 +80,8 @@ const appRoutes: Routes = [
         data: { roles: [Role.PARTNER] }
       },
       {
-        path: 'anoncer',
-        component: AdsComponent,
+        path: 'annoncer',
+        component: AdCreateComponent,
         canActivate: [AuthGuard],
         data: { roles: [Role.PARTNER] }
       },
