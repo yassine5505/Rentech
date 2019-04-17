@@ -28,39 +28,54 @@
         <br>
         <div class="row">
             <table class="table">
-                <thead class="thead-dark">
-                  <tr>
-                    <th scope="col">Caractéristiques</th>
-                    <th scope="col">Status</th>
-                  </tr>
-                </thead>
                 <tbody>
                   <tr>
                     <th scope="row">Catégorie</th>
-                    <td>{{car.category}}</td>
+                    <td>
+                      {{car.category}}
+                      <i title="Couleur du vehicule" class="ace-icon fa fa-circle smaller-80 align-middle"
+                        [ngStyle]="{color: car.color}">
+                        </i>
+                    </td>
                   </tr>
                 
                   <tr>
-                    <th scope="row">Catégorie</th>
-                    <td>{{car.category}}</td>
+                    <th scope="row">Moteur</th>
+                    <td>{{car.motor}}</td>
                   </tr>
                 
                 </tbody>
               </table>
+              <div>
+                    
+                    <span title="{{!car.airbag ? 'INDISPONIBLE' : 'DISPONIBLE'}}" 
+                    class="badge"
+                    [ngClass]="{'badge-danger': !car.airbag, 'badge-success': !!car.airbag }" >
+                    Status Airbag</span>
+                    <span title="{{!car.abs ? 'INDISPONIBLE' : 'DISPONIBLE'}}" 
+                    class="badge"
+                    [ngClass]="{'badge-danger': !car.abs, 'badge-success': !!car.abs }" >
+                    Status ABS</span>
+                    <span title="{{!car.centralized ? 'INDISPONIBLE' : 'DISPONIBLE'}}" 
+                    class="badge"
+                    [ngClass]="{'badge-danger': !car.centralized, 'badge-success': !!car.centralized }" >
+                    Status Centralisation</span>
+              </div>
+
         </div>
 
       </div>
 
       <div class="card-footer card-custom-footer text-center px-2">
-        <a href="" class="btn btn-success">
-          <i class="fa fa-shopping-cart"></i> Annoncer
-        </a>
-        <a href="" class="btn btn-warning">
-          <i class="fa fa-shopping-cart"></i> Editer
-        </a>
-        <a href="" class="btn btn-danger">
-          <i class="fa fa-shopping-cart"></i> Supprimer
-        </a>
+            <a href="" class="btn btn-success">
+                <i class="fa fa-shopping-cart"></i> Annoncer
+            </a>
+            <a href="" class="btn btn-warning">
+                <i class="fa fa-shopping-cart"></i> Editer
+            </a>
+            <a href="" class="btn btn-danger">
+                <i class="fa fa-shopping-cart"></i> Supprimer
+            </a>
       </div>
 
     </div>
