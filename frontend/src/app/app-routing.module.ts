@@ -20,6 +20,7 @@ import { ClientHistoryComponent } from './components/profile/client-history/clie
 import { ProfileEditComponent } from './components/profile/profile-edit/profile-edit.component';
 import { AddCarComponent } from './components/profile/mycars/add-car/add-car.component';
 import { AdCreateComponent } from './components/profile/ads/ad-create/ad-create.component';
+import { AdsPageComponent } from './components/ads-page/ads-page.component';
 
 const appRoutes: Routes = [
   {
@@ -31,6 +32,12 @@ const appRoutes: Routes = [
   {
     path: 'home',
     component: HomeComponent
+  },
+  {
+    path: 'ads',
+    component: AdsPageComponent,
+    canActivate: [AuthGuard],
+    data: { roles: [Role.CLIENT] }
   },
   {
     path: 'login',

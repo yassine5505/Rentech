@@ -37,6 +37,9 @@ import { ProfileEditComponent } from './components/profile/profile-edit/profile-
 import { CarItemComponent  } from './components/profile/mycars/car-item/car-item.component';
 import { AddCarComponent } from './components/profile/mycars/add-car/add-car.component';
 import { AdCreateComponent } from './components/profile/ads/ad-create/ad-create.component';
+import { AdsPageComponent } from './components/ads-page/ads-page.component';
+import { CardItemComponent } from './components/ads-page/card-item/card-item.component';
+import { RibonComponent } from './components/shared/ribon/ribon.component';
 
 @NgModule({
   declarations: [
@@ -57,7 +60,10 @@ import { AdCreateComponent } from './components/profile/ads/ad-create/ad-create.
     ProfileEditComponent,
     CarItemComponent,
     AddCarComponent,
-    AdCreateComponent
+    AdCreateComponent,
+    AdsPageComponent,
+    CardItemComponent,
+    RibonComponent
   ],
   imports: [
     BrowserModule,

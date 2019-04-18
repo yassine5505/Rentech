@@ -1,0 +1,332 @@
+.card {
+    box-sizing: content-box;
+    width: 300px;
+    height: 400px;
+    border: 1px solid #ccc;
+
+    // ============================= RIBON
+    .slider__ribon {
+        background: #e00;
+        display: block;
+        position: absolute;
+        left: -10px;
+        top: 5%;
+        z-index: 5;
+
+        &:before {
+            content: '';
+            display: block;
+            position: absolute;
+            z-index: -1;
+            bottom: -10px;
+            left: 0;
+            width: 0;
+            height: 0;
+            border-top: solid 5px #800;
+            border-right: solid 5px #800;
+            border-bottom: solid 5px transparent;
+            border-left: solid 5px transparent;
+        }
+    }
+
+    .ribon {
+        font-family: 'Play', sans-serif;
+        font-size: 1.2em;
+        color: #fff;
+        font-weight: bold;
+        line-height: 1;
+        padding: 10px;
+        /* display: none; */
+    }
+
+    .image {
+        width: 300px;
+        height: 150px;
+
+    }
+
+    .body {
+        padding: 2px;
+        padding-top: 5px;
+    }
+
+    .image img {
+        width: 99%;
+        height: 100%;
+        border-top-left-radius: 10px;
+        border-top-right-radius: 10px;
+    }
+
+    .productname {
+        margin: 0;
+        float: none;
+        padding: 0px 0px 0px 5px;
+        font-weight: bold;
+
+        .model {
+            font-size: 14px;
+            color: grey;
+            font-style: italic;
+        }
+    }
+
+    .rating {
+        float: right;
+        display: flex;
+        justify-content: flex-end;
+        padding: 0px;
+        padding-right: 5px;
+        font-size: 1.5em;
+    }
+
+    .rating i:nth-child(-n+4) {
+        color: orange;
+    }
+
+    .description {
+        clear: both;
+        display: block;
+        padding: 5px;
+        margin: 0;
+    }
+
+    .beforePrice {
+        margin-left: 10px;
+        padding: 5px 10px 5px 10px;
+        font-weight: bold;
+        text-decoration: line-through;
+        background-color: rgb(62, 177, 51);
+        color: white;
+    }
+
+    .nowPrice {
+        padding: 5px 10px 5px 10px;
+        background-color: red;
+        color: white;
+        font-weight: bold;
+    }
+
+}
+
+.btn_wrapper {
+    display: block;
+    overflow: hidden;
+    position: relative;
+    text-align: center;
+  }
+  
+  
+  /* BEGIN STATE */
+  
+  button {
+    border: none;
+    border-radius: 25px;
+    overflow: hidden;
+    position: relative;
+    padding: 6px 15px;
+    margin: 2px;
+    display: block;
+    box-shadow: 0px 3px 6px 0px rgba(0, 0, 0, 0.3);
+    font: 15px/30px 'Lato', sans-serif;
+    text-transform: uppercase;
+    color: #ffffff;
+    cursor: pointer;
+    box-shadow: inset 0px 2px 0px 0px rgba(255, 255, 255, 0.2);
+    transition: all 0.2s;
+    left:50%; //Moves the element to the left by 50%
+    transform: translateX(-50%); //get half of the element's width and subtract that value with left's value
+    
+  }
+  button.btn-view{
+    background: #3fd431d0;
+  }
+  button.btn-cart{
+    background: #ff8100;
+  }
+  
+  button.btn-cart:after {
+    content: "";
+    display: block;
+    width: 50px;
+    height: 200px;
+    position: absolute;
+    -ms-transform: rotateZ(30deg);
+    -webkit-transform: rotateZ(30deg);
+    transform: rotateZ(30deg);
+    left: -60px;
+    top: -100px;
+    opacity: 0.1;
+    background: #ffffff;
+  }
+  
+  button.btn-cart:hover:after {
+    width: 100%;
+    opacity: 0;
+    transition: all 0.75s ease 0s;
+  }
+  
+  button.btn-cart .fa {
+    margin-right: 10px;
+    font-size: 20px;
+    line-height: 25px;
+    vertical-align: baseline;
+  }
+  
+  button.btn-cart .fa.fa-arrow-down {
+    color: #4ae70c;
+    font-size: 10px;
+    position: absolute;
+    left: 9px;
+    top: -12px;
+    transition: all 0.75s ease 0s;
+  }
+  
+  button.btn-cart:before {
+    content: "";
+    display: block;
+    position: absolute;
+    z-index: 0;
+    height: 0%;
+    left: 50%;
+    top: 50%;
+    background-color: #ffffff;
+    width: 0%;
+    opacity: 0.3;
+    border-radius: 50%;
+    -ms-transform: translateX(-50%) translateY(-50%);
+    -webkit-transform: translateX(-50%) translateY(-50%);
+    transform: translateX(-50%) translateY(-50%);
+  }
+  
+  button.btn-cart span {
+    display: inline-block;
+    position: relative;
+    text-align: center;
+    z-index: 1;
+  }
+  
+  button.btn-cart:hover .fa.fa-arrow-down {
+    top: -3px;
+  }
+  
+  button.btn-cart:active:before {
+    height: 350%;
+    width: 90%;
+    opacity: 0.0;
+    transition: all 0.75s ease 0s;
+  }
+  
+  /* LOADING STATE */
+  
+  button.btn-cart.loader {
+    padding: 8px;
+    text-align: center;
+    width: 48px;
+  }
+  
+  button.btn-cart.loader span span {
+    display: none;
+  }
+  
+  button.btn-cart.loader:before,
+  .spinner {
+    display: none;
+  }
+  
+  .loader .spinner {
+    display: block;
+    -webkit-animation: spinner cubic-bezier(0.6, 0.2, 0.4, 0.8) 1s infinite;
+    animation: spinner cubic-bezier(0.6, 0.2, 0.4, 0.8) 1s infinite;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 48px;
+    height: 48px;
+    border-radius: 50px;
+    box-sizing: border-box;
+    border-top: 2px solid #00539C;
+    border-bottom: 2px solid #00539C;
+    border-left: 2px solid #00539C;
+    border-right: 2px solid #ff8100;
+  }
+  
+  button.btn-cart.loader .fa.fa-shopping-cart {
+    margin-right: 2px;
+  }
+  
+  button.btn-cart.loader .fa.fa-arrow-down {
+    -webkit-animation: arrow cubic-bezier(0.7, 0.3, 0.6, 0.8) 1s infinite;
+    animation: arrow cubic-bezier(0.7, 0.3, 0.6, 0.8) 1s infinite;
+  }
+  
+  
+  /* AFTER LOADING */
+  
+  .bought button {
+    display: none;
+  }
+  
+  .bought .checkout,
+  .bought .cart {
+    display: block;
+  }
+  
+  button:focus {outline:0;}
+  
+  
+  
+  /* ANIMATIONS */
+  
+  @-webkit-keyframes spinner {
+    0% {
+      -webkit-transform: rotateZ(0deg);
+    }
+    100% {
+      -webkit-transform: rotateZ(360deg);
+    }
+  }
+  
+  @keyframes spinner {
+    0% {
+      -webkit-transform: rotateZ(0deg);
+      -ms-transform: rotateZ(0deg);
+      transform: rotateZ(0deg);
+    }
+    100% {
+      -webkit-transform: rotateZ(360deg);
+      -ms-transform: rotateZ(360deg);
+      transform: rotateZ(360deg);
+    }
+  }
+  
+  @-webkit-keyframes arrow {
+    0% {
+      top: -12px;
+      opacity: 1;
+    }
+    80% {
+      top: -3px;
+      opacity: 1;
+    }
+    100% {
+      top: -3px;
+      opacity: 0;
+    }
+  }
+  
+  @keyframes arrow {
+    0% {
+      top: -12px;
+      opacity: 1;
+    }
+    80% {
+      top: -3px;
+      opacity: 1;
+    }
+    100% {
+      top: -3px;
+      opacity: 0;
+    }
+  }
+
+
