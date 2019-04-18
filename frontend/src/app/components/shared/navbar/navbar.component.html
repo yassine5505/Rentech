@@ -33,7 +33,7 @@
                     </a>
                 </li>
                 <li class="nav-item" 
-                *ngIf="loggedIn && currentUser !== null && currentUser.role === 'PARTNER'" >
+                *ngIf="loggedIn && currentUser && currentUser.role === 'PARTNER'" >
                     <a  [routerLink]="['/profile/annoncer']"
                       routerLinkActive="router-link-active" 
                       class="btn  btn-round btn-outline-success">

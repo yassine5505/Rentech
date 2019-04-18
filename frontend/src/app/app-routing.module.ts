@@ -21,6 +21,7 @@ import { ProfileEditComponent } from './components/profile/profile-edit/profile-
 import { AddCarComponent } from './components/profile/mycars/add-car/add-car.component';
 import { AdCreateComponent } from './components/profile/ads/ad-create/ad-create.component';
 import { AdsPageComponent } from './components/ads-page/ads-page.component';
+import { CardItemDetailsComponent } from './components/ads-page/card-item-details/card-item-details.component';
 
 const appRoutes: Routes = [
   {
@@ -37,7 +38,11 @@ const appRoutes: Routes = [
     path: 'ads',
     component: AdsPageComponent,
     canActivate: [AuthGuard],
-    data: { roles: [Role.CLIENT] }
+    data: { roles: [Role.CLIENT] },
+  },
+  {
+    path: 'ads/:id',
+    component: CardItemDetailsComponent,
   },
   {
     path: 'login',

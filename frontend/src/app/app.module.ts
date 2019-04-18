@@ -40,7 +40,7 @@ import { AdCreateComponent } from './components/profile/ads/ad-create/ad-create.
 import { AdsPageComponent } from './components/ads-page/ads-page.component';
 import { CardItemComponent } from './components/ads-page/card-item/card-item.component';
 import { RibonComponent } from './components/shared/ribon/ribon.component';
-
+import { CardItemDetailsComponent } from './components/ads-page/card-item-details/card-item-details.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -63,7 +63,8 @@ import { RibonComponent } from './components/shared/ribon/ribon.component';
     AdCreateComponent,
     AdsPageComponent,
     CardItemComponent,
-    RibonComponent
+    RibonComponent,
+    CardItemDetailsComponent
   ],
   imports: [
     BrowserModule,
