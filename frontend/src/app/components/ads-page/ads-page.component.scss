@@ -1,7 +1,47 @@
 
-.row {
+.ad-items {
     display: flex;
     justify-content: space-evenly;
     flex-wrap: wrap;
     align-content: flex-start;
+}
+
+#filterZone2{
+    
+ul.topics li { display: inline-block; margin: 10px 5px; }
+input[type="checkbox"] {
+  display:none;
+}
+label {
+	display: inline;
+  font-size: 14px;
+  padding: 8px 15px 6px;
+  border-radius: 5px;
+  border: 2px solid #eee;
+  text-transform: none;
+  letter-spacing: 0;
+  color: #999;
+  &:hover {
+    border-color: #3badd1;
+    color: #3badd1;
+    cursor:pointer;
+  }
+}
+
+input[type="checkbox"]:checked + label {
+  background-color: #3badd1;
+  border-color: #3badd1;
+  color: #fff;
+  &:hover {
+    background-color: #eee;
+    border-color: #ccc;
+    color: #3badd1;
+  }
+  &:active {
+    background-color: #eee;
+    border-color: #ccc;
+    color: #3badd1 !important;
+  }
+}
+
 }
