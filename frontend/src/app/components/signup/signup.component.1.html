@@ -27,8 +27,12 @@
                               
                             <div class="row form-group">
                                <div class="col-md-6">
-                                   
+                                    <label for="inputAdress" class="col-sm-12 control-label">Addresse complète</label>  
+                                    <input  id="inputAdress"  formControlName="address" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.address.errors }"   type="text">
+                               </div>
+                               <div class="col-md-6">
                                     <label for="inputCity" class="col-sm-12 control-label">Ville de résidence : </label>  
+                                
                                     <select id="inputCity" formControlName="city_id"  class="col-sm-12 form-control">
                                         <option *ngFor="let city of cities" 
                                         [ngValue]="city.id" [selected]="city.id == 1" >
@@ -36,19 +40,67 @@
                                         </option>
                                     </select>
                                </div>
+                            </div>
+                              
+                            <div class="row form-group">
                                <div class="col-md-6">
                                     <label for="inputCategory" class="col-sm-12 control-label">Vous êtes : </label>  
+                                
                                     <select id="inputCategory" formControlName="role"  class="col-sm-12 form-control">
                                         <option value="CLIENT" selected>Client (Chercheur d'offres)</option>
                                         <option value="PARTNER" >Partenaire (Prestataire ayant au moins une voiture)</option>
                                     </select>
                                </div>
+                               <div class="col-md-6">
+                                    <label for="inputDrivingLicense" class="col-sm-12 control-label">Votre numéro de permis de conduire : </label>  
+                                    <input id="inputDrivingLicense"  formControlName="driving_license_number" 
+                                    [ngClass]="{ 'is-invalid': submitted && f.driving_license_number.errors }" class="col-sm-12 form-control" type="text">
+                                      
+                               </div>
                             </div>
-    
-                            <div class="form-group">
-                               
+                              
+                            <div class="row form-group">
+                               <div class="col-md-6">
+                                    <label for="inputCni" class="col-sm-12 control-label">Numéro de CIN : </label>  
+                                    <input id="inputCni"  
+                                    formControlName="cin" 
+                                    class="col-sm-12 form-control"
+                                    [ngClass]="{ 'is-invalid': submitted && f.cin.errors }"
+                                      type="text">
+                               </div>
+                               <div class="col-md-6">
+                                    <label for="inputPhone" class="col-sm-12 control-label">Numéro de téléphone : </label>  
+                                    <div class="col-sm-12 ">
+                                        <div class="input-group form-group-no-border" >
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text">
+                                                    <i class="nc-icon nc-phone-85"></i>
+                                                </span>
+                                            </div>
+                                            <input type="tel" formControlName="telephone" 
+                                            id="inputPhone" class="form-control" 
+                                            [ngClass]="{ 'is-invalid': submitted && f.telephone.errors }"
+                                            placeholder="Numéro de téléphone ">
+                                        </div>
+                                    </div>
+                               </div>
+                            </div>
+                            <div class="row form-group">
+                               <div class="col-md-6">
                                     <label for="inputEmail" class="col-sm-12 col-form-label">Adresse électronique</label>
                                     <input type="email"  formControlName="email" id="inputEmail" class="form-control" placeholder="Email" > 
+                               </div>
+                               <div class="col-md-6">
+                                    <label for="inputProfile" class="col-sm-12 col-form-label">Photo de profil (Donnée privée !)</label>
+                                    <input 
+                                        type="file"
+                                        accept="image/*"
+                                        (change)="processFile($event)"
+                                        id="inputProfile"
+                                        class="form-control" 
+                                        placeholder="Image de profile" >
+                                    <input type="hidden" name="fileHidden" formControlName="image"/> 
+                               </div>
                             </div>
 
                             <div class="row form-group">
