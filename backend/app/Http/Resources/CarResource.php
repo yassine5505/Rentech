@@ -32,7 +32,8 @@ class CarResource extends JsonResource
             'airbag' => $this->airbag,
             'centralized' => $this->centralized,
             'abs' => $this->abs,
-            'images' => new ImageCollection($this->images)
+            'images' => new ImageCollection($this->images),
+            // add score resource
         ];
     }
 }

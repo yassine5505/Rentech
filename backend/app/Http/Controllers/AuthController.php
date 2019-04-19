@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\Validator;
 use \Illuminate\Database\QueryException ;
 use App\User;
 use App\Image;
+use App\Http\Resources\UserResource;
 
 class AuthController extends Controller
 {
@@ -73,7 +74,7 @@ class AuthController extends Controller
      */
     public function me()
     {
-        return response()->json(auth()->user()->only(['id', 'name', 'email', 'driving_license_number', 'address', 'telephone', 'role', 'status', 'city_id', 'image', 'city']));
+        return response()->json(auth()->user()->only(['id', 'name', 'email', 'driving_license_number', 'address', 'telephone', 'role', 'status', 'image', 'city']));
     }
 
 
@@ -122,7 +123,7 @@ class AuthController extends Controller
         return response()->json([
             'access_token' => $token,
             'token_type' => 'bearer',
-            'expires_in' => auth()->factory()->getTTL() * 60,
+            'expires_in' => auth()->factory()->getTTL() * 120,
             'user' => auth()->user()->only(['id', 'name', 'email', 'driving_license_number', 'address', 'telephone', 'role', 'status', 'city_id', 'image']),
         ]);
     }
@@ -186,7 +187,7 @@ class AuthController extends Controller
             if(! $request->has($p)){
                 return false;
             }
-            return true;
         }
+        return true;
     }
 }

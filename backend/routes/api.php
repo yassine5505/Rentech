@@ -47,6 +47,12 @@ Route::group(['middleware' => 'api'], function () {
     // Ad Routes
     Route::group(['prefix' => 'ads'], function(){
         Route::post('create', 'AdController@create');
+        Route::post('/', 'AdController@index');// My ads
+        Route::post('/all', 'AdController@all');
+        Route::post('{id}/update', 'AdController@update');// Only Owner
+        Route::post('{id}/delete', 'AdController@delete');// Admin and Owner
+        Route::post('{id}/show', 'AdController@show');// Client and Owner
+        Route::post('{id}/book', 'AdController@book');// Client Only
 
     });
 });
