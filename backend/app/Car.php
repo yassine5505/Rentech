@@ -36,7 +36,7 @@ class Car extends Model
      *
      */
     public function ad(){
-        return $this->hasOne('\App\User');
+        return $this->belongsTo('\App\Car');
     }
 
     /**

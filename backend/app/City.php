@@ -24,6 +24,10 @@ class City extends Model
         return $this->hasOne('\App\Ad');
     }
 
+    // Relationship with Ad
+    public function ad(){
+        return $this->hasMany('\App\Ad');
+    }
 
     /**
      * 

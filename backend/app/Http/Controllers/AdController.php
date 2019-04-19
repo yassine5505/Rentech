@@ -9,7 +9,8 @@ use App\User;
 use App\Ad;
 use App\Car;
 use App\City;
-
+use App\Http\Resources\AdResource;
+use App\Http\Resources\AdCollection;
 class AdController extends Controller
 {
     /**
@@ -17,7 +18,7 @@ class AdController extends Controller
      * 
      */
     public function __construct(){
-        $this->middleware('auth:api');
+        $this->middleware('auth:api', ["except" => ["all", "show"]]);
     }
 
     /**
@@ -46,6 +47,85 @@ class AdController extends Controller
         return response()->json(["message" => "Unauthorized"], 401);
     }
 
+
+    /**
+     * Get Authenticated User's Ads
+     * 
+     * @return AdResource
+     */
+    public function index(){
+        // Verify User 
+        if(! auth()->user()->hasRole(User::$ROLES["partner"])){
+            return response()->json(["message" => "Unauthorized"], 404);
+        }
+        return new AdCollection(auth()->user()->ads);
+    }
+
+
+    /**
+     * Get All Active Ads
+     * 
+     * @return Response
+     */
+    public function all(){
+        return new AdCollection(Ad::where('status', 0)->get());
+    }
+
+
+    /**
+     * Update Ad Only If requested By Owner
+     * 
+     */
+    public function update(Request $request, $id){
+        $ad = Ad::find($id);
+        if($ad == null)
+            return response()->json(["message" => "Ad not found"], 404);
+        if(! auth()->user()->ads->find($id) == $ad)
+            return response()->json(["message" => "Unauthorized", 401]); 
+        $this->validateRequest($request, "update");
+        $ad->description = $request->description;
+        $ad->start_date = $request->start_date;
+        $ad->end_date = $request->end_date;
+        $ad->price = $request->price;
+        if($ad->save())
+            return response()->json(["message" => "Ad updated successfully"], 200);
+        return response()->json(["message" => "Ad not updated", 500]);
+    }
+
+
+    /**
+     * Update Ad 
+     * 
+     * @return JsonResponse
+     * 
+     */
+    public function delete($id){
+        // Only Ad Owner can delete the Ad
+        $ad = Ad::find($id);
+        if($ad == null)
+            return response()->json(["message" => "Ad not found"], 404);
+        if(! auth()->user()->ads->find($id) == $ad)
+            return response()->json(["message" => "Unauthorized", 401]); 
+        // Delete the Ad
+        if(Ad::destroy($id))
+            return response()->json(["message" => "Ad deleted successfully"], 200);
+        return response()->json(["message" => "There was an error deleting the Ad"], 500);
+    }
+
+
+    /**
+     * Show one Ad 
+     * 
+     * @return AdResource
+     * 
+     */
+    public function show($id){
+        $ad = Ad::find($id);
+        if($ad == null)
+            return response()->json(["message" => "Ad not found"], 404);
+        return new AdResource($ad);
+    }
+
     /**
      * Validate Request
      * 
@@ -53,8 +133,8 @@ class AdController extends Controller
     public function validateRequest(Request $request, $validationType = "create"){
         $rule = [
             'description' => ['required', 'string', 'max:191'],
-            'start_date' => ['date', 'date_format:Y-m-d'],
-            'end_date' => ['required', 'date', 'date_format:Y-m-d', 'after:start_date'],
+            'start_date' => ['date', 'date_format:Y-m-d H:i'],
+            'end_date' => ['required', 'date', 'date_format:Y-m-d H:i', 'after:start_date'],
             'status' => ['boolean'],
             'price' => ['required', 'regex:/^\d*(\.\d{2})?$/'],
             'car_id' => ['required', 'integer'],
@@ -63,8 +143,8 @@ class AdController extends Controller
         if($validationType == "update"){
             $rule = [
                 'description' => ['string', 'max:191'],
-                'start_date' => ['date', 'date_format:Y-m-d'],
-                'end_date' => ['date', 'date_format:Y-m-d', 'after:start_date'],
+                'start_date' => ['date', 'date_format:Y-m-d H:i'],
+                'end_date' => ['date', 'date_format:Y-m-d H:i', 'after:start_date'],
                 'status' => ['boolean'],
                 'price' => ['regex:/^\d*(\.\d{2})?$/'],
                 'car_id' => ['integer'],
@@ -96,5 +176,17 @@ class AdController extends Controller
             return response()->json(["message" => "City not found"], 404);
         }
         return true;
+    }
+
+    /**
+     * Verify User Role
+     * 
+     * @return Response
+     */
+    public function verifyRole($role){
+        if(! auth()->user()->hasRole($role)){
+            return response()->json(["message" => "Unauthorized"], 404);
+        }
+        return;
     }
 }
