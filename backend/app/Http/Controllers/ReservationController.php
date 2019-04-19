@@ -21,30 +21,31 @@ class ReservationController extends Controller
      * 
      * @param id (Ad id)
      */
-    public function book(Request $request, $id){
+    public function create(Request $request){
         // Verify user role
-        if(! auth()->user()->hasRole(User::$ROLES["partner"])){
-            return response()->json(["message" => "Unauthorized, only partners can book cars"], 404);
+        if(! auth()->user()->hasRole(User::$ROLES["client"])){
+            return response()->json(["message" => "Unauthorized, only clients can book cars"], 404);
         }
         // Check if Ad exists
-        $ad = Ad::find($id);
+        $ad = Ad::find(request('ad_id'));
         if($ad == null)
             return response()->json(["message" => "Ad was not found"], 404);
 
-        // Check if User is not the Ad owner
-        if($ad->car->user == auth()->user()){
-            return response()->json(["message" => "You cannot book your own car"], 401);
-        }
-        // Check if Ad status is false
+        // Check if Ad status is available (status == false)
         if($ad->status)
             return response()->json(["message" => "This car was already booked"], 401);
         
         // Check if user has an ongoing Reservation
-
+        $ads = \DB::table('ads')
+                ->whereBetween('start_date', [$ad->start_date, $ad->end_date])
+                ->where('status', true)
+                ->get();
+        if($ads)
+            return response()->json(["message" => "You have ongoing reservations."], 401);
         // Everything OK => Insert Reservation with ad id and authenticated user id
         $reservation = new Reservation;
         $reservation->comment = request('comment');
-        $reservation->ad_id = $id;
+        $reservation->ad_id = request('ad_id');
         $reservation->user_id = auth()->user()->id;
         if($reservation->save()){
             // Make Ad unavailable

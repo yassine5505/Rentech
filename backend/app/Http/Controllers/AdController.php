@@ -26,12 +26,13 @@ class AdController extends Controller
      * 
      */
     public function create(Request $request){
-        if(auth()->user()->hasRole(User::$ROLES["partner"])){
+        if(auth()->user()->hasRole(User::$ROLES["partner"]) and auth()->user()->status){
             $this->validateRequest($request, "create");
             if( Car::carExists(request('car_id')) && City::cityExists(request('city_id')) && auth()->user()->cars->contains(request("car_id"))){
                 $ad = new Ad;
                 $ad->car_id = request('car_id');
                 $ad->city_id = request('city_id');
+                $ad->user_id = auth()->user()->id;
                 $ad->description = request('description');
                 $ad->start_date = request('start_date');
                 $ad->end_date = request('end_date');
@@ -133,8 +134,8 @@ class AdController extends Controller
     public function validateRequest(Request $request, $validationType = "create"){
         $rule = [
             'description' => ['required', 'string', 'max:191'],
-            'start_date' => ['date', 'date_format:Y-m-d H:i'],
-            'end_date' => ['required', 'date', 'date_format:Y-m-d H:i', 'after:start_date'],
+            'start_date' => ['required','date', 'date_format:Ymd H:i', 'before:end_date'],
+            'end_date' => ['required','date', 'date_format:Ymd H:i'],
             'status' => ['boolean'],
             'price' => ['required', 'regex:/^\d*(\.\d{2})?$/'],
             'car_id' => ['required', 'integer'],
