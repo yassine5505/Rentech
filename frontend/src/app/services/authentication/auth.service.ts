@@ -25,6 +25,7 @@ export class AuthService {
     this.Token.remove();
     this.changeAuthStatus(false);
     this.changeCurrentUserSubject(null);
+    localStorage.clear();
   }
 
   constructor(

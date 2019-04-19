@@ -9,6 +9,9 @@ import { MustMatch } from './../../_helpers/must-match.validator';
 import { Subscription } from 'rxjs';
 import { CityService } from './../../services/shared/city/city.service';
 import { LoadingScreenService } from './../../services/shared/loading-screen/loading-screen.service';
+import { User } from './../../models/user.model';
+import { Role } from './../../models/role.model';
+import { AuthService } from '../../services/authentication/auth.service';
 
 
 class ImageSnippet {
@@ -36,6 +39,7 @@ export class SignupComponent implements OnInit, OnDestroy {
         private Token: TokenService,
         private router: Router,
         private cityService: CityService,
+        private Auth: AuthService,
         private loaderService: LoadingScreenService
       ) { }
     onSubmit() {
@@ -63,6 +67,23 @@ export class SignupComponent implements OnInit, OnDestroy {
 
     handleResponse(data) {
         this.Token.handle(data.access_token);
+        this.Auth.changeAuthStatus(true);
+        const user = new User(
+        data.user.address,
+        data.user.city_id,
+        data.user.driving_license_number,
+        data.user.email,
+        data.user.id,
+        data.user.image,
+        data.user.name,
+        User.dealingRole(data.user.role),
+        !!data.user.status,
+        data.user.telephone);
+        this.Auth.changeCurrentUserSubject(user);
+
+        if (user.role === Role.PARTNER) {
+        this.router.navigateByUrl('/home');
+        }
         this.router.navigateByUrl('/profile');
     }
 
@@ -84,43 +105,16 @@ export class SignupComponent implements OnInit, OnDestroy {
             () => this.loaderService.stopLoading()
         );
         this.registerForm = this.formBuilder.group({
-            image: [''],
-            cin : ['',
-                [ Validators.required,
-                Validators.minLength(6),
-                Validators.maxLength(40)]
-            ],
             name: ['', Validators.required],
-            driving_license_number: ['',
-                [ Validators.required,
-                Validators.minLength(7),
-                Validators.maxLength(15)]
-            ],
-            address: ['',
-                [ Validators.required,
-                Validators.minLength(10),
-                Validators.maxLength(50)]
-            ],
-            telephone: ['',
-                [ Validators.required,
-                Validators.minLength(10),
-                Validators.maxLength(50)]
-            ],
             role: new FormControl('CLIENT'),
-            status: new FormControl(true),
             city_id: [ '1' ],
             email: ['', [Validators.required, Validators.email]],
             password: ['', [Validators.required, Validators.minLength(6)]],
             password_confirmation: ['', Validators.required],
-            iAcceptContrat: new FormControl(null)
+            iAcceptContrat: [true, Validators.required]
         }, {
             validator: MustMatch('password', 'password_confirmation')
         });
-
-        // Setting default city value
-        this.registerForm.controls.status.setValue(true, {onlySelf: true});
-        this.registerForm.controls.city_id.setValue('1', {onlySelf: true});
-
     }
 
     ngOnDestroy(): void {
