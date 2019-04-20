@@ -149,7 +149,7 @@ class AuthController extends Controller
                 'address' => ['string' , 'max:191'],
                 'telephone' => ['string', 'max:191'],
                 'role' => ['string', 'max:191'],
-                'city_id' => ['int'],
+                'city_id' => ['required', 'int'],
                 'email' => ['required', 'string', 'email', 'max:191', 'unique:users'],
                 'password' => ['required', 'string']
             ];

@@ -13,6 +13,7 @@ use App\Http\Resources\AdResource;
 use App\Http\Resources\AdCollection;
 class AdController extends Controller
 {
+    
     /**
      * Require User Authentication
      * 
@@ -26,12 +27,16 @@ class AdController extends Controller
      * 
      */
     public function create(Request $request){
-        if(auth()->user()->hasRole(User::$ROLES["partner"])){
-            $this->validateRequest($request, "create");
+        if(auth()->user()->hasRole(User::$ROLES["partner"]) and auth()->user()->status){
+            $validation = $this->verifyRequest($request, "create");
+            if($validation != null){
+                return $validation;
+            }
             if( Car::carExists(request('car_id')) && City::cityExists(request('city_id')) && auth()->user()->cars->contains(request("car_id"))){
                 $ad = new Ad;
                 $ad->car_id = request('car_id');
                 $ad->city_id = request('city_id');
+                $ad->user_id = auth()->user()->id;
                 $ad->description = request('description');
                 $ad->start_date = request('start_date');
                 $ad->end_date = request('end_date');
@@ -82,7 +87,11 @@ class AdController extends Controller
             return response()->json(["message" => "Ad not found"], 404);
         if(! auth()->user()->ads->find($id) == $ad)
             return response()->json(["message" => "Unauthorized", 401]); 
-        $this->validateRequest($request, "update");
+        $validation = $this->verifyRequest($request, "update");
+        if($validation != null){
+            return $validation;
+
+        }
         $ad->description = $request->description;
         $ad->start_date = $request->start_date;
         $ad->end_date = $request->end_date;
@@ -127,14 +136,15 @@ class AdController extends Controller
     }
 
     /**
-     * Validate Request
+     * Verify Request
      * 
+     * @return Response
      */
-    public function validateRequest(Request $request, $validationType = "create"){
+    public function verifyRequest(Request $request, $validationType = "create"){
         $rule = [
             'description' => ['required', 'string', 'max:191'],
-            'start_date' => ['date', 'date_format:Y-m-d H:i'],
-            'end_date' => ['required', 'date', 'date_format:Y-m-d H:i', 'after:start_date'],
+            'start_date' => ['required', 'date_format:Y/m/d H:i', 'after:'. date("Y/m/d H:i")],
+            'end_date' => ['required', 'date_format:Y/m/d H:i', 'after:start_date'],
             'status' => ['boolean'],
             'price' => ['required', 'regex:/^\d*(\.\d{2})?$/'],
             'car_id' => ['required', 'integer'],
@@ -143,8 +153,8 @@ class AdController extends Controller
         if($validationType == "update"){
             $rule = [
                 'description' => ['string', 'max:191'],
-                'start_date' => ['date', 'date_format:Y-m-d H:i'],
-                'end_date' => ['date', 'date_format:Y-m-d H:i', 'after:start_date'],
+                'start_date' => ['date_format:Y/m/d H:i', 'after:'. date("Y/m/d H:i")],
+                'end_date' => ['date_format:Y/m/d H:i', 'after:start_date'],
                 'status' => ['boolean'],
                 'price' => ['regex:/^\d*(\.\d{2})?$/'],
                 'car_id' => ['integer'],
@@ -152,31 +162,12 @@ class AdController extends Controller
             ];
         }
         $validator = Validator::make(request()->all(), $rule);
-        if($validator -> fails()){
+        if($validator->fails()){
             return response()->json(["message" => $validator->messages()->toArray()]);
         }
-        return true;
+        return null;
     }
 
-    /**
-     * Verify That Car Exists Or Redirect
-     */
-    public function checkCar($id){
-        if(! Car::carExists($id)){
-            return response()->json(["message" => "error"], 404);
-        }
-        return true;
-    }
-
-    /**
-     * Verify That City Exists Or Redirect
-     */
-    public function checkCity($id){
-        if(! City::cityExists($id)){
-            return response()->json(["message" => "City not found"], 404);
-        }
-        return true;
-    }
 
     /**
      * Verify User Role

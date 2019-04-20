@@ -15,4 +15,9 @@ class Reservation extends Model
     public function ad(){
         return $this->hasOne('\App\Ad');
     }
+
+    // Relationship with User(Reservator)
+    public function reservator(){
+        return $this->hasOne('\App\User');
+    }
 }
