@@ -13,31 +13,7 @@ use App\Http\Resources\AdResource;
 use App\Http\Resources\AdCollection;
 class AdController extends Controller
 {
-    /**
-     * @var Ad creation Valiation Rule
-     */
-    protected $creationRule = [
-        'description' => ['required', 'string', 'max:191'],
-        'start_date' => ['required', 'date_format:Y/m/d H:i'],
-        'end_date' => ['required', 'date_format:Y/m/d H:i', 'after:start_date'],
-        'status' => ['boolean'],
-        'price' => ['required', 'regex:/^\d*(\.\d{2})?$/'],
-        'car_id' => ['required', 'integer'],
-        'city_id' => ['required', 'integer']
-    ];
-
-    /**
-     * @var Ad update Valiation Rule
-     */
-    protected $updateRule = [
-        'description' => ['string', 'max:191'],
-        'start_date' => ['date_format:Y/m/d H:i'],
-        'end_date' => ['date_format:Y/m/d H:i', 'after:start_date'],
-        'status' => ['boolean'],
-        'price' => ['regex:/^\d*(\.\d{2})?$/'],
-        'car_id' => ['integer'],
-        'city_id' => ['integer']
-    ];
+    
     /**
      * Require User Authentication
      * 
@@ -52,9 +28,10 @@ class AdController extends Controller
      */
     public function create(Request $request){
         if(auth()->user()->hasRole(User::$ROLES["partner"]) and auth()->user()->status){
-            $v = Validator::make(request()->all(), $this->creationRule);
-            if($v->fails())
-                return response()->json(["message" => $v->messages()->toArray()], 422);
+            $validation = $this->verifyRequest($request, "create");
+            if($validation != null){
+                return $validation;
+            }
             if( Car::carExists(request('car_id')) && City::cityExists(request('city_id')) && auth()->user()->cars->contains(request("car_id"))){
                 $ad = new Ad;
                 $ad->car_id = request('car_id');
@@ -110,9 +87,11 @@ class AdController extends Controller
             return response()->json(["message" => "Ad not found"], 404);
         if(! auth()->user()->ads->find($id) == $ad)
             return response()->json(["message" => "Unauthorized", 401]); 
-            $v = Validator::make(request()->all(), $this->updateRule);
-            if($v->fails())
-                return response()->json(["message" => $v->messages()->toArray()], 422);
+        $validation = $this->verifyRequest($request, "update");
+        if($validation != null){
+            return $validation;
+
+        }
         $ad->description = $request->description;
         $ad->start_date = $request->start_date;
         $ad->end_date = $request->end_date;
@@ -156,7 +135,40 @@ class AdController extends Controller
         return new AdResource($ad);
     }
 
-    
+    /**
+     * Verify Request
+     * 
+     * @return Response
+     */
+    public function verifyRequest(Request $request, $validationType = "create"){
+        $rule = [
+            'description' => ['required', 'string', 'max:191'],
+            'start_date' => ['required', 'date_format:Y/m/d H:i', 'after:'. date("Y/m/d H:i")],
+            'end_date' => ['required', 'date_format:Y/m/d H:i', 'after:start_date'],
+            'status' => ['boolean'],
+            'price' => ['required', 'regex:/^\d*(\.\d{2})?$/'],
+            'car_id' => ['required', 'integer'],
+            'city_id' => ['required', 'integer']
+        ];
+        if($validationType == "update"){
+            $rule = [
+                'description' => ['string', 'max:191'],
+                'start_date' => ['date_format:Y/m/d H:i', 'after:'. date("Y/m/d H:i")],
+                'end_date' => ['date_format:Y/m/d H:i', 'after:start_date'],
+                'status' => ['boolean'],
+                'price' => ['regex:/^\d*(\.\d{2})?$/'],
+                'car_id' => ['integer'],
+                'city_id' => ['integer']
+            ];
+        }
+        $validator = Validator::make(request()->all(), $rule);
+        if($validator->fails()){
+            return response()->json(["message" => $validator->messages()->toArray()]);
+        }
+        return null;
+    }
+
+
     /**
      * Verify That Car Exists Or Redirect
      */
