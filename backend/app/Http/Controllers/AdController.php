@@ -170,26 +170,6 @@ class AdController extends Controller
 
 
     /**
-     * Verify That Car Exists Or Redirect
-     */
-    public function checkCar($id){
-        if(! Car::carExists($id)){
-            return response()->json(["message" => "error"], 404);
-        }
-        return true;
-    }
-
-    /**
-     * Verify That City Exists Or Redirect
-     */
-    public function checkCity($id){
-        if(! City::cityExists($id)){
-            return response()->json(["message" => "City not found"], 404);
-        }
-        return true;
-    }
-
-    /**
      * Verify User Role
      * 
      * @return Response
