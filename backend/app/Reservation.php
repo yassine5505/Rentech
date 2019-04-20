@@ -13,11 +13,11 @@ class Reservation extends Model
     
     // Relationship with Ad
     public function ad(){
-        return $this->hasOne('\App\Ad');
+        return $this->belongsTo('\App\Ad');
     }
 
     // Relationship with User(Reservator)
     public function reservator(){
-        return $this->hasOne('\App\User');
+        return $this->belongsTo('\App\User');
     }
 }

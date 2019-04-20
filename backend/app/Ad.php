@@ -16,8 +16,8 @@ class Ad extends Model
     ];
 
     // Relationship with Reservation
-    public function reservation(){
-        return $this->hasOne('\App\Reservation');
+    public function reservations(){
+        return $this->hasMany('\App\Reservation');
     }
 
     //Relationship with Car
