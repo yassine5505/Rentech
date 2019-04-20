@@ -91,6 +91,15 @@ class User extends Authenticatable implements JWTSubject
     }
 
 
+    /**
+     * Relationship with Reservation 
+     * 
+     * Describes which reservations the user has reservated
+     */
+    public function reservation(){
+        return $this->hasOne('\App\Reservation', 'reservator_id');
+    }
+
     /*
      * Verify User role
      * 

@@ -19,6 +19,8 @@ class ReservationController extends Controller
     /**
      * Book a Car via an Ad 
      * 
+     * Partner has to validate Reservation within 2 hours
+     * 
      * @param id (Ad id)
      */
     public function create(Request $request){
@@ -33,20 +35,24 @@ class ReservationController extends Controller
 
         // Check if Ad status is available (status == false)
         if($ad->status)
-            return response()->json(["message" => "This car was already booked"], 401);
+            return response()->json(["message" => "This car was already booked"], 409);
         
         // Check if user has an ongoing Reservation
         $ads = \DB::table('ads')
                 ->whereBetween('start_date', [$ad->start_date, $ad->end_date])
-                ->where('status', true)
                 ->get();
         if($ads)
-            return response()->json(["message" => "You have ongoing reservations."], 401);
+            return response()->json(["message" => "You have ongoign or pending reservations in this period"], 409);
+        
+        // Validate Request
+        $validation = $this>verifyRequest($request);
+        if($validation != null) 
+            return $validation;// Validation failed => Return JSON Response
+
         // Everything OK => Insert Reservation with ad id and authenticated user id
         $reservation = new Reservation;
-        $reservation->comment = request('comment');
         $reservation->ad_id = request('ad_id');
-        $reservation->user_id = auth()->user()->id;
+        $reservation->reservator_id = auth()->user()->id;
         if($reservation->save()){
             // Make Ad unavailable
             $ad->status = true;
@@ -54,7 +60,61 @@ class ReservationController extends Controller
             return response()->json(["message" => "Reservation successfully added"], 200);
         }
         return response()->json(["message" => "There was a problem inserting the reservation"], 500);
+    }
 
+
+    /**
+     * Partner validates Reservation
+     * 
+     * @return JSONResponse
+     */
+    public function validate($id){
+        $reservation = Reservation::find($id);
+        if($reservation == null)
+            return response()->json(["message" => "Reservation was not found"], 404);
+        $ad = $reservation->first()->ad;
+        if($ad == null)
+            return response()->json(["message" => "Ad was not found"], 404);
+        if(auth()->user()->ads->contains($ad))
+            return response()->json(["message" => "Unauthorized"], 401);
+        $reservation->status = true;
+        if($reservation->save())
+            return response()->json(["message" => "Reservation validated successfully"], 200);
+        return response()->json(["message" => "There was a problem updating the reservation"], 500);
+    }
+
+
+    /**
+     * Cancel Reservation
+     * 
+     * @return JSONResponse
+     */
+    public function cancel($id){
+        $reservation = Reservation::find($id);
+        if($reservation == null)
+            return response()->json(["message" => "Reservation was not found"], 404);
+        $ad = $reservation->first()->ad;
+        if($ad == null)
+            return response()->json(["message" => "Ad was not found"], 404);
+        if(auth()->user()->ads->contains($ad))
+            return response()->json(["message" => "Unauthorized"], 401);
+        if($reservation->delete())
+            return response()->json(["message" => "Reservation cancelled"]);
+    }
+    /**
+     * Verify Request
+     * 
+     * @return JSONResponse 
+     */
+    public function verifyRequest(Request $request){
+        $rule = [
+            "status" => ["boolean"],
+            "ad_id" => ["required" ,"integer", "exists:ads,id"]
+        ];
+        $validator = Validator::make(request()->all(), $rule);
+        if($validator->fails())
+            return response()->json(["message" => $validator->messages()->toArray()]);
+        return null;
     }
 
 }
