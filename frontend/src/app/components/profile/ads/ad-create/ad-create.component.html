@@ -43,17 +43,35 @@
                 </div>
               </div>
               <div class="form-row">
-                <div class="col-sm-6">
+                <div class="col-sm-7">
                     <div class="form-group">
                         <label for="ad_start">Date de début</label>
                         <input type="date" min="" formControlName="start_date" class="form-control" id="ad_start">
                     </div>
                 </div>
-                <div class="col-sm-6">
+                <div class="col-sm-5">
+                    <div class="form-group">
+                        <label class="form-label">Heure début</label>
+                        <input aria-label="24hr format" [format]="24" [ngxTimepicker]="picker1" type="text" class="form-control" >
+                        <ngx-material-timepicker #picker1></ngx-material-timepicker>
+                      </div>
+                    
+                </div>
+              </div>
+              <div class="form-row">
+                <div class="col-sm-7">
                     <div class="form-group">
                         <label for="ad_end">Date de fin</label>
                         <input type="date" min="{{newAdForm.value.start_date}}" formControlName="end_date" class="form-control" id="ad_end">
                     </div>
+                </div>
+                <div class="col-sm-5">
+                    <div class="form-group">
+                        <label class="form-label">Heure fin</label>
+                        <input [ngxTimepicker]="picker2" type="text" class="form-control" >
+                        <ngx-material-timepicker #picker2></ngx-material-timepicker>
+                    </div>
+                    
                 </div>
               </div>
               

@@ -9,6 +9,7 @@ import { Subscription } from 'rxjs';
 import { AdService } from './../../../../services/shared/ad/ad.service';
 import { Car } from './../../../../models/car.model';
 import { DatePipe } from '@angular/common';
+import { AuthService } from './../../../../services/authentication/auth.service';
 @Component({
   selector: 'app-ad-create',
   templateUrl: './ad-create.component.html',
@@ -26,6 +27,7 @@ export class AdCreateComponent implements OnInit, OnDestroy {
   allMyCars: Car[] = [];
   constructor(
     private router: Router,
+    private auth: AuthService,
     private activatedRoute: ActivatedRoute,
     private cityService: CityService,
     private adService: AdService,
@@ -42,6 +44,8 @@ export class AdCreateComponent implements OnInit, OnDestroy {
         city_id: ['', Validators.required],
         start_date: ['', Validators.required],
         end_date: ['', Validators.required],
+        start_hour : ['00:00', Validators.required],
+        end_hour : ['00:00', Validators.required],
         description: [
           '',
           [

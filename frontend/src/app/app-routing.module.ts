@@ -37,8 +37,6 @@ const appRoutes: Routes = [
   {
     path: 'ads',
     component: AdsPageComponent,
-    canActivate: [AuthGuard],
-    data: { roles: [Role.CLIENT] },
   },
   {
     path: 'ads/:id',
