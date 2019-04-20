@@ -124,7 +124,7 @@ class AuthController extends Controller
             'access_token' => $token,
             'token_type' => 'bearer',
             'expires_in' => auth()->factory()->getTTL() * 120,
-            'user' => auth()->user()->only(['id', 'name', 'email', 'driving_license_number', 'address', 'telephone', 'role', 'status', 'city_id', 'image']),
+            'user' => auth()->user()->only(['id', 'name', 'email', 'driving_license_number', 'address', 'telephone', 'role', 'status', 'city', 'image']),
         ]);
     }
 
