@@ -96,8 +96,8 @@ class User extends Authenticatable implements JWTSubject
      * 
      * Describes which reservations the user has reservated
      */
-    public function reservation(){
-        return $this->hasOne('\App\Reservation', 'reservator_id');
+    public function reservations(){
+        return $this->hasMany('\App\Reservation', 'reservator_id');
     }
 
     /*

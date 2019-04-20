@@ -6,6 +6,9 @@ use Illuminate\Http\Request;
 use App\Ad;
 use App\Reservation;
 use App\User;
+use App\Http\Resources\ReservationResource;
+use App\Http\Resources\ReservationCollection;
+use Illuminate\Support\Arr;
 class ReservationController extends Controller
 {
     /**
@@ -101,6 +104,28 @@ class ReservationController extends Controller
         if($reservation->delete())
             return response()->json(["message" => "Reservation cancelled"]);
     }
+
+
+    /**
+     * Get Authenticated Partner Ads' Reservations
+     * 
+     */
+    public function index(){
+        // Check if User is a Partner
+        if(! auth()->user()->hasRole(User::$ROLES["partner"]))
+            return response()->json(["message" => "Unauthorized"], 401);
+        // return reservations associated to parnter s ads  
+        $ads = auth()->user()->ads;
+        $reservations = array();
+        foreach($ads as $ad){
+            $reservations[] = $ad->reservations;
+        }
+        $reservations = Arr::flatten($reservations);
+        return new ReservationCollection($reservations);
+    }
+    
+
+
     /**
      * Verify Request
      * 
