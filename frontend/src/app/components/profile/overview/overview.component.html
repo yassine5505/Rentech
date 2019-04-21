@@ -51,8 +51,9 @@
             <i class="ace-icon fa fa-circle smaller-80 align-middle">
               </i> Actif
         </span>
-        <span *ngIf="currentUser.status" style="color:red;">
-            
+        <span *ngIf="!currentUser.status" style="color:red;">
+            <i class="ace-icon fa fa-circle smaller-80 align-middle">
+              </i> Compte inactif
         </span>
       </div>
     </div>

@@ -1,16 +1,17 @@
-<div class="card">
+<div class="card" #adBox>
   <app-ribon text="New" ></app-ribon>
   <div class="image">
     <img src="./assets/img/nos-vehicules.jpg">
     <div class="slider__ribon">
-      <div class="ribon">100$ / h</div>
+      <div class="ribon">{{ (adInfo.price || 152 ) | currency:'MAD'}}</div>
     </div>
   </div>
   <div class="body">
     <div class="ad-info">
-      <span class="post-date">
-        Lundi 21 mars, 20H 
-      </span>
+        <span class="post-date">
+            {{adInfo.start_date | date:'MM/yyyy HH:mm' }} -
+            {{adInfo.end_date | date:'MM/yyyy HH:mm' }} 
+        </span>
       <span class="rating">
         <i class="fa fa-star"></i>
         <i class="fa fa-star"></i>
@@ -18,18 +19,24 @@
         <i class="fa fa-star"></i>
         <i class="fa fa-star"></i>
       </span>
-      <h2 class="productname">
-        Ferrari 
-        <span class="model">(XAL-A65)</span>
+      <h2 class="productname" [title]="adInfo.brand + '('+ adInfo.model +')'">
+        {{ (adInfo.brand || 'Ferrari') | slice:0:10 }} 
+        <span class="model">(
+          {{ (adInfo.model || 'ModXA-6') | slice:0:10 }} )
+        </span>
       </h2>
       <span class="description">
-        Lorem ipsum description
-        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quam, quo.
+          {{ ( adInfo.description || 'Une description par default !') | slice:0:25  }} 
       </span>
+      <ul class="some-spec">
+        <li>{{ adInfo.city.name | titlecase }}</li>
+        <li>Du : <span class="date-field">{{adInfo.start_date | date:'MM/yyyy HH:mm' }}</span></li>
+        <li>Du : <span class="date-field">{{adInfo.end_date | date:'MM/yyyy HH:mm' }}</span></li>
+      </ul>
     </div>
     
     <div class="btn_wrapper">
-      <button type="button" title="Reserver" class="button btn-cart">
+      <button type="button" #bookBtn (click)="bookAd()" title="Reserver" class="button btn-cart">
         <span>
           <i class="fa fa-car"></i>
           <i class="fa fa-arrow-down"></i>

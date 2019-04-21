@@ -29,15 +29,12 @@ export class AdCreateComponent implements OnInit, OnDestroy {
   public startDatetime: {start: Moment, end: Moment};
   public endDatetime: {start: Moment, end: Moment};
   constructor(
-    private router: Router,
-    private auth: AuthService,
     private currentUser: AuthService,
     private activatedRoute: ActivatedRoute,
     private cityService: CityService,
     private adService: AdService,
     private carService: CarService,
     private loaderService: LoadingScreenService,
-    private datePipe: DatePipe,
     private formBuilder: FormBuilder
   ) { }
 

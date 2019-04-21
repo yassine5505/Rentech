@@ -5,11 +5,6 @@ import { NgbDateStruct } from '@ng-bootstrap/ng-bootstrap';
   selector: 'app-reservation-search',
   templateUrl: './reservation-search.component.html',
   styleUrls: ['./reservation-search.component.scss'],
-  styles: [`
-    ngb-progressbar {
-        margin-top: 5rem;
-    }
-    `]
 })
 export class ReservationSearchComponent implements OnInit {
   public model1: NgbDateStruct;

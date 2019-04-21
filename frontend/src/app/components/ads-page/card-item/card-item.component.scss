@@ -114,6 +114,9 @@
 
 .ad-info{
   height: 190px;
+  position: relative;
+  
+
 }
 
 .btn_wrapper {
@@ -255,9 +258,9 @@
     height: 48px;
     border-radius: 50px;
     box-sizing: border-box;
-    border-top: 2px solid #00539C;
-    border-bottom: 2px solid #00539C;
-    border-left: 2px solid #00539C;
+    border-top: 2px solid rgb(88, 156, 0);
+    border-bottom: 1px solid  rgb(88, 156, 0);
+    border-left: 1px solid rgb(30, 247, 10);
     border-right: 2px solid #ff8100;
   }
   

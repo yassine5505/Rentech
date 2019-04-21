@@ -19,6 +19,13 @@ export class AdService {
     );
   }
 
+  getActive(): Observable<Ad[]> {
+    return this.apiService.post(`${this.adResourcePrefix}/all`, {})
+    .pipe(
+      map (data => data.ads )
+    );
+  }
+
   get(id): Observable<Ad> {
     return this.apiService.post(`${this.adResourcePrefix}/${id}`, {});
   }
