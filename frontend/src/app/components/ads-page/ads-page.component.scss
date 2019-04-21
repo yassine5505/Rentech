@@ -99,10 +99,12 @@ xfilter
   right: 0;
   height: 50px;
   line-height: 50px;
-  width: 60px;
+  width: 90px;
   color: #ffffff;
-  font-size: 1.3rem;
+  font-size: 1.1rem;
   text-align: center;
+
+  cursor: pointer;
   background: #37296a;
   opacity: 0;
   -webkit-transition: opacity 0.3s;
@@ -139,13 +141,15 @@ xfilter
   left: 0;
   height: 50px;
   line-height: 50px;
-  width: 60px;
+  padding: 10px;
+  width: 70px;
+  cursor: pointer;
   /* image replacement */
   overflow: hidden;
   text-indent: 100%;
   color: transparent;
   white-space: nowrap;
-  background: transparent url("../../../assets/img/icon/cd-icon-filter.svg") no-repeat center center;
+  background: black url("../../../assets/img/icon/cd-icon-filter.svg") no-repeat center center;
   z-index: 2000;
 }
 .cd-filter-trigger.filter-is-visible {
@@ -153,15 +157,17 @@ xfilter
 }
 @media only screen and (min-width: 1170px) {
   .cd-filter-trigger {
-    width: auto;
-    left: 2%;
+    width: 280px;
+    left: 10px;
     text-indent: 0;
-    color: #9a9a9a;
+    color: white;
     text-transform: uppercase;
-    font-size: 1.3rem;
-    font-weight: 700;
-    padding-left: 24px;
-    background-position: left center;
+    font-size: 1rem;
+    font-weight: 600;
+    padding: 0%;
+    padding-left: 35px;
+    padding-right: 24px;
+    background-position: 10px center;
     -webkit-transition: color 0.3s;
     -moz-transition: color 0.3s;
     transition: color 0.3s;
@@ -180,7 +186,7 @@ xcustom form elements
 
 -------------------------------- */
 .cd-filter-block {
-  margin-bottom: 1.6em;
+  margin-bottom: 0.5em;
 }
 .cd-filter-block h4 {
   /* filter block title */
@@ -236,7 +242,10 @@ xcustom form elements
 }
 .cd-filter-block input[type='search'],
 .cd-filter-block input[type='text'],
-.cd-filter-block select {
+.cd-filter-block select,
+.cd-filter-block input[type='date'] ,
+.cd-filter-block input[type='number'] 
+ {
   width: 100%;
   padding: .8em;
   -webkit-appearance: none;
@@ -285,7 +294,7 @@ xcustom form elements
   background: url("../../../assets/img/icon/cd-icon-arrow.svg") no-repeat center center;
   pointer-events: none;
 }
-.cd-filter-block select {
+.cd-filter-block select{
   cursor: pointer;
   font-size: 1.4rem;
 }
@@ -312,7 +321,7 @@ xcustom form elements
 }
 .cd-filter-block .checkbox-label,
 .cd-filter-block .radio-label {
-  padding-left: 24px;
+  padding-left: 20px;
   font-size: 1.4rem;
   -webkit-user-select: none;
   -moz-user-select: none;
@@ -348,7 +357,7 @@ xcustom form elements
   /* check mark style for check boxes */
   width: 16px;
   height: 16px;
-  background: url("../../../assets/img/icon/cd-icon-check.svg") no-repeat center center;
+  background: url("../../../assets/img/icon/cd-icon-check.svg") no-repeat 0px center;
 }
 .cd-filter-block .radio-label::before,
 .cd-filter-block .radio-label::after {
