@@ -163,7 +163,7 @@ class AdController extends Controller
         }
         $validator = Validator::make(request()->all(), $rule);
         if($validator->fails()){
-            return response()->json(["message" => $validator->messages()->toArray()]);
+            return response()->json(["message" => $validator->messages()->toArray()], 422);
         }
         return null;
     }
