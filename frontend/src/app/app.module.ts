@@ -25,6 +25,7 @@ import { SnotifyModule, SnotifyService, ToastDefaults } from 'ng-snotify';
 import { ReservationSearchComponent } from './components/shared/reservation-search/reservation-search.component';
 import {NgxMaterialTimepickerModule} from 'ngx-material-timepicker';
 
+import { NgxDaterangepickerMd } from 'ngx-daterangepicker-material';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { JwtInterceptor } from './_helpers/jwt.interceptor';
 import { ErrorInterceptor } from './_helpers/error.interceptor';
@@ -70,6 +71,7 @@ import { CardItemDetailsComponent } from './components/ads-page/card-item-detail
     BrowserModule,
     AppRoutingModule,
     NgbModule.forRoot(),
+    NgxDaterangepickerMd.forRoot(),
     FormsModule,
     HttpClientModule,
     SnotifyModule,
