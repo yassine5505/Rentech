@@ -22,7 +22,7 @@ class Ad extends Model
 
     //Relationship with Car
     public function car(){
-        return $this->belongsTo('\App\Car');
+        return $this->hasOne('\App\Car');
     }
 
     // Relationship with City
