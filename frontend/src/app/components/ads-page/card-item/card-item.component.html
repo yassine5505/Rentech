@@ -19,20 +19,43 @@
         <i class="fa fa-star"></i>
         <i class="fa fa-star"></i>
       </span>
-      <h2 class="productname" [title]="adInfo.brand + '('+ adInfo.model +')'">
-        {{ (adInfo.brand || 'Ferrari') | slice:0:10 }} 
+      <h2 class="productname" [title]="adInfo.car.brand + '('+ adInfo.car.model +')'">
+        {{ (adInfo.car.brand || 'Ferrari') | slice:0:10 }} 
         <span class="model">(
-          {{ (adInfo.model || 'ModXA-6') | slice:0:10 }} )
+          {{ (adInfo.car.model || 'ModXA-6') | slice:0:10 }} )
         </span>
-      </h2>
+      </h2><!-- 
       <span class="description">
           {{ ( adInfo.description || 'Une description par default !') | slice:0:25  }} 
-      </span>
+      </span> -->
       <ul class="some-spec">
-        <li>{{ adInfo.city.name | titlecase }}</li>
+        <li>
+          <span class="badge badge-info">
+            <i class="fa fa-map-marker"></i>
+            {{ adInfo.city.name | uppercase }}
+          </span>
+        </li>
         <li>Du : <span class="date-field">{{adInfo.start_date | date:'MM/yyyy HH:mm' }}</span></li>
-        <li>Du : <span class="date-field">{{adInfo.end_date | date:'MM/yyyy HH:mm' }}</span></li>
+        <li>Au : <span class="date-field">{{adInfo.end_date | date:'MM/yyyy HH:mm' }}</span></li>
       </ul>
+      <div class="some-details">
+            
+          <span title="{{ adInfo.car.motor}}" class="badge badge-info" >
+              Moteur {{ adInfo.car.motor}}</span>
+          <span title="{{!adInfo.car.airbag ? 'INDISPONIBLE' : 'DISPONIBLE'}}" 
+          class="badge"
+          [ngClass]="{'badge-danger': !adInfo.car.airbag, 'badge-success': !!adInfo.car.airbag }" >
+          Airbag</span>
+          <span title="{{!adInfo.car.abs ? 'INDISPONIBLE' : 'DISPONIBLE'}}" 
+          class="badge"
+          [ngClass]="{'badge-danger': !adInfo.car.abs, 'badge-success': !!adInfo.car.abs }" >
+           ABS</span>
+          <span title="{{!adInfo.car.centralized ? 'INDISPONIBLE' : 'DISPONIBLE'}}" 
+          class="badge"
+          [ngClass]="{'badge-danger': !adInfo.car.centralized, 'badge-success': !!adInfo.car.centralized }" >
+           Centralisation</span>
+      </div>
+
     </div>
     
     <div class="btn_wrapper">

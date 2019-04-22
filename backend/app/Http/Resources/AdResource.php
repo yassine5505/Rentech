@@ -15,6 +15,7 @@ class AdResource extends JsonResource
      */
     public function toArray($request)
     {
+        // dd($this);
         return [
             "id" => $this->id,
             "description"=>$this->description,
@@ -23,7 +24,7 @@ class AdResource extends JsonResource
             "status"=>$this->status,
             "price"=>$this->price,
             "car" => new CarResource($this->car),
-            "city" => new cityResource($this->city),
+            "city" => new CityResource($this->city)
         ];
     }
 }
