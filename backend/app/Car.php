@@ -36,7 +36,7 @@ class Car extends Model
      *
      */
     public function ad(){
-        return $this->hasOne('\App\Car');
+        return $this->hasMany('\App\Ad');
     }
 
     /**
