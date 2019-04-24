@@ -117,13 +117,13 @@
 
 .card-register {
   /* background-color: #FF8F5E; */
-  background-color: rgba(17, 17, 16, 0.644);
+  background-color: rgba(17, 17, 16, 0.76);
   border-radius: 5px;
   color: #fff;
-  max-width: 1200px;
+  max-width: 1300px;
   margin: 50px 0 40px;
   min-height: 400px;
-  padding: 30px;
+  padding: 20px;
   z-index: 1;
 
   .social-line{
@@ -141,11 +141,12 @@
 
 
 .card-register .title {
-  color: rgb(243, 73, 11);
-  font-weight: bold;
-  padding: 10px;
-  font-size: 3em;
-  text-align: center; }
+    text-align: center;
+    font-size: 3em;
+    padding: 10px;
+    font-weight: 700;
+    color: white;
+}
 
 
 .card-register .forgot {
