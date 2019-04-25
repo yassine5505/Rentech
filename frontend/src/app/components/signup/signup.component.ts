@@ -48,6 +48,8 @@ export class SignupComponent implements OnInit, OnDestroy {
         // stop here if form is invalid
         if (this.registerForm.invalid) {
             this.loaderService.stopLoading();
+            this.error = [];
+            this.error.push('Certaines informations du formulaire sont invalides !');
             return;
         }
         this.authenticationService.signup(this.registerForm.value).subscribe(

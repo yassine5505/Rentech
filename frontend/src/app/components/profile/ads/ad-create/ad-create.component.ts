@@ -11,6 +11,7 @@ import { Car } from './../../../../models/car.model';
 import { DatePipe } from '@angular/common';
 import { AuthService } from './../../../../services/authentication/auth.service';
 import { Moment } from 'moment';
+import { User } from 'src/app/models';
 @Component({
   selector: 'app-ad-create',
   templateUrl: './ad-create.component.html',
@@ -28,8 +29,9 @@ export class AdCreateComponent implements OnInit, OnDestroy {
   allMyCars: Car[] = [];
   public startDatetime: {start: Moment, end: Moment};
   public endDatetime: {start: Moment, end: Moment};
+  public user: User = null;
   constructor(
-    private currentUser: AuthService,
+    private authService: AuthService,
     private activatedRoute: ActivatedRoute,
     private cityService: CityService,
     private adService: AdService,
@@ -39,13 +41,16 @@ export class AdCreateComponent implements OnInit, OnDestroy {
   ) { }
 
   ngOnInit() {
+    this.authService.currentUser.subscribe(
+      value => this.user = value
+    );
     this.loaderService.startLoading();
     this.newAdForm = this.formBuilder.group(
       {
         city_id: ['', Validators.required],
         start_date: ['', null],
         end_date: ['', null],
-        user_id: this.currentUser.currentUserValue.id ,
+        user_id: this.authService.currentUserValue.id ,
         startDatetime: ['', Validators.required],
         endDatetime: ['', Validators.required],
         description: ['', Validators.required],
@@ -142,6 +147,7 @@ export class AdCreateComponent implements OnInit, OnDestroy {
       },
       error => {
         this.handleError(error);
+        this.error.push('Une erreur est survenue lors de l inscritption !');
         this.loaderService.stopLoading();
       },
       () => {

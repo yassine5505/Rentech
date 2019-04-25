@@ -1,107 +1,98 @@
 <div class="wrapper">
-    <div class="section" style="background: grey;">
-        <div class="filter"></div>
-        <div class="container">
-            <div class="row">
-                <div class="col-md-12 mr-auto ml-auto">
-                    <div class="card card-register">
-                        <h3 class="title">Inscription </h3>
-                       <!--  <div class="social-line text-center">
-                              <a href="#pablo" class="btn btn-neutral btn-facebook btn-just-icon">
-                                  <i class="fa fa-facebook-square"></i>
-                              </a>
-                              <a href="#pablo" class="btn btn-neutral btn-google btn-just-icon">
-                                  <i class="fa fa-google-plus"></i>
-                              </a>
-                              <a href="#pablo" class="btn btn-neutral btn-twitter btn-just-icon">
-                                  <i class="fa fa-twitter"></i>
-                              </a>
-                        </div>     -->
-                        <form  (ngSubmit)="onSubmit()" [formGroup]="registerForm"  class="register-form">
-                          
-                            <div class="form-group">
-                                <label for="inputNom"  class="control-label">Nom complet</label>  
-                                <input  id="inputNom"  formControlName="name" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.name.errors }"   type="text">
-                           </div>
-                          
-                              
-                            <div class="row form-group">
-                               <div class="col-md-6">
-                                   
-                                    <label for="inputCity" class="col-sm-12 control-label">Ville de résidence : </label>  
-                                    <select id="inputCity" formControlName="city_id"  class="col-sm-12 form-control">
-                                        <option *ngFor="let city of cities" 
-                                        [ngValue]="city.id" [selected]="city.id == 1" >
-                                        {{ city.name }}
-                                        </option>
-                                    </select>
-                               </div>
-                               <div class="col-md-6">
-                                    <label for="inputCategory" class="col-sm-12 control-label">Vous êtes : </label>  
-                                    <select id="inputCategory" formControlName="role"  class="col-sm-12 form-control">
-                                        <option value="CLIENT" selected>Client (Chercheur d'offres)</option>
-                                        <option value="PARTNER" >Partenaire (Prestataire ayant au moins une voiture)</option>
-                                    </select>
-                               </div>
-                            </div>
-    
-                            <div class="form-group">
-                               
-                                    <label for="inputEmail" class="col-sm-12 col-form-label">Adresse électronique</label>
-                                    <input type="email"  formControlName="email" id="inputEmail" class="form-control" placeholder="Email" > 
-                            </div>
-
-                            <div class="row form-group">
-                               <div class="col-md-6">
-                                    <label for="inputPassword">Password</label>
-                                    <div class="input-group form-group-no-border">
-                                        <div class="input-group-prepend">
-                                        <span class="input-group-text">
-                                            <i class="nc-icon nc-key-25"></i>
-                                        </span>
-                                        </div>
-                                        <input type="password"  formControlName="password" id="inputPassword" class="form-control" placeholder="Password" >
-                                    </div>
-                               </div>
-                               <div class="col-md-6">
-                                    <label for="inputConfirmPassword">Confirm Password</label>
-                                    <div class="input-group form-group-no-border">
-                                        <div class="input-group-prepend">
-                                            <span class="input-group-text">
-                                                <i class="nc-icon nc-key-25"></i>
-                                            </span>
-                                        </div>
-                                        <input type="password"  formControlName="password_confirmation" class="form-control" id="inputConfirmPassword" placeholder="Password" required>
-                                    </div>
-                               </div>
-                            </div>
-                            
-                            <div class="row form-group">
-                                <div class="offset-1 col-md-10">
-                                    <div>
-                                        <label class="">
-                                            <input class=""  formControlName="iAcceptContrat" type="checkbox">
-                                                J'ai lu et j'accepte les 
-                                                <a href="#"> Conditions Générales d'Utilisation </a> et la
-                                                <a href="#">  Politique de Protection des Données Personnelles </a>
-                                            <span class="form-check-sign"></span>
-                                        </label>
-                                    </div>
-                                    
-                                </div> 
-                            </div>
-                            
-                            <div class="text-center row ">
-                                <button class="btn btn-danger btn-block btn-round" type="submit">S'INSCRIRE</button>
-                            </div>
-                            
-                        </form>  
-                    </div>
-                    
-                </div>  
+  <div class="container-fluid "
+    style="background-image: url('./assets/img/Nissan-Skyline-2000-GTX-classic-car_1920x1200.jpg');">
+      <div class="row ">
+        <div class="col-lg-10 col-md-12  col-md-offset-5 ">
+          <div class="card card-register">
+          <form (ngSubmit)="onSubmit()" style="" [formGroup]="registerForm" class="register-form">
+            <h3 class="title">Inscription</h3>
+            <br>
+            <div class="form-group" *ngIf="error.length > 0">
+              <div *ngFor="let message of error" role="alert" class="alert alert-danger" style="width: 100% !important">
+                {{message | titlecase}}</div>
             </div>
+            
+            <div class="form-group">
+              <label for="inputNom" class="control-label">Nom complet</label>
+              <input id="inputNom" formControlName="name" class="form-control"
+                [ngClass]="{ 'is-invalid': submitted && f.name.errors }" type="text">
+            </div>
+
+
+            <div class="row form-group">
+              <div class="col-md-6">
+
+                <label for="inputCity" class="col-sm-12 control-label">Ville de résidence : </label>
+                <select id="inputCity" formControlName="city_id" class="col-sm-12 form-control">
+                  <option *ngFor="let city of cities" [ngValue]="city.id" [selected]="city.id == 1">
+                    {{ city.name }}
+                  </option>
+                </select>
+              </div>
+              <div class="col-md-6">
+                <label for="inputCategory" class="col-sm-12 control-label">Vous êtes : </label>
+                <select id="inputCategory" formControlName="role" class="col-sm-12 form-control">
+                  <option value="CLIENT" selected>Client (Chercheur d'offres)</option>
+                  <option value="PARTNER">Partenaire (Prestataire ayant au moins une voiture)</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="form-group">
+
+              <label for="inputEmail" class="col-sm-12 col-form-label">Adresse électronique</label>
+              <input type="email" formControlName="email" id="inputEmail" class="form-control" placeholder="Email">
+            </div>
+
+            <div class="row form-group">
+              <div class="col-md-6">
+                <label for="inputPassword">Password</label>
+                <div class="input-group form-group-no-border">
+                  <div class="input-group-prepend">
+                    <span class="input-group-text">
+                      <i class="nc-icon nc-key-25"></i>
+                    </span>
+                  </div>
+                  <input type="password" formControlName="password" id="inputPassword" class="form-control"
+                    placeholder="Password">
+                </div>
+              </div>
+              <div class="col-md-6">
+                <label for="inputConfirmPassword">Confirm Password</label>
+                <div class="input-group form-group-no-border">
+                  <div class="input-group-prepend">
+                    <span class="input-group-text">
+                      <i class="nc-icon nc-key-25"></i>
+                    </span>
+                  </div>
+                  <input type="password" formControlName="password_confirmation" class="form-control"
+                    id="inputConfirmPassword" placeholder="Password" required>
+                </div>
+              </div>
+            </div>
+
+            <div class="row form-group">
+              <div class="offset-1 col-md-10">
+                <div>
+                  <label class="">
+                    <input class="" formControlName="iAcceptContrat" type="checkbox">
+                    J'ai lu et j'accepte les
+                    <a href="#"> Conditions Générales d'Utilisation </a> et la
+                    <a href="#"> Politique de Protection des Données Personnelles </a>
+                    <span class="form-check-sign"></span>
+                  </label>
+                </div>
+
+              </div>
+            </div>
+
+            <div class="text-center row ">
+              <button class="btn btn-danger btn-block btn-round" type="submit">S'INSCRIRE</button>
+            </div>
+
+          </form>
+        </div>
         </div>
     </div>
+  </div>
 </div>
-
-       

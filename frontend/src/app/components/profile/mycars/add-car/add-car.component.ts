@@ -106,6 +106,7 @@ export class AddCarComponent implements OnInit {
     this.carService.add(formData).subscribe(
       data => {
         this.handleResponse(data);
+        this.newCarForm.reset();
       },
       error => {
         this.handleError(error);

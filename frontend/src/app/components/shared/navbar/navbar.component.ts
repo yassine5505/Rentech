@@ -34,7 +34,7 @@ export class NavbarComponent implements OnInit, OnDestroy {
         const navbar: HTMLElement = this.element.nativeElement;
         this.toggleButton = navbar.getElementsByClassName('navbar-toggler')[0];
         this.authService.authStatus.subscribe(value => this.loggedIn = value);
-        this.currentUser = this.authService.currentUserValue;
+        this.authService.currentUser.subscribe(value => this.currentUser = value);
     }
     sidebarOpen() {
         const toggleButton = this.toggleButton;
