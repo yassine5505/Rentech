@@ -142,6 +142,7 @@ export class AdCreateComponent implements OnInit, OnDestroy {
       },
       error => {
         this.handleError(error);
+        this.error.push('Une erreur est survenue lors de l inscritption !');
         this.loaderService.stopLoading();
       },
       () => {
