@@ -32,4 +32,9 @@ export class User {
     }
   }
 
+  isActive(): boolean {
+    return this.status;
+  }
+
+
 }
