@@ -4,6 +4,16 @@
     height: 400px;
     border: 1px solid #ccc;
 
+
+    &.booking-success {
+      box-shadow: -1px 2px 8px #4ae70c;
+      animation: slide 1s ease 2s forwards;
+    }
+    
+
+    &.booking-error {
+      box-shadow: -1px 2px 8px #e73f0cd5;
+    }
     // ============================= RIBON
     .slider__ribon {
         background: #e00;
@@ -349,3 +359,11 @@
     padding: 4px;
     margin-left: 5px !important;
   }
+
+  @keyframes slide {
+    from {opacity: 1;}
+    to {
+      opacity: 0;
+      display: none;
+    }
+  } 

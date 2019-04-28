@@ -33,8 +33,21 @@ export class User {
   }
 
   isActive(): boolean {
-    return this.status;
+    return !this.status;
   }
 
+  isAdmin(): boolean {
+    return this.role === Role.ADMIN;
+  }
+  isClient(): boolean {
+    return this.role === Role.CLIENT;
+  }
+  isPartner(): boolean {
+    return this.role === Role.PARTNER;
+  }
+
+  isVisitor(): boolean {
+    return !this.isAdmin && !this.isPartner && !this.isClient;
+  }
 
 }

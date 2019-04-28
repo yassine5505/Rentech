@@ -1,4 +1,4 @@
-<div class="card" #adBox>
+<div class="card" #adBox *ngIf="visibled">
   <app-ribon text="New" ></app-ribon>
   <div class="image">
     <img src="./assets/img/nos-vehicules.jpg">
@@ -9,8 +9,8 @@
   <div class="body">
     <div class="ad-info">
         <span class="post-date">
-            {{adInfo.start_date | date:'MM/yyyy HH:mm' }} -
-            {{adInfo.end_date | date:'MM/yyyy HH:mm' }} 
+            {{adInfo.start_date | date:'dd/MM/yyyy HH:mm' }} -
+            {{adInfo.end_date | date:'dd/MM/yyyy HH:mm' }} 
         </span>
       <span class="rating">
         <i class="fa fa-star"></i>
@@ -35,8 +35,8 @@
             {{ adInfo.city.name | uppercase }}
           </span>
         </li>
-        <li>Du : <span class="date-field">{{adInfo.start_date | date:'MM/yyyy HH:mm' }}</span></li>
-        <li>Au : <span class="date-field">{{adInfo.end_date | date:'MM/yyyy HH:mm' }}</span></li>
+        <li>Du : <span class="date-field">{{adInfo.start_date | date:'dd/MM/yyyy HH:mm' }}</span></li>
+        <li>Au : <span class="date-field">{{adInfo.end_date | date:'dd/MM/yyyy HH:mm' }}</span></li>
       </ul>
       <div class="some-details">
             
@@ -55,11 +55,11 @@
           [ngClass]="{'badge-danger': !adInfo.car.centralized, 'badge-success': !!adInfo.car.centralized }" >
            Centralisation</span>
       </div>
-
+    
     </div>
     
     <div class="btn_wrapper">
-      <button type="button" #bookBtn (click)="bookAd()" title="Reserver" class="button btn-cart">
+      <button type="button" #bookBtn (click)="bookAd()"  title="Reserver" class="button btn-cart">
         <span>
           <i class="fa fa-car"></i>
           <i class="fa fa-arrow-down"></i>
@@ -78,5 +78,6 @@
         <div class="spinner"></div>
       </button>
     </div>
+    
   </div>
 </div>

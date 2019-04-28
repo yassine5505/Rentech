@@ -4,14 +4,12 @@ import { CarService } from './../../../../services/shared/car/car.service';
 import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
 import { LoadingScreenService } from './../../../../services/shared/loading-screen/loading-screen.service';
 import { CityService } from './../../../../services/shared/city/city.service';
-import { City } from './../../../../models/city.model';
 import { Subscription } from 'rxjs';
 import { AdService } from './../../../../services/shared/ad/ad.service';
-import { Car } from './../../../../models/car.model';
+import { Car , City , User } from './../../../../models';
 import { DatePipe } from '@angular/common';
 import { AuthService } from './../../../../services/authentication/auth.service';
 import { Moment } from 'moment';
-import { User } from 'src/app/models';
 @Component({
   selector: 'app-ad-create',
   templateUrl: './ad-create.component.html',

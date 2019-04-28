@@ -57,7 +57,7 @@ Route::group(['middleware' => 'api'], function () {
     // Reservation Routes
     Route::group(['prefix' => 'reservations'], function(){
         Route::post('create', 'ReservationController@create');
-        Route::post('{id}/validate', 'ReservationController@validate');
+        Route::post('{id}/validate', 'ReservationController@valider');
         Route::post('{id}/cancel', 'ReservationController@cancel');
     });
 

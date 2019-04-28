@@ -8,6 +8,7 @@ use App\Reservation;
 use App\User;
 use App\Http\Resources\ReservationResource;
 use App\Http\Resources\ReservationCollection;
+use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Arr;
 class ReservationController extends Controller
 {
@@ -43,12 +44,15 @@ class ReservationController extends Controller
         // Check if user has an ongoing Reservation
         $ads = \DB::table('ads')
                 ->whereBetween('start_date', [$ad->start_date, $ad->end_date])
+                ->join('reservations', 'ads.id', '=', 'reservations.ad_id')
+                ->where('reservations.reservator_id', '=', $request->id)
                 ->get();
-        if($ads)
-            return response()->json(["message" => "You have ongoign or pending reservations in this period"], 409);
+        // dd($ads);
+        if(count($ads))
+            return response()->json(["message" => "You have ongoing or pending reservations in this period"], 409);
         
         // Validate Request
-        $validation = $this>verifyRequest($request);
+        $validation = $this->verifyRequest($request);
         if($validation != null) 
             return $validation;// Validation failed => Return JSON Response
 
@@ -71,7 +75,7 @@ class ReservationController extends Controller
      * 
      * @return JSONResponse
      */
-    public function validate($id){
+    public function valider($id){
         $reservation = Reservation::find($id);
         if($reservation == null)
             return response()->json(["message" => "Reservation was not found"], 404);
