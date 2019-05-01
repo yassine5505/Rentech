@@ -47,7 +47,7 @@ class ReservationController extends Controller
                 ->join('reservations', 'ads.id', '=', 'reservations.ad_id')
                 ->where('reservations.reservator_id', '=', $request->id)
                 ->get();
-        // dd($ads);
+                
         if(count($ads))
             return response()->json(["message" => "You have ongoing or pending reservations in this period"], 409);
         
