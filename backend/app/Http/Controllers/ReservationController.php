@@ -14,6 +14,7 @@ use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Arr;
 use App\Mail\PartnerMustConfirmReservation;
 use Illuminate\Support\Facades\Mail;
+use App\Mail\CancelEmail;
 
 class ReservationController extends Controller
 {
@@ -71,7 +72,7 @@ class ReservationController extends Controller
             // Make Ad unavailable
             $ad->status = true;
             $ad->save();
-            Mail::to($reservation->ad->user->email)->queue(new PartnerMustConfirmReservation($reservation));
+            Mail::to($reservation->ad->user->email)->send(new PartnerMustConfirmReservation($reservation));
             // Start CRON Job Now (Partner has to validate reservation)
             return response()->json(["message" => "Reservation successfully added"], 200);
         }
@@ -109,13 +110,28 @@ class ReservationController extends Controller
         $reservation = Reservation::find($id);
         if($reservation == null)
             return response()->json(["message" => "Reservation was not found"], 404);
-        $ad = $reservation->first()->ad;
+    
+        $ad = $reservation->ad;
         if($ad == null)
             return response()->json(["message" => "Ad was not found"], 404);
+        if(! $ad->status)
+            return response()->json(["message" => "Ad was already cancelled"], 422);
+            
         if(auth()->user()->ads->contains($ad))
-            return response()->json(["message" => "Unauthorized"], 401);
-        if($reservation->delete())
-            return response()->json(["message" => "Reservation cancelled"]);
+            $sendTo = $reservation->reservator->email;
+
+        if(auth()->user()->email == $reservation->reservator->email){
+            $sendTo = auth()->user()->email;
+        }
+        // Cancel reservation
+        $reservation->status = false;
+        $reservation->ad->status = false;
+        if($reservation->save() and $reservation->ad->save()){
+            $whoCanceled = auth()->user();
+            Mail::to($sendTo)->send(new CancelEmail($reservation, $whoCanceled));
+            return response()->json(["message" => "Reservation cancelled successfully"], 200);
+        }
+        return response()->json(["message" => "There was a problem cancelling the reservation"], 500);
     }
 
 
