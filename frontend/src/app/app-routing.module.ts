@@ -99,7 +99,7 @@ const appRoutes: Routes = [
         path: 'history',
         component: ClientHistoryComponent,
         canActivate: [AuthGuard],
-        data: { roles: [Role.PARTNER] }
+        data: { roles: [Role.CLIENT] }
       },
 
     ]

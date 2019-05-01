@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { AuthenticationService } from '../../services/authentication/authentication.service';
 import { TokenService } from '../../services/authentication/token.service';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { AuthService } from '../../services/authentication/auth.service';
 import { User } from './../../models/user.model';
 import { LoadingScreenService } from '../../services/shared/loading-screen/loading-screen.service';
@@ -63,7 +63,13 @@ export class LoginComponent implements OnInit {
     this.Auth.changeCurrentUserSubject(user);
 
     if (user.role === Role.PARTNER) {
-      this.router.navigateByUrl('/home');
+      this.router.navigateByUrl('/profile/ads');
+      return;
+    }
+
+    if (user.role === Role.CLIENT) {
+      this.router.navigateByUrl('/ads');
+      return;
     }
     this.router.navigateByUrl('/profile');
   }
