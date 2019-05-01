@@ -1,3 +1,41 @@
 <div class="container">
   <h2>Liste de mes annonces</h2>
 </div>
+<div class="wrap cf">
+  <div class="heading cf">
+    <a href="#" class="continue">Aller aux annonces !</a>
+  </div>
+  <div class="cart">
+    
+    <ul class="cartWrap">
+      <li class="items odd">
+
+        <div class="infoWrap">
+          <div class="cartSection">
+            <img src="http://lorempixel.com/output/technics-q-c-300-300-4.jpg" alt="" class="itemImg" />
+            <p><b>Berline ACl-SS2</b></p>
+            <h3>Réserver par Mohammed</h3>
+            <p><b>De</b> 22-Fev 2019 </p><br>
+            <p><b> à</b> 22-Avr 2019 </p>
+
+            <p class="stockStatus"> En attente </p><br>
+            <p> <b>MAD1500.00</b></p>
+          </div>
+          <div class="cartSection removeWrap">
+          	<div>
+          <span *ngFor="let score of [1 , 2 , 2]" class="fa fa-star checked"></span>
+          <span *ngFor="let score of  [1, 2]" class="fa fa-star"></span>
+          	</div>
+          </div>
+        </div>
+        <div class="prodTotal cartSection" >
+            <button class="btn btn-primary">Valider</button>
+            <button class="btn btn-danger">Annuler</button>
+          </div>
+      </li>
+    
+
+    </ul>
+  </div>
+
+</div>
