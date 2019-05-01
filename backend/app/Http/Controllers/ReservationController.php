@@ -8,8 +8,13 @@ use App\Reservation;
 use App\User;
 use App\Http\Resources\ReservationResource;
 use App\Http\Resources\ReservationCollection;
+use App\Http\Resources\AdResource;
+use App\Http\Resources\UserResource;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Arr;
+use App\Mail\PartnerMustConfirmReservation;
+use Illuminate\Support\Facades\Mail;
+
 class ReservationController extends Controller
 {
     /**
@@ -36,7 +41,9 @@ class ReservationController extends Controller
         $ad = Ad::find(request('ad_id'));
         if($ad == null)
             return response()->json(["message" => "Ad was not found"], 404);
-
+        // Check if Ad has not expired 
+        if($ad->end_date < \Carbon\Carbon::now())
+            return response()->json(["message" => "Ad has already expired"], 422);
         // Check if Ad status is available (status == false)
         if($ad->status)
             return response()->json(["message" => "This car was already booked"], 409);
@@ -62,8 +69,10 @@ class ReservationController extends Controller
         $reservation->reservator_id = auth()->user()->id;
         if($reservation->save()){
             // Make Ad unavailable
-            $ad->status = true;
+            //$ad->status = true;
             $ad->save();
+            Mail::to(auth()->user()->email)->send(new PartnerMustConfirmReservation($reservation));
+            // Start CRON Job Now (Partner has to validate reservation)
             return response()->json(["message" => "Reservation successfully added"], 200);
         }
         return response()->json(["message" => "There was a problem inserting the reservation"], 500);
@@ -75,14 +84,14 @@ class ReservationController extends Controller
      * 
      * @return JSONResponse
      */
-    public function valider($id){
+    public function valid($id){
         $reservation = Reservation::find($id);
         if($reservation == null)
             return response()->json(["message" => "Reservation was not found"], 404);
         $ad = $reservation->first()->ad;
         if($ad == null)
             return response()->json(["message" => "Ad was not found"], 404);
-        if(auth()->user()->ads->contains($ad))
+        if(!auth()->user()->ads->contains($ad))
             return response()->json(["message" => "Unauthorized"], 401);
         $reservation->status = true;
         if($reservation->save())
@@ -116,16 +125,28 @@ class ReservationController extends Controller
      */
     public function index(){
         // Check if User is a Partner
-        if(! auth()->user()->hasRole(User::$ROLES["partner"]))
-            return response()->json(["message" => "Unauthorized"], 401);
-        // return reservations associated to parnter s ads  
-        $ads = auth()->user()->ads;
-        $reservations = array();
-        foreach($ads as $ad){
-            $reservations[] = $ad->reservations;
+        if(auth()->user()->hasRole(User::$ROLES["partner"])){
+            // return reservations associated to parnter's ads  
+            $ads = auth()->user()->ads;
+            $reservations = \DB::table('reservations')
+            ->join('ads', 'ads.id', '=', 'reservations.ad_id')
+            ->select('reservations.*')
+            ->where('ads.user_id', '=', auth()->user()->id)
+            ->get();
+            foreach($reservations as $reservation){
+                $reservation->ad = new AdResource(Ad::find($reservation->ad_id));
+                $reservation->reservator = new UserResource(User::find($reservation->reservator_id));
+            }
+            return response()->json(["reservations" => $reservations->toArray()], 200);
         }
-        $reservations = Arr::flatten($reservations);
-        return new ReservationCollection($reservations);
+        else if(auth()->user()->hasRole(User::$ROLES["client"])){
+            $reservations = auth()->user()->reservations;
+            foreach($reservations as $reservation){
+                $reservation->ad = new AdResource(Ad::find($reservation->ad_id));
+            }
+            return response()->json(["reservations" => $reservations->toArray()], 200);            
+        }
+        return response()->json(["message" => "Unauthorized"], 401);
     }
     
 
