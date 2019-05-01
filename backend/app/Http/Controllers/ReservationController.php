@@ -69,7 +69,7 @@ class ReservationController extends Controller
         $reservation->reservator_id = auth()->user()->id;
         if($reservation->save()){
             // Make Ad unavailable
-            $ad->status = true;
+            //$ad->status = true;
             $ad->save();
             Mail::to(auth()->user()->email)->send(new PartnerMustConfirmReservation($reservation));
             // Start CRON Job Now (Partner has to validate reservation)

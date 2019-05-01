@@ -37,7 +37,6 @@ class PartnerMustConfirmReservation extends Mailable
      */
     public function build()
     {
-        // When Client makes a reservation, Partner receives email with Client Ratings(Comments + Score) 
-        return $this->view('email.partnerValidatesReservation');
+        return $this->markdown('emails.partnerconfirmsreservation');
     }
 }
