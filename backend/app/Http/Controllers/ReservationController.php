@@ -44,8 +44,8 @@ class ReservationController extends Controller
         // Check if user has an ongoing Reservation
         $ads = \DB::table('ads')
                 ->whereBetween('start_date', [$ad->start_date, $ad->end_date])
-                ->join('reservations', 'ads.id', '=', 'reservations.ad_id')
-                ->where('reservations.reservator_id', '=', $request->id)
+                    ->join('reservations', 'ads.id', '=', 'reservations.ad_id')
+                    ->where('reservations.reservator_id', '=', $request->id)
                 ->get();
                 
         if(count($ads))

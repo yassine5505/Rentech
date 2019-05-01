@@ -42,6 +42,7 @@ import { AdsPageComponent } from './components/ads-page/ads-page.component';
 import { CardItemComponent } from './components/ads-page/card-item/card-item.component';
 import { RibonComponent } from './components/shared/ribon/ribon.component';
 import { CardItemDetailsComponent } from './components/ads-page/card-item-details/card-item-details.component';
+import { PreviewItemComponent } from './components/shared/preview-item/preview-item.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -65,7 +66,8 @@ import { CardItemDetailsComponent } from './components/ads-page/card-item-detail
     AdsPageComponent,
     CardItemComponent,
     RibonComponent,
-    CardItemDetailsComponent
+    CardItemDetailsComponent,
+    PreviewItemComponent
   ],
   imports: [
     BrowserModule,
