@@ -36,7 +36,9 @@ class ReservationController extends Controller
         $ad = Ad::find(request('ad_id'));
         if($ad == null)
             return response()->json(["message" => "Ad was not found"], 404);
-
+        // Check if Ad has not expired 
+        if($ad->end_date < \Carbon\Carbon::now())
+            return response()->json(["message" => "Ad has already expired"], 422);
         // Check if Ad status is available (status == false)
         if($ad->status)
             return response()->json(["message" => "This car was already booked"], 409);
@@ -47,7 +49,6 @@ class ReservationController extends Controller
                 ->join('reservations', 'ads.id', '=', 'reservations.ad_id')
                 ->where('reservations.reservator_id', '=', $request->id)
                 ->get();
-        // dd($ads);
         if(count($ads))
             return response()->json(["message" => "You have ongoing or pending reservations in this period"], 409);
         
