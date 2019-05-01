@@ -12,6 +12,9 @@ use App\Http\Resources\AdResource;
 use App\Http\Resources\UserResource;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Arr;
+use App\Mail\PartnerMustConfirmReservation;
+use Illuminate\Support\Facades\Mail;
+
 class ReservationController extends Controller
 {
     /**
@@ -68,6 +71,7 @@ class ReservationController extends Controller
             // Make Ad unavailable
             $ad->status = true;
             $ad->save();
+            Mail::to(auth()->user()->email)->send(new PartnerMustConfirmReservation($reservation));
             // Start CRON Job Now (Partner has to validate reservation)
             return response()->json(["message" => "Reservation successfully added"], 200);
         }
