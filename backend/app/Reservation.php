@@ -6,6 +6,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class Reservation extends Model
 {
+    protected $fillable = ['status', 'ad_id', 'reservator_id', 'created_at', 'updated_at', 'reservator_id'];
+    protected $casts = ['status'=>'string'];
     // Relationship with Score
     public function scores(){
         return $this->hasMany('\App\Score');

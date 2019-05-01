@@ -18,10 +18,10 @@ class ReservationResource extends JsonResource
         return [
             'id' => $this->id,
             'status' -> $this->status,
-            'created_at' -> $this->created_at,
-            'updated_at' -> $this->updated_at,
-            'ad' => new AdResource($this->ad),
-            'reservator' => new UserResource($this->reservator)
+            // 'created_at' -> $this->created_at,
+            // 'updated_at' -> $this->updated_at,
+            // 'ad' => new AdResource($this->ad),
+            // 'reservator' => new UserResource($this->reservator)
         ];
     }
 }
