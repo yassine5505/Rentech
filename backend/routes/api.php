@@ -62,4 +62,12 @@ Route::group(['middleware' => 'api'], function () {
         Route::post('{id}/cancel', 'ReservationController@cancel');
     });
 
+
+    Route::get('image/{id}', function($id){
+        $url = \App\Image::find($id)->first()->url;
+        $type = Storage::mimeType($url);
+        $file = Storage::get($url);
+        return Response::make($file,200)->header('Content-type', $type);
+
+    });
 });
