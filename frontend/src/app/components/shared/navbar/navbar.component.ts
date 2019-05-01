@@ -1,7 +1,7 @@
 import { Component, OnInit, ElementRef, OnDestroy } from '@angular/core';
 import { Location, LocationStrategy, PathLocationStrategy } from '@angular/common';
 import { AuthService } from '../../../services/authentication/auth.service';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { TokenService } from '../../../services/authentication/token.service';
 import { AuthenticationService } from '../../../services/authentication/authentication.service';
 import { Subscription } from 'rxjs';
@@ -22,6 +22,7 @@ export class NavbarComponent implements OnInit, OnDestroy {
         public location: Location,
         private element: ElementRef,
         private router: Router,
+        private activatedRoute: ActivatedRoute ,
         private authService: AuthService,
         private authenticationService: AuthenticationService,
         private loaderService: LoadingScreenService
@@ -93,11 +94,11 @@ export class NavbarComponent implements OnInit, OnDestroy {
             error => {
                 this.authService.remove();
                 this.loaderService.stopLoading();
-                this.router.navigateByUrl('/login');
+                this.router.navigate(['/login', {redirectUrl: this.router.url}], { relativeTo: this.activatedRoute});
             },
             () => {
                 this.loaderService.stopLoading();
-                this.router.navigateByUrl('/login');
+                this.router.navigateByUrl('/ads');
             }
         );
 
