@@ -22,4 +22,7 @@ export class CarItemComponent implements OnInit {
      { relativeTo: this.activatedRoute});
   }
 
+  getImage(image) {
+    return  'http://localhost:8000/api/image/' + image.id;
+  }
 }

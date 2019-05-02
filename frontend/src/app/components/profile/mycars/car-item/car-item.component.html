@@ -1,19 +1,14 @@
 <div class="row car-item">
   <!-- Product Carousel -->
   <div class="col-md-5" style="padding: 0px 5px;">
-    <ngb-carousel>
-      <ng-template ngbSlide>
-        <img src="./assets/img/car-renting.jpg" alt="Random first slide">
-        <div class="carousel-caption">
-          <p>Hyper Robuste</p>
-        </div>
-      </ng-template>
-      <ng-template ngbSlide>
-        <img src="./assets/img/nos-vehicules.jpg" alt="Random first slide">
-        <div class="carousel-caption">
-          <p>Une autre voiture spéciale</p>
-        </div>
-      </ng-template>
+    <ngb-carousel *ngIf="car && car.images && car.images.images">
+      <div *ngFor="let img of car.images.images">
+        <ng-template  ngbSlide>
+          <img src={{getImage(img)}} alt="Random first slide">
+         
+        </ng-template>
+      </div>
+        
     </ngb-carousel>
   </div>
 
