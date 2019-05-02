@@ -63,6 +63,13 @@ Route::group(['middleware' => 'api'], function () {
     });
 
 
+    // Score Routes
+    Route::group(['prefix' => 'scores'], function(){
+        Route::post('/user', 'ScoreController@evaluateUser');
+        Route::post('/car', 'ScoreController@evaluateCar');
+    });
+
+
     Route::get('image/{id}', function($id){
         $url = \App\Image::find($id)->first()->url;
         $type = Storage::mimeType($url);
@@ -70,4 +77,6 @@ Route::group(['middleware' => 'api'], function () {
         return Response::make($file,200)->header('Content-type', $type);
 
     });
+    
+
 });

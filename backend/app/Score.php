@@ -22,5 +22,5 @@ class Score extends Model
     public function commentee(){
         return $this->belongsTo('\App\User');
     }
-
+    
 }
