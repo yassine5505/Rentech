@@ -5,12 +5,12 @@
 
 @component('mail::panel')
     On vous envoie cet email suite a votre derniere reservation.
-    Pour ameliorer notre systeme ainsi que votre profil, on vous suggere d'evaluer votre experience avec **{{ $reservation->reservator->name }}**
+    Pour ameliorer notre systeme ainsi que votre profil, on vous suggere d'evaluer votre experience avec **{{ $reservation->ad->user->name }}**
 
 @endcomponent
 
 @component('mail::button', ['color' => 'red', 'url' => 'http://localhost:4200/score'])
-    Evaluer votre client
+    Evaluer le partenaire
 @endcomponent
 
 Merci,<br>

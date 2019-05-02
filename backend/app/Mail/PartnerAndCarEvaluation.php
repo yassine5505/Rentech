@@ -8,7 +8,7 @@ use Illuminate\Queue\SerializesModels;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use App\Reservation;
 
-class ClientEvaluationMail extends Mailable
+class PartnerAndCarEvaluation extends Mailable
 {
     use Queueable, SerializesModels;
 
@@ -31,6 +31,6 @@ class ClientEvaluationMail extends Mailable
      */
     public function build()
     {
-        return $this->markdown('Email.clientevaluationmail');
+        return $this->markdown('Email.partnerandcarevaluation');
     }
 }

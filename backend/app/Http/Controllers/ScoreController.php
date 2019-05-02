@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Score;
 use Illuminate\Support\Facades\Validator;
 use App\User;
+use App\Reservation;
 use App\Mail\ClientEvaluationMail;
 use Illuminate\Support\Facades\Mail;
 
@@ -19,7 +20,7 @@ class ScoreController extends Controller
 
     /**
      * 
-     * Evaluate a User
+     * Evaluate a Client
      * 
      * @param Request
      */
@@ -30,9 +31,7 @@ class ScoreController extends Controller
         $score = $this->createScore($request, 'user');
         if(! $score)
             return response()->json(["message" => "There was an error evaluating the user"], 500);
-        $user = User::find($score->to_id)::first();
-        Mail::to($user->email)->send(new ClientEvaluationMail($user));
-        return response()->json(["message" => "Score created successfully"]);
+        return response()->json(["message" => "Score created successfully"], 200);
     }
 
 
@@ -46,9 +45,10 @@ class ScoreController extends Controller
         $validator = $this->verifyRequest($request, "car");
         if($validator != null)
             return $validator;
-        if($scoreCreated = $this->createScore($request, 'car'))
-            return response()->json(["message" => "Score created successfully"]);
-        return response()->json(["message" => "There was an error evaluating the car"], 500);
+        $score = $this->createScore($request, 'car');
+        if(! $score)
+            return response()->json(["message" => "There was an error evaluating the user"], 500);
+        return response()->json(["message" => "Score created successfully"], 200);
     }
 
 
@@ -94,7 +94,9 @@ class ScoreController extends Controller
             return [
                 'amount' => ['required', 'integer', 'between:1,5'],
                 'comment' => ['required', 'string', 'max:191'],
-                'to_id' => ['required', 'integer', 'exists:users,id']
+                'to_id' => ['required', 'integer', 'exists:users,id'],
+                'reservation_id' => ['required', 'integer', 'exists:reservations,id']
+
             ];
         }
 
@@ -102,7 +104,9 @@ class ScoreController extends Controller
             return [
                 'amount' => ['required', 'integer', 'between:1,5'],
                 'comment' => ['required', 'string', 'max:191'],
-                'car_id' => ['required', 'integer', 'exists:cars,id']
+                'car_id' => ['required', 'integer', 'exists:cars,id'],
+                'reservation_id' => ['required', 'integer', 'exists:reservations,id']
+
             ];
         }
     }
