@@ -8,10 +8,10 @@
   </div>
   <div class="body">
     <div class="ad-info">
-        <span class="post-date">
+       <!--  <span class="post-date">
             {{adInfo.start_date | date:'dd/MM/yyyy HH:mm' }} -
             {{adInfo.end_date | date:'dd/MM/yyyy HH:mm' }} 
-        </span>
+        </span> -->
       <span class="rating">
         <i class="fa fa-star"></i>
         <i class="fa fa-star"></i>
@@ -19,15 +19,16 @@
         <i class="fa fa-star"></i>
         <i class="fa fa-star"></i>
       </span>
-      <h2 class="productname" [title]="adInfo.car.brand + '('+ adInfo.car.model +')'">
+      <h3 class="productname" [title]="adInfo.car.brand + '('+ adInfo.car.model +')'">
         {{ (adInfo.car.brand || 'Ferrari') | slice:0:10 }} 
         <span class="model">(
-          {{ (adInfo.car.model || 'ModXA-6') | slice:0:10 }} )
+          {{ (adInfo.car.model || 'ModXA-6') | slice:0:8 }} )
         </span>
-      </h2><!-- 
+      </h3><!-- 
       <span class="description">
           {{ ( adInfo.description || 'Une description par default !') | slice:0:25  }} 
       </span> -->
+      <br>
       <ul class="some-spec">
         <li>
           <span class="badge badge-info">
@@ -35,22 +36,28 @@
             {{ adInfo.city.name | uppercase }}
           </span>
         </li>
-        <li>Du : <span class="date-field">{{adInfo.start_date | date:'dd/MM/yyyy HH:mm' }}</span></li>
-        <li>Au : <span class="date-field">{{adInfo.end_date | date:'dd/MM/yyyy HH:mm' }}</span></li>
+        <li>
+          <i class="fa fa-clock-o"></i>
+          Du :  <span class="date-field">{{adInfo.start_date | date:'dd/MM/yyyy HH:mm' }}</span>
+        </li>
+        <li>
+          <i class="fa fa-clock-o"></i>
+          Au : <span class="date-field">{{adInfo.end_date | date:'dd/MM/yyyy HH:mm' }}</span>
+        </li>
       </ul>
       <div class="some-details">
             
-          <span title="{{ adInfo.car.motor}}" class="badge badge-info" >
+          <span title="{{ adInfo.car.motor}}" class="badge badge-info" style="margin-left: 3px;" >
               Moteur {{ adInfo.car.motor}}</span>
-          <span title="{{!adInfo.car.airbag ? 'INDISPONIBLE' : 'DISPONIBLE'}}" 
+          <span title="{{!adInfo.car.airbag ? 'INDISPONIBLE' : 'DISPONIBLE'}}"   style="margin-left: 2px;"
           class="badge"
           [ngClass]="{'badge-danger': !adInfo.car.airbag, 'badge-success': !!adInfo.car.airbag }" >
           Airbag</span>
-          <span title="{{!adInfo.car.abs ? 'INDISPONIBLE' : 'DISPONIBLE'}}" 
+          <span title="{{!adInfo.car.abs ? 'INDISPONIBLE' : 'DISPONIBLE'}}"  style="margin-left: 1px;"
           class="badge"
           [ngClass]="{'badge-danger': !adInfo.car.abs, 'badge-success': !!adInfo.car.abs }" >
            ABS</span>
-          <span title="{{!adInfo.car.centralized ? 'INDISPONIBLE' : 'DISPONIBLE'}}" 
+          <span title="{{!adInfo.car.centralized ? 'INDISPONIBLE' : 'DISPONIBLE'}}"  style="margin-left: 2px;"
           class="badge"
           [ngClass]="{'badge-danger': !adInfo.car.centralized, 'badge-success': !!adInfo.car.centralized }" >
            Centralisation</span>

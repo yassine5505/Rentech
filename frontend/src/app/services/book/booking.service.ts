@@ -15,7 +15,7 @@ export class BookingService {
   getAll(): Observable<Booking[]> {
     return this.apiService.post(`${this.bookingResourcePrefix}/`, {})
     .pipe(
-      map (data => data.ads )
+      map (data => data.reservations )
     );
   }
 

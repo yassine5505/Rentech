@@ -6,6 +6,7 @@ import { User } from './../../../models';
 import { Ad } from './../../../models/ad.model';
 import { BookingService } from './../../../services/book/booking.service';
 import { Subscription } from 'rxjs';
+import { environment } from './../../../../environments/environment';
 
 @Component({
   selector: 'app-card-item',
@@ -45,12 +46,12 @@ export class CardItemComponent implements OnInit, OnDestroy {
       this.router.navigate(['../login'], {relativeTo: this.activatedRoute} );
       return;
     }
-
+/* 
     if (this.user.isAdmin || this.user.isPartner) {
       alert('Impossible de reserver cette offre !');
       this.router.navigate(['../home'], {relativeTo: this.activatedRoute} );
       return;
-    }
+    } */
     this.error = null;
     this.success = null;
     const btn: HTMLElement = this.bookBtn.nativeElement;
@@ -83,6 +84,10 @@ export class CardItemComponent implements OnInit, OnDestroy {
   showAdDetails(adId: number) {
     console.log(adId);
     this.router.navigate([ adId, {}], { relativeTo: this.activatedRoute});
+  }
+
+  getImage(image) {
+    return  environment.api_url  + '/image/' + image.id;
   }
 
   ngOnDestroy() {

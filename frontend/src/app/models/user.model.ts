@@ -32,8 +32,8 @@ export class User {
     }
   }
 
-  isActive(): boolean {
-    return !this.status;
+  isActive() {
+    return this.status;
   }
 
   isAdmin(): boolean {

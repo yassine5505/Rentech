@@ -15,7 +15,7 @@
               <div *ngFor="let message of error" role="alert" class="alert alert-danger" style="width: 100% !important">
                 {{message | titlecase}}</div>
             </div>
-            <div class="form-group" *ngIf="!user.isActive">
+            <div class="form-group" *ngIf="!user.status">
               <div role="alert" class="alert alert-danger" style="width: 100% !important">
                 Vous devez confirmer votre compte afin de creer une annonce !
               </div>
@@ -45,7 +45,7 @@
               </div>
               <div class="col-sm-6">
                 <div class="form-group">
-                  <label for="ad_price">Prix/heure</label>
+                  <label for="ad_price">Prix total</label>
                   <input type="number" min="10" formControlName="price" class="form-control" id="ad_price">
                 </div>
               </div>
@@ -81,7 +81,7 @@
               <button type="reset" class="btn btn-danger d-flex align-items-center mr-3">
                 Annuler
               </button>
-              <button type="submit" [disabled]=!user.isActive class="btn btn-success d-flex align-items-center float-right">
+              <button type="submit" [disabled]=!user.status class="btn btn-success d-flex align-items-center float-right">
                 Enregistrer
               </button>
             </div>

@@ -1,6 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { Car } from './../../../../models/car.model';
 import { Router, ActivatedRoute } from '@angular/router';
+import { environment } from './../../../../../environments/environment';
 
 @Component({
   selector: 'app-car-item',
@@ -23,6 +24,6 @@ export class CarItemComponent implements OnInit {
   }
 
   getImage(image) {
-    return  'http://localhost:8000/api/image/' + image.id;
+    return  environment.api_url  + '/image/' + image.id;
   }
 }

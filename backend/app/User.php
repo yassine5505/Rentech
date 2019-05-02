@@ -72,14 +72,14 @@ class User extends Authenticatable implements JWTSubject
      * 
      */
     public function scores(){
-        return $this->hasMany('\App\score', 'user_id');
+        return $this->hasMany('\App\Score', 'user_id');
     }
 
     /**
      * User Relationship with Score: Received Scores
      */
     public function reviews(){
-        return $this->hasMany('\App\score', 'to_id');
+        return $this->hasMany('\App\Score', 'to_id');
     }
 
 

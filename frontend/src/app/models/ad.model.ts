@@ -1,3 +1,5 @@
+import { Car } from './car.model';
+
 export class Ad {
 
   constructor(
@@ -10,7 +12,8 @@ export class Ad {
     // tslint:disable-next-line:variable-name
     public end_date: Date,
     public price: number,
-    public status: boolean
+    public status: boolean,
+    public car: Car
     ) {
 
   }

@@ -58,7 +58,7 @@ export class AdCreateComponent implements OnInit, OnDestroy {
           Validators.max(2000)
         ]],
         car_id: [null, Validators.required],
-        status: [false, null]
+        status: true
       }, { /* validator: this.dateLessThan('start_date', 'end_date') */ }
     );
     this.citySubscription = this.cityService.getAll().subscribe(

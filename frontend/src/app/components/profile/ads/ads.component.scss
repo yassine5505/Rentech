@@ -135,6 +135,7 @@
       .items {
           display: block;
           width: 100%;
+          min-height: 80px;
           vertical-align: middle;
           padding: 1.5em;
 
@@ -168,6 +169,7 @@
                   font-weight: bold;
                   text-transform: uppercase;
                   letter-spacing: .025em;
+                  margin-top: 3px;
 
 
               }

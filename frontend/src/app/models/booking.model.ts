@@ -1,3 +1,6 @@
+import { User } from './user.model';
+import { Ad } from './ad.model';
+
 export class Booking {
 
   constructor(
@@ -9,7 +12,9 @@ export class Booking {
     public created_at: Date,
     // tslint:disable-next-line:variable-name
     public updated_at: Date,
-    public status: boolean
+    public status: boolean,
+    public reservator: User,
+    public ad: Ad
     ) {
 
   }

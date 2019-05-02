@@ -65,6 +65,7 @@ export class Car {
     public airbag: boolean = false,
     public centralized: boolean = false,
     public abs: boolean = false,
+    public images,
     // tslint:disable-next-line:variable-name
     public production_year?: string,
     public mileage?: number,
@@ -72,7 +73,7 @@ export class Car {
     public category?: string,
     public matricule?: string,
     public transmission?: string,
-    public motor?: string
+    public motor?: string,
     ) {
 
   }
