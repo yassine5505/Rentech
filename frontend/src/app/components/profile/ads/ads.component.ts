@@ -1,9 +1,10 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, ElementRef } from '@angular/core';
 import { ApiService } from './../../../services/api.service';
 import { BookingService } from './../../../services/book/booking.service';
 import { Subscription } from 'rxjs';
 import { Booking } from './../../../models';
 import { environment } from './../../../../environments/environment';
+import { LoadingScreenService } from './../../../services/shared/loading-screen/loading-screen.service';
 
 @Component({
   selector: 'app-ads',
@@ -16,7 +17,8 @@ export class AdsComponent implements OnInit , OnDestroy {
   public reservations: Booking[];
   public error = [];
   constructor(
-    private bookingService: BookingService
+    private bookingService: BookingService,
+    private loaderService: LoadingScreenService
   ) { }
 
   ngOnInit() {
@@ -41,6 +43,44 @@ export class AdsComponent implements OnInit , OnDestroy {
 
   getImage(image) {
     return  environment.api_url + '/image/' + image.id;
+  }
+
+  validateReservation(clientReservation: Booking , reservation: HTMLElement) {
+    this.loaderService.startLoading();
+    this.bookingSubscription = this.bookingService.validate(clientReservation.id).subscribe(
+      (success) => {
+        reservation.classList.add('success');
+        clientReservation.status = true;
+        this.loaderService.stopLoading();
+        alert('Veuillez consulter votre boite mail pour recevoir plus d\'informations !');
+      },
+      (error) => {
+        reservation.classList.add('error');
+        this.loaderService.stopLoading();
+        alert(error.message || 'Une erreur s\' produite !');
+      },
+      () => {
+        // reservation.classList.add('hidden');
+      }
+    );
+  }
+
+  cancelReservation(clientReservation: Booking , reservation: HTMLElement) {
+    this.loaderService.startLoading();
+    this.bookingSubscription = this.bookingService.cancel(clientReservation.id).subscribe(
+      (success) => {
+        this.loaderService.stopLoading();
+        alert('Reservation annulée avec succès !');
+      },
+      (error) => {
+        reservation.classList.add('error');
+        this.loaderService.stopLoading();
+        alert(error.message || 'Une erreur s\' produite !');
+      },
+      () => {
+        reservation.classList.add('hidden');
+      }
+    );
   }
 
   ngOnDestroy(): void {

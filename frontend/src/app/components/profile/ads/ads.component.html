@@ -1,5 +1,5 @@
 <div class="container">
-  <h2>Liste de mes annonces</h2>
+  <h2>Liste des reservations !</h2>
 </div>
 <div class="wrap cf">
   <div class="heading cf">
@@ -7,7 +7,7 @@
   </div>
   <div class="cart">
     <ul class="cartWrap"  *ngIf="reservations && reservations.length">
-      <li class="items" [ngClass]="{even: i%2}" *ngFor="let reservation of reservations; let i = index">
+      <li class="items" [ngClass]="{even: i%2}" #reserId *ngFor="let reservation of reservations; let i = index">
         <div class="infoWrap">
           <div class="cartSection">
             <img [src]="getImage(reservation.ad.car.images.images[0])" alt="" class="itemImg" />
@@ -32,8 +32,8 @@
           </div>
         </div>
         <div class="prodTotal cartSection" *ngIf="!reservation.status" >
-            <button class="btn btn-primary">Valider</button>
-            <button class="btn btn-danger">Annuler</button>
+            <button (click)="validateReservation(reservation ,reserId)" class="btn btn-primary">Valider</button>
+            <button (click)="cancelReservation(reservation ,reserId)" class="btn btn-danger">Annuler</button>
         </div>
       </li>
       

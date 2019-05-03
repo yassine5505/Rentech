@@ -84,7 +84,7 @@ const appRoutes: Routes = [
         component: AddCarComponent
       },
       {
-        path: 'ads',
+        path: 'reservations',
         component: AdsComponent,
         canActivate: [AuthGuard],
         data: { roles: [Role.PARTNER] }

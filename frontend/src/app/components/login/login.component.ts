@@ -63,7 +63,7 @@ export class LoginComponent implements OnInit {
     this.Auth.changeCurrentUserSubject(user);
 
     if (user.role === Role.PARTNER) {
-      this.router.navigateByUrl('/profile/ads');
+      this.router.navigateByUrl('/profile/reservations');
       return;
     }
 

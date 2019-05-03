@@ -5,14 +5,14 @@
   </div>
   <div class="cart">
     
-    <ul class="cartWrap">
+    <ul class="cartWrap" *ngIf="reservations && reservations.length">
       <li class="items odd">
 
         <div class="infoWrap">
           <div class="cartSection">
             <img src="http://lorempixel.com/output/technics-q-c-300-300-4.jpg" alt="" class="itemImg" />
             <p class="itemNumber">#RESV-1-120</p>
-            <h3>Berline ACl-SS2</h3>
+            <h2>Berline ACl-SS2</h2>
             <p>22-Fev 2019</p>
             <p> 
                
@@ -40,6 +40,14 @@
     
 
     </ul>
+    <ul class="cartWrap" *ngIf="reservations && !reservations.length">
+        <li class="items" >
+            <div class="special">
+              <div class="specialContent">
+                <span class="alert alert-danger">Aucune reservation pour le moment !</span>
+              </div></div>  
+        </li>
+      </ul>
   </div>
 
 </div>
