@@ -135,14 +135,23 @@
       .items {
           display: block;
           width: 100%;
-          min-height: 80px;
-          vertical-align: middle;
+          min-height: 100px;
           padding: 1.5em;
-
           border-bottom: 1px solid #fafafa;
-
           &.even {
               background: #d1cece8f;
+          }
+
+          &.hidden {
+            display: none;
+          }
+
+          &.error {
+            box-shadow: -1px 2px 8px #e73f0cd5;
+          }
+
+          &.success {
+            box-shadow: -1px 2px 8px #54fa45d5;
           }
 
           .infoWrap {
@@ -213,44 +222,45 @@
                       font-weight: bold;
                       font-size: 1.25em;
                   }
+
                   a.continue {
 
-          &:link,
-          &:visited {
-              text-decoration: none;
-              font-family: $fontSans;
-              letter-spacing: -.015em;
-              font-size: .75em;
-              padding: 1em;
-              color: #fff;
-              background: #82ca9c;
-              font-weight: bold;
-              border-radius: 50px;
-              float: right;
-              text-align: right;
-              @include transition(all, .25s, linear);
-          }
+                      &:link,
+                      &:visited {
+                          text-decoration: none;
+                          font-family: $fontSans;
+                          letter-spacing: -.015em;
+                          font-size: .75em;
+                          padding: 1em;
+                          color: #fff;
+                          background: #82ca9c;
+                          font-weight: bold;
+                          border-radius: 50px;
+                          float: right;
+                          text-align: right;
+                          @include transition(all, .25s, linear);
+                      }
 
-          &:after {
-              content: "\276f";
-              padding: .5em;
-              position: relative;
-              right: 0;
-              @include transition(all, .15s, linear);
+                      &:after {
+                          content: "\276f";
+                          padding: .5em;
+                          position: relative;
+                          right: 0;
+                          @include transition(all, .15s, linear);
 
-          }
+                      }
 
-          &:hover,
-          &:focus,
-          &:active {
-              background: #f69679;
+                      &:hover,
+                      &:focus,
+                      &:active {
+                          background: #f69679;
 
-              &:after {
-                  right: -10px;
-              }
-          }
-      }
-  
+                          &:after {
+                              right: -10px;
+                          }
+                      }
+                  }
+
 
               }
 

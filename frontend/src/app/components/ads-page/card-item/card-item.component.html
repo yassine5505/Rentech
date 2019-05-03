@@ -1,7 +1,7 @@
 <div class="card" #adBox *ngIf="visibled">
   <app-ribon text="New" ></app-ribon>
   <div class="image">
-    <img src="./assets/img/nos-vehicules.jpg">
+    <img src={{getImage(adInfo.car.images.images[0])}}>
     <div class="slider__ribon">
       <div class="ribon">{{ (adInfo.price || 152 ) | currency:'MAD'}}</div>
     </div>

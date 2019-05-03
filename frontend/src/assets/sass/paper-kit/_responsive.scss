@@ -107,6 +107,19 @@
       100% {opacity: 1;}
     }
 
+    @-webkit-keyframes fadeOut {
+      0% {opacity: 1;}
+      100% {opacity: 0;}
+    }
+    @-moz-keyframes fadeOut {
+        0% {opacity: 1;}
+        100% {opacity: 0;}
+    }
+    @keyframes fadeOut {
+        0% {opacity: 1;}
+        100% {opacity: 0;}
+    }
+
     .navbar-nav {
         margin: 1px -15px;
 

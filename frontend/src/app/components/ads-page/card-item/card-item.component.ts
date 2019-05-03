@@ -46,7 +46,7 @@ export class CardItemComponent implements OnInit, OnDestroy {
       this.router.navigate(['../login'], {relativeTo: this.activatedRoute} );
       return;
     }
-/* 
+/*
     if (this.user.isAdmin || this.user.isPartner) {
       alert('Impossible de reserver cette offre !');
       this.router.navigate(['../home'], {relativeTo: this.activatedRoute} );

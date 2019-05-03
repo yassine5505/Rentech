@@ -1,4 +1,5 @@
 import { Car } from './car.model';
+import { City } from './city.model';
 
 export class Ad {
 
@@ -13,7 +14,8 @@ export class Ad {
     public end_date: Date,
     public price: number,
     public status: boolean,
-    public car: Car
+    public car: Car,
+    public city: City
     ) {
 
   }
