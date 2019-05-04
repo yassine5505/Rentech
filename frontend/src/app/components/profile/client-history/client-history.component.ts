@@ -4,6 +4,10 @@ import { BookingService } from './../../../../app/services/book/booking.service'
 import { User, Booking } from './../../../models';
 import { Ad } from './../../../models/ad.model';
 import { Subscription } from 'rxjs';
+
+import { environment } from './../../../../environments/environment';
+import { LoadingScreenService } from './../../../services/shared/loading-screen/loading-screen.service';
+
 @Component({
   selector: 'app-client-history',
   templateUrl: './client-history.component.html',
@@ -33,6 +37,10 @@ export class ClientHistoryComponent implements OnInit, OnDestroy {
       }
     );
 
+  }
+
+  getImage(image) {
+    return  environment.api_url + '/image/' + image.id;
   }
 
   ngOnDestroy(): void {

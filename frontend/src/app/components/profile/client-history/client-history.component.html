@@ -6,34 +6,42 @@
   <div class="cart">
     
     <ul class="cartWrap" *ngIf="reservations && reservations.length">
-      <li class="items odd">
-
+      <li class="items" [ngClass]="{even: i%2}" #reserId *ngFor="let reservation of reservations; let i = index">
         <div class="infoWrap">
           <div class="cartSection">
-            <img src="http://lorempixel.com/output/technics-q-c-300-300-4.jpg" alt="" class="itemImg" />
-            <p class="itemNumber">#RESV-1-120</p>
-            <h2>Berline ACl-SS2</h2>
-            <p>22-Fev 2019</p>
+            <img [src]="getImage(reservation.ad.car.images.images[0])" alt="" class="itemImg" />
+            
+            <h3>Berline ACl-SS2 <p class="stockStatus" [ngClass]="{out: !reservation.status}" > {{!reservation.status ? 'EN ATTENTE': 'DEJA VALIDÉE' }}</p></h3> 
+            <p><b>De</b> {{reservation.ad.start_date}} </p> --
+            <p><b> à</b> {{reservation.ad.end_date}}  </p>
+            <br>
             <p> 
                
-              <span
-              class="badge badge-danger" >
-              Status Airbag</span>
-              <span class="badge badge-success" >
-              Status ABS</span>
-              <span class="badge badge-success" >
-              Status Centralisation</span>
+            <span title="{{ reservation.ad.car.motor}}" class="badge badge-info" style="margin-left: 3px;" >
+                Moteur {{ reservation.ad.car.motor}}</span>
+            <span title="{{!reservation.ad.car.airbag ? 'INDISPONIBLE' : 'DISPONIBLE'}}"   style="margin-left: 2px;"
+            class="badge"
+            [ngClass]="{'badge-danger': !reservation.ad.car.airbag, 'badge-success': !!reservation.ad.car.airbag }" >
+            Airbag</span>
+            <span title="{{!reservation.ad.car.abs ? 'INDISPONIBLE' : 'DISPONIBLE'}}"  style="margin-left: 1px;"
+            class="badge"
+            [ngClass]="{'badge-danger': !reservation.ad.car.abs, 'badge-success': !!reservation.ad.car.abs }" >
+             ABS</span>
+            <span title="{{!reservation.ad.car.centralized ? 'INDISPONIBLE' : 'DISPONIBLE'}}"  style="margin-left: 2px;"
+            class="badge"
+            [ngClass]="{'badge-danger': !reservation.ad.car.centralized, 'badge-success': !!reservation.ad.car.centralized }" >
+             Centralisation</span>
             </p>
 
-            <p class="stockStatus"> En attente</p>
+            
           </div>
 
 
           <div class="prodTotal cartSection">
-            <p>MAD1500.00</p>
+            <p>{{reservation.ad.price | currency:'MAD'}} </p>
           </div>
-          <div class="cartSection removeWrap">
-            <a href="#" class="remove">x</a>
+          <div class="cartSection removeWrap" *ngIf="!reservation.status">
+            <button class="btn btn-danger">ANNULER</button>
           </div>
         </div>
       </li>
