@@ -11,7 +11,12 @@
           <div class="cartSection">
             <img [src]="getImage(reservation.ad.car.images.images[0])" alt="" class="itemImg" />
             
-            <h3>Berline ACl-SS2 <p class="stockStatus" [ngClass]="{out: !reservation.status}" > {{!reservation.status ? 'EN ATTENTE': 'DEJA VALIDÉE' }}</p></h3> 
+            <h3>
+              Berline ACl-SS2
+              <p class="stockStatus" [ngClass]="{out: !reservation.status}" >
+                {{ reservation.status ? 'DEJA VALIDÉE' : (!reservation.ad.status ? 'ANNULÉE': 'EN ATTENTE')  }}
+              </p>
+            </h3> 
             <p><b>De</b> {{reservation.ad.start_date}} </p> --
             <p><b> à</b> {{reservation.ad.end_date}}  </p>
             <br>
@@ -40,8 +45,8 @@
           <div class="prodTotal cartSection">
             <p>{{reservation.ad.price | currency:'MAD'}} </p>
           </div>
-          <div class="cartSection removeWrap" *ngIf="!reservation.status">
-            <button class="btn btn-danger">ANNULER</button>
+          <div class="cartSection removeWrap" *ngIf="!reservation.status && reservation.ad.status">
+            <button class="btn btn-danger" (click)="cancelReservation(reservation ,reserId)" >ANNULER</button>
           </div>
         </div>
       </li>

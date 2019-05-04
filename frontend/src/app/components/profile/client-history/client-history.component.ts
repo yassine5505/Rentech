@@ -20,7 +20,8 @@ export class ClientHistoryComponent implements OnInit, OnDestroy {
   public bookingSubscription: Subscription;
 
   constructor(
-    private bookingService: BookingService
+    private bookingService: BookingService,
+    private loaderService: LoadingScreenService
   ) { }
 
   ngOnInit() {
@@ -37,6 +38,25 @@ export class ClientHistoryComponent implements OnInit, OnDestroy {
       }
     );
 
+  }
+
+
+  cancelReservation(clientReservation: Booking , reservation: HTMLElement) {
+    this.loaderService.startLoading();
+    this.bookingSubscription = this.bookingService.cancel(clientReservation.id).subscribe(
+      (success) => {
+        this.loaderService.stopLoading();
+        alert('Reservation annulée avec succès !');
+      },
+      (error) => {
+        reservation.classList.add('error');
+        this.loaderService.stopLoading();
+        alert(error.message || 'Une erreur s\' produite !');
+      },
+      () => {
+        reservation.classList.add('hidden');
+      }
+    );
   }
 
   getImage(image) {
