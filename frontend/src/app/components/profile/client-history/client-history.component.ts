@@ -4,6 +4,10 @@ import { BookingService } from './../../../../app/services/book/booking.service'
 import { User, Booking } from './../../../models';
 import { Ad } from './../../../models/ad.model';
 import { Subscription } from 'rxjs';
+
+import { environment } from './../../../../environments/environment';
+import { LoadingScreenService } from './../../../services/shared/loading-screen/loading-screen.service';
+
 @Component({
   selector: 'app-client-history',
   templateUrl: './client-history.component.html',
@@ -16,7 +20,8 @@ export class ClientHistoryComponent implements OnInit, OnDestroy {
   public bookingSubscription: Subscription;
 
   constructor(
-    private bookingService: BookingService
+    private bookingService: BookingService,
+    private loaderService: LoadingScreenService
   ) { }
 
   ngOnInit() {
@@ -33,6 +38,29 @@ export class ClientHistoryComponent implements OnInit, OnDestroy {
       }
     );
 
+  }
+
+
+  cancelReservation(clientReservation: Booking , reservation: HTMLElement) {
+    this.loaderService.startLoading();
+    this.bookingSubscription = this.bookingService.cancel(clientReservation.id).subscribe(
+      (success) => {
+        this.loaderService.stopLoading();
+        alert('Reservation annulée avec succès !');
+      },
+      (error) => {
+        reservation.classList.add('error');
+        this.loaderService.stopLoading();
+        alert(error.message || 'Une erreur s\' produite !');
+      },
+      () => {
+        reservation.classList.add('hidden');
+      }
+    );
+  }
+
+  getImage(image) {
+    return  environment.api_url + '/image/' + image.id;
   }
 
   ngOnDestroy(): void {
