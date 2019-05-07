@@ -15,7 +15,7 @@ class SendReviewsForm extends Command
      *
      * @var string
      */
-    protected $signature = 'command:sendReviewForm';
+    protected $signature = 'reservation:sendReviewForm';
 
     /**
      * The console command description.

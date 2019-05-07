@@ -25,10 +25,9 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
-        // $schedule->command('inspire')
-        //          ->hourly();
-        // $schedule->command('command:sendReviewForm')->everyFiveMinutes();
-        $schedule->command('command:sendReviewForm')->hourly();
+        $schedule->command('reservation:sendReviewForm')->hourly();
+        $schedule->command('reservation:cancel_after_2_hours')->hourlyAt(15);
+        // ->between('8:00', '17:00');
     }
 
     /**
