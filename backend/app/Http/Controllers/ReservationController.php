@@ -95,6 +95,10 @@ class ReservationController extends Controller
         if(!auth()->user()->ads->contains($ad))
             return response()->json(["message" => "Unauthorized"], 401);
         $reservation->status = 1;
+        // Send Info Mails
+        Mail::to($reservation->reservator->email)->send(new SendPartnerInfo($reservation));
+        Mail::to($reservation->ad->user->email)->send(new sendClientInfo($reservation));
+
         if($reservation->save())
             return response()->json(["message" => "Reservation validated successfully"], 200);
         return response()->json(["message" => "There was a problem updating the reservation"], 500);
