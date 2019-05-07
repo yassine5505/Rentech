@@ -50,9 +50,8 @@ export class AdsComponent implements OnInit , OnDestroy {
     this.bookingSubscription = this.bookingService.validate(clientReservation.id).subscribe(
       (success) => {
         reservation.classList.add('success');
-        clientReservation.status = true;
+        clientReservation.status = 1;
         this.loaderService.stopLoading();
-        alert('Veuillez consulter votre boite mail pour recevoir plus d\'informations !');
       },
       (error) => {
         reservation.classList.add('error');
