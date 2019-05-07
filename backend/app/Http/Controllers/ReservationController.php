@@ -94,7 +94,7 @@ class ReservationController extends Controller
             return response()->json(["message" => "Ad was not found"], 404);
         if(!auth()->user()->ads->contains($ad))
             return response()->json(["message" => "Unauthorized"], 401);
-        $reservation->status = true;
+        $reservation->status = 1;
         if($reservation->save())
             return response()->json(["message" => "Reservation validated successfully"], 200);
         return response()->json(["message" => "There was a problem updating the reservation"], 500);
@@ -124,7 +124,7 @@ class ReservationController extends Controller
             $sendTo = auth()->user()->email;
         }
         // Cancel reservation
-        $reservation->status = false;
+        $reservation->status = 2;
         $reservation->ad->status = false;
         if($reservation->save() and $reservation->ad->save()){
             $whoCanceled = auth()->user();
@@ -174,7 +174,7 @@ class ReservationController extends Controller
      */
     public function verifyRequest(Request $request){
         $rule = [
-            "status" => ["boolean"],
+            "status" => ["integer"],
             "ad_id" => ["required" ,"integer", "exists:ads,id"]
         ];
         $validator = Validator::make(request()->all(), $rule);
