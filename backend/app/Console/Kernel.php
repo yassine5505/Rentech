@@ -14,6 +14,7 @@ class Kernel extends ConsoleKernel
     protected $commands = [
         //
         'App\Console\Commands\SendReviewsForm',
+        Commands\SendReviewsForm::class,
     ];
 
     /**
@@ -26,7 +27,8 @@ class Kernel extends ConsoleKernel
     {
         // $schedule->command('inspire')
         //          ->hourly();
-        $schedule->command('command:sendReviewForm')->everyMinute()->timezone('Africa/Casablanca');
+        // $schedule->command('command:sendReviewForm')->everyFiveMinutes();
+        $schedule->command('command:sendReviewForm')->hourly();
     }
 
     /**

@@ -75,7 +75,7 @@ export class LoginComponent implements OnInit {
   }
 
   handleError(error) {
-    this.error = error.error;
+    this.error = error.error || 'Erreur temporaire du système !';
   }
   ngOnInit() {
   }

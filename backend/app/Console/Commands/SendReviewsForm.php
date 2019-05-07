@@ -3,6 +3,10 @@
 namespace App\Console\Commands;
 
 use Illuminate\Console\Command;
+use App\Mail\ClientEvaluationMail;
+use Illuminate\Support\Facades\Mail;
+use App\Reservation;
+use App\Mail\PartnerAndCarEvaluation;
 
 class SendReviewsForm extends Command
 {
@@ -56,13 +60,22 @@ class SendReviewsForm extends Command
      */
     public function handle()
     {
+        
         $reservations = \DB::table('ads')
         ->where("ads.status", "=" , 1)
-        ->join('reservations', 'ads.id', '=', 'reservations.ad_id')
-        ->where("reservations.status", "=" , 1)
+        ->join('reservations', function ($join) {
+            $join->on('ads.id', '=', 'reservations.ad_id')
+            ->where("reservations.status", "=" , 1);
+        })
         ->select("reservations.id", "reservations.reservator_id", "ads.user_id","ads.start_date", "ads.end_date")
         ->get();
         
-        dd($reservations);
+        foreach ($reservations as $reservation) {
+            $reservation = Reservation::find($reservation->id);
+            Mail::to($reservation->ad->user->email)->send(new ClientEvaluationMail($reservation));
+            sleep(1);
+            Mail::to($reservation->reservator->email)->send(new PartnerAndCarEvaluation($reservation));
+        }
+        $this->info('Review mail have been sent to Users');
     }
 }

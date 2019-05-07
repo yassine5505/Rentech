@@ -14,7 +14,8 @@
             <h3>
               Berline ACl-SS2
               <p class="stockStatus" [ngClass]="{out: !reservation.status}" >
-                {{ reservation.status ? 'DEJA VALIDÉE' : (!reservation.ad.status ? 'ANNULÉE': 'EN ATTENTE')  }}
+                {{ reservation.status ? 'DEJA VALIDÉE' : 
+                (!reservation.ad.status ? 'ANNULÉE': 'EN ATTENTE')  }}
               </p>
             </h3> 
             <p><b>De</b> {{reservation.ad.start_date}} </p> --
