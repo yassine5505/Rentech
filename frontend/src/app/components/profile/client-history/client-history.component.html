@@ -13,9 +13,10 @@
             
             <h3>
               Berline ACl-SS2
-              <p class="stockStatus" [ngClass]="{out: !reservation.status}" >
-                {{ reservation.status ? 'DEJA VALIDÉE' : 
-                (!reservation.ad.status ? 'ANNULÉE': 'EN ATTENTE')  }}
+              <p class="stockStatus" [ngClass]="{out: reservation.status === 0 || reservation.status === 2}" >
+                  {{ reservation.status === 0 ? 'EN ATTENTE': '' }}
+                  {{ reservation.status === 1 ? 'DEJA VALIDÉE': '' }}
+                  {{ reservation.status === 2  ? 'ANNULÉE': '' }}
               </p>
             </h3> 
             <p><b>De</b> {{reservation.ad.start_date}} </p> --
@@ -46,7 +47,7 @@
           <div class="prodTotal cartSection">
             <p>{{reservation.ad.price | currency:'MAD'}} </p>
           </div>
-          <div class="cartSection removeWrap" *ngIf="!reservation.status && reservation.ad.status">
+          <div class="cartSection removeWrap" *ngIf="reservation.status === 0 && reservation.ad.status">
             <button class="btn btn-danger" (click)="cancelReservation(reservation ,reserId)" >ANNULER</button>
           </div>
         </div>
