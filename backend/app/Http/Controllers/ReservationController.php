@@ -43,7 +43,7 @@ class ReservationController extends Controller
         if($ad == null)
             return response()->json(["message" => "Ad was not found"], 404);
         // Check if Ad has not expired 
-        if($ad->end_date < \Carbon\Carbon::now())
+        if( \Carbon\Carbon::now() > $ad->start_date  || $ad->end_date < \Carbon\Carbon::now())
             return response()->json(["message" => "Ad has already expired"], 422);
         // Check if Ad status is available (status == false)
         if($ad->status)

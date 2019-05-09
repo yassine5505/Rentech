@@ -19,7 +19,7 @@ class CancelEmail extends Mailable
      *
      * @return void
      */
-    public function __construct(Reservation $reservation, User $whoCanceled)
+    public function __construct(Reservation $reservation, User $whoCanceled = null)
     {
         $this->reservation = $reservation;
         $this->whoCanceled = $whoCanceled;

@@ -3,8 +3,10 @@
 namespace App\Console\Commands;
 
 use Illuminate\Console\Command;
+use Illuminate\Support\Facades\Mail;
 use Carbon\Carbon;
 use App\Reservation;
+use App\Mail\CancelEmail;
 
 class CancelReservationNotConfirmed extends Command
 {
@@ -43,25 +45,29 @@ class CancelReservationNotConfirmed extends Command
         $reservations = \DB::table('ads')
         ->where("ads.status", "=" , 1)
         ->join('reservations', function ($join) {
-            $expDate = Carbon::now()->subHours(2);
             $join->on('ads.id', '=', 'reservations.ad_id')
-            ->where("reservations.status", "=" , 0)
-            ->where('reservations.created_at', '<', $expDate);
-            /*->whereRaw('DATEDIFF(? ,  reservations.created_at ) > 2')
-            ->setBindings([]);*/
-            
+            ->where("reservations.status", "=" , 0);
         })
-        ->select("reservations.id")
+        ->select("reservations.id", "reservations.created_at")
         ->get();
+
+        
         foreach ($reservations as $reservation) {
-            $reservation = Reservation::find($reservation->id);
-            
-            $this->info(var_dump($reservation));
-            $reservation->status = 0;
-            $reservation->ad->status = 0;
-            $reservation->ad->save();
-            $reservation->save();
-            $this->info('Expired reservation not confirmed have been cleaned !');
+            if(Carbon::now()->subHours(2)->greaterThan($reservation->created_at)){
+                $reservation = Reservation::find($reservation->id);
+                // Status = 3 for cancelled reservations    
+                $reservation->status = 3;
+                $reservation->ad->status = 0;
+                $reservation->ad->save();
+                
+                if($reservation->save()){     
+                    //  We send emails to client and partner
+                    Mail::to($reservation->reservator)->send(new CancelEmail($reservation));
+                    Mail::to($reservation->ad->user->email)->send(new CancelEmail($reservation));
+                }
+                $this->info('Expired reservation not confirmed have been cleaned !');
+            }
+            continue;
         }
         
     }
