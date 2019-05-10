@@ -1,5 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import { NgModule, forwardRef } from '@angular/core';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { UiSwitchModule } from 'ngx-toggle-switch';
 import { AppComponent } from './app.component';
@@ -14,7 +14,7 @@ import { HomeComponent } from './components/home/home.component';
 import { RequestResetComponent } from './components/password/request-reset/request-reset.component';
 import { ResponseResetComponent } from './components/password/response-reset/response-reset.component';
 import { AppRoutingModule } from './/app-routing.module';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AuthenticationService } from './services/authentication/authentication.service';
 import { TokenService } from './services/authentication/token.service';
@@ -24,6 +24,7 @@ import { BeforeLoginService } from './guards/before-login/before-login.service';
 import { SnotifyModule, SnotifyService, ToastDefaults } from 'ng-snotify';
 import { ReservationSearchComponent } from './components/shared/reservation-search/reservation-search.component';
 import {NgxMaterialTimepickerModule} from 'ngx-material-timepicker';
+import { StarRatingModule, StarRatingComponent } from 'angular-star-rating';
 
 import { NgxDaterangepickerMd } from 'ngx-daterangepicker-material';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -43,6 +44,10 @@ import { CardItemComponent } from './components/ads-page/card-item/card-item.com
 import { RibonComponent } from './components/shared/ribon/ribon.component';
 import { CardItemDetailsComponent } from './components/ads-page/card-item-details/card-item-details.component';
 import { PreviewItemComponent } from './components/shared/preview-item/preview-item.component';
+import { CreateReviewComponent } from './components/review/create-review/create-review.component';
+import { ReviewPageComponent } from './components/review/review-page/review-page.component';
+import { ListReviewsComponent } from './components/review/review-page/list-reviews/list-reviews.component';
+import { ReviewItemComponent } from './components/shared/review-item/review-item.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -67,13 +72,18 @@ import { PreviewItemComponent } from './components/shared/preview-item/preview-i
     CardItemComponent,
     RibonComponent,
     CardItemDetailsComponent,
-    PreviewItemComponent
+    PreviewItemComponent,
+    CreateReviewComponent,
+    ReviewPageComponent,
+    ListReviewsComponent,
+    ReviewItemComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     NgbModule.forRoot(),
     NgxDaterangepickerMd.forRoot(),
+    StarRatingModule.forRoot(),
     FormsModule,
     HttpClientModule,
     SnotifyModule,
@@ -97,6 +107,11 @@ import { PreviewItemComponent } from './components/shared/preview-item/preview-i
       provide: HTTP_INTERCEPTORS,
       useClass: ErrorInterceptor,
       multi: true
+    },
+    {
+      provide: NG_VALUE_ACCESSOR,
+      multi: true,
+      useExisting: forwardRef(() => StarRatingComponent),
     },
     { provide: 'SnotifyToastConfig', useValue: ToastDefaults },
     SnotifyService

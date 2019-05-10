@@ -22,6 +22,9 @@ import { AddCarComponent } from './components/profile/mycars/add-car/add-car.com
 import { AdCreateComponent } from './components/profile/ads/ad-create/ad-create.component';
 import { AdsPageComponent } from './components/ads-page/ads-page.component';
 import { CardItemDetailsComponent } from './components/ads-page/card-item-details/card-item-details.component';
+import { ReviewPageComponent } from './components/review/review-page/review-page.component';
+import { ListReviewsComponent } from './components/review/review-page/list-reviews/list-reviews.component';
+import { CreateReviewComponent } from './components/review/create-review/create-review.component';
 
 const appRoutes: Routes = [
   {
@@ -41,6 +44,29 @@ const appRoutes: Routes = [
   {
     path: 'ads/:id',
     component: CardItemDetailsComponent,
+  },
+  {
+    path: 'score',
+    component: ReviewPageComponent,
+    canActivate: [AuthGuard],
+    data: { roles: [Role.PARTNER , Role.CLIENT] },
+    children: [
+      // Getting all my scores
+      {
+        path: '',
+        component: ListReviewsComponent,
+        canActivate: [AuthGuard],
+        data: { roles: [Role.PARTNER , Role.CLIENT] }
+      },
+
+      // giving a score to someone
+      {
+        path: 'evaluer',
+        component: CreateReviewComponent,
+        canActivate: [AuthGuard],
+        data: { roles: [Role.PARTNER , Role.CLIENT] }
+      }
+    ]
   },
   {
     path: 'login',

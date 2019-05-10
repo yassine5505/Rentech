@@ -9,7 +9,7 @@
 
 @endcomponent
 
-@component('mail::button', ['color' => 'red', 'url' => 'http://localhost:4200/score'])
+@component('mail::button', ['color' => 'red', 'url' => 'http://localhost:4200/score/evaluer;reservationCode='.$reservation->id.';carCode='.$reservation->ad->car->id.';partnerCode='.$reservation->ad->car->user->id ])
     Evaluer le partenaire
 @endcomponent
 

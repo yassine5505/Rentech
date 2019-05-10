@@ -71,7 +71,7 @@ class SendReviewsForm extends Command
         
         foreach ($reservations as $reservation) {
             $reservation = Reservation::find($reservation->id);
-           
+            //dd();
             if(
                 Carbon::now()->greaterThan($reservation->ad->start_date)
                 // Adding the condition for ads status status or -> 3

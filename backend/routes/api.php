@@ -67,6 +67,7 @@ Route::group(['middleware' => 'api'], function () {
     Route::group(['prefix' => 'scores'], function(){
         Route::post('/user', 'ScoreController@evaluateUser');
         Route::post('/car', 'ScoreController@evaluateCar');
+        Route::post('/verify', 'ScoreController@verify');
     });
 
 
