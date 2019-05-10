@@ -15,6 +15,8 @@ use Illuminate\Support\Arr;
 use App\Mail\PartnerMustConfirmReservation;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\CancelEmail;
+use App\Mail\SendPartnerInfo;
+use App\Mail\SendClientInfo;
 
 class ReservationController extends Controller
 {
@@ -97,7 +99,7 @@ class ReservationController extends Controller
         $reservation->status = 1;
         // Send Info Mails
         Mail::to($reservation->reservator->email)->send(new SendPartnerInfo($reservation));
-        Mail::to($reservation->ad->user->email)->send(new sendClientInfo($reservation));
+        Mail::to($reservation->ad->user->email)->send(new SendClientInfo($reservation));
 
         if($reservation->save())
             return response()->json(["message" => "Reservation validated successfully"], 200);

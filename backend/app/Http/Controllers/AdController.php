@@ -40,7 +40,7 @@ class AdController extends Controller
                 $ad->description = request('description');
                 $ad->start_date = request('start_date');
                 $ad->end_date = request('end_date');
-                $ad->status = true;
+                $ad->status = 0;
                 $ad->price = request('price');
                 if($ad->save()){
                     return response()->json(["message" => "Ad created successfully"]);
