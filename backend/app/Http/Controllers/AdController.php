@@ -40,7 +40,7 @@ class AdController extends Controller
                 $ad->description = request('description');
                 $ad->start_date = request('start_date');
                 $ad->end_date = request('end_date');
-                $ad->status = true;
+                $ad->status = 0;
                 $ad->price = request('price');
                 if($ad->save()){
                     return response()->json(["message" => "Ad created successfully"]);
@@ -154,7 +154,7 @@ class AdController extends Controller
                 'description' => ['string', 'max:191'],
                 'start_date' => ['date_format:Y/m/d H:i', 'after:'. date("Y/m/d H:i")],
                 'end_date' => ['date_format:Y/m/d H:i', 'after:start_date'],
-                'status' => ['boolean'],
+                'status' => ['integer'],
                 'price' => ['regex:/^\d*(\.\d{2})?$/'],
                 'car_id' => ['integer'],
                 'city_id' => ['integer']

@@ -46,7 +46,7 @@ class ReservationController extends Controller
         if( \Carbon\Carbon::now() > $ad->start_date  || $ad->end_date < \Carbon\Carbon::now())
             return response()->json(["message" => "Ad has already expired"], 422);
         // Check if Ad status is available (status == false)
-        if($ad->status)
+        if($ad->status == 0)
             return response()->json(["message" => "This car was already booked"], 409);
         
         // Check if user has an ongoing Reservation
@@ -70,7 +70,7 @@ class ReservationController extends Controller
         $reservation->reservator_id = auth()->user()->id;
         if($reservation->save()){
             // Make Ad unavailable
-            $ad->status = true;
+            $ad->status = 1;
             $ad->save();
             Mail::to($reservation->ad->user->email)->send(new PartnerMustConfirmReservation($reservation));
             // Start CRON Job Now (Partner has to validate reservation)
@@ -118,7 +118,7 @@ class ReservationController extends Controller
         $ad = $reservation->ad;
         if($ad == null)
             return response()->json(["message" => "Ad was not found"], 404);
-        if(! $ad->status)
+        if($ad->status == 3)
             return response()->json(["message" => "Ad was already cancelled"], 422);
             
         if(auth()->user()->ads->contains($ad))
@@ -129,7 +129,7 @@ class ReservationController extends Controller
         }
         // Cancel reservation
         $reservation->status = 2;
-        $reservation->ad->status = false;
+        $reservation->ad->status = 0;
         if($reservation->save() and $reservation->ad->save()){
             $whoCanceled = auth()->user();
             Mail::to($sendTo)->send(new CancelEmail($reservation, $whoCanceled));
