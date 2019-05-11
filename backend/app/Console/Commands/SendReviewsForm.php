@@ -61,6 +61,7 @@ class SendReviewsForm extends Command
     public function handle()
     {
         $reservations = \DB::table('ads')
+        // Ad which are reserved
         ->where("ads.status", "=" , 1)
         ->join('reservations', function ($join) {
             $join->on('ads.id', '=', 'reservations.ad_id')
@@ -71,14 +72,13 @@ class SendReviewsForm extends Command
         
         foreach ($reservations as $reservation) {
             $reservation = Reservation::find($reservation->id);
-            //dd();
             if(
                 Carbon::now()->greaterThan($reservation->ad->start_date)
-                // Adding the condition for ads status status or -> 3
             ){
-                // -> 3 Changing to ad'status to 3 or migrate the ad to history
                 Mail::to($reservation->ad->user->email)->send(new ClientEvaluationMail($reservation));
-                sleep(1);
+                // Mark the ad as finished (status == 2) 
+                $reservation->ad->status = 2;
+                $reservation->ad->save();
                 Mail::to($reservation->reservator->email)->send(new PartnerAndCarEvaluation($reservation));
             }
         }

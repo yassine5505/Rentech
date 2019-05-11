@@ -26,13 +26,7 @@
                   <strong>{{reservation.ad.price | currency:'MAD'}} </strong>
               </p>
           </div>
-          <div class="cartSection removeWrap">
           
-          	<div>
-              <span *ngFor="let score of [1 , 2 , 2]" class="fa fa-star checked"></span>
-              <span *ngFor="let score of  [1, 2]" class="fa fa-star"></span>
-          	</div>
-          </div>
         </div>
         <div class="prodTotal cartSection" *ngIf="reservation.status === 0" >
             <button (click)="validateReservation(reservation ,reserId)" class="btn btn-primary">Valider</button>

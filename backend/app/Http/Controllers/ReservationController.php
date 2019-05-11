@@ -45,11 +45,19 @@ class ReservationController extends Controller
         if($ad == null)
             return response()->json(["message" => "Ad was not found"], 404);
         // Check if Ad has not expired 
-        if( \Carbon\Carbon::now() > $ad->start_date  || $ad->end_date < \Carbon\Carbon::now())
+        if( \Carbon\Carbon::now() > $ad->start_date  || $ad->end_date < \Carbon\Carbon::now()) {
+            // The system/agent cancel the ad
+            $ad->status = 3;
             return response()->json(["message" => "Ad has already expired"], 422);
-        // Check if Ad status is available (status == false)
-        if($ad->status == 0)
+        }
+
+        // Check if Ad status is available (status == 1)
+        if($ad->status == 1)
             return response()->json(["message" => "This car was already booked"], 409);
+        
+        // Check if Ad is available (status == 3)
+        if($ad->status == 3)
+            return response()->json(["message" => "This ad has been cancelled by the system due to inactivity !"], 409);
         
         // Check if user has an ongoing Reservation
         $ads = \DB::table('ads')
