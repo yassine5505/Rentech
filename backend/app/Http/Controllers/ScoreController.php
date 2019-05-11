@@ -140,6 +140,7 @@ class ScoreController extends Controller
   }
 
 
+
     /**
      * 
      * Show one Score by Id

@@ -7,6 +7,7 @@ use App\Car;
 use App\Http\Resources\CarCollection;
 use App\Http\Resources\ImageResource;
 use App\Http\Resources\ImageCollection;
+use App\Http\Resources\ScoreCollection;
 use App\Image;
 class CarResource extends JsonResource
 {
@@ -33,7 +34,7 @@ class CarResource extends JsonResource
             'centralized' => $this->centralized,
             'abs' => $this->abs,
             'images' => new ImageCollection($this->images),
-            // add score resource
+            'score' => new ScoreCollection('single', $this->scores)
         ];
     }
 }
