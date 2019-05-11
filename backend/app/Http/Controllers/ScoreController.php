@@ -55,7 +55,6 @@ class ScoreController extends Controller
 
 
     /**
-<<<<<<< HEAD
      * 
      * Verify if the ( car/ad_owner) | (reservation) 
      * has been scored by the current user
@@ -142,8 +141,6 @@ class ScoreController extends Controller
 
 
     /**
-||||||| merged common ancestors
-=======
      * 
      * Show one Score by Id
      * 
@@ -168,7 +165,6 @@ class ScoreController extends Controller
 
 
     /**
->>>>>>> ScoreResources
      * Verify Request
      * 
      * @param Request

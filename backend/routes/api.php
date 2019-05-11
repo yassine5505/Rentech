@@ -69,6 +69,7 @@ Route::group(['middleware' => 'api'], function () {
         Route::post('/', 'ScoreController@index');
         Route::post('user', 'ScoreController@evaluateUser');
         Route::post('car', 'ScoreController@evaluateCar');
+        Route::post('verify', 'ScoreController@verify');
     });
 
 
