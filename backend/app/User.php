@@ -115,6 +115,17 @@ class User extends Authenticatable implements JWTSubject
         return false;
     }
 
+    /**
+     * 
+     * Get lstest Scores
+     */
+    public function latestScores(){
+        return Score::where('to_id', '=', $this->id)
+                     ->orderBy('created_at', 'desc')
+                     ->limit(10)
+                     ->get();
+    }
+
 
     // Rest omitted for brevity
 
