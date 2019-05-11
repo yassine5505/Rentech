@@ -9,6 +9,8 @@ use App\User;
 use App\Reservation;
 use App\Mail\ClientEvaluationMail;
 use Illuminate\Support\Facades\Mail;
+use App\Http\Resources\ScoreResource;
+use App\Http\Resources\ScoreCollection;
 
 class ScoreController extends Controller
 {
@@ -53,6 +55,30 @@ class ScoreController extends Controller
 
 
     /**
+     * 
+     * Show one Score by Id
+     * 
+     * @param Score Id
+     */
+    public function show($id){
+        $score = Score::find($id);
+        if($score == null)
+            return response()->json(['message' => 'Score not found'], 404);
+        return new ScoreResource($score);
+    }
+
+
+    /**
+     * 
+     * Get all Scores
+     * 
+     */
+    public function index(){
+        return new ScoreCollection(Score::all());
+    }
+
+
+    /**
      * Verify Request
      * 
      * @param Request
@@ -75,6 +101,7 @@ class ScoreController extends Controller
         $score->amount = request('amount');
         $score->positive_comment = request('positive_comment');
         $score->negative_comment = request('negative_comment');
+        $score->reservation_id = request('amount');
         $score->user_id = auth()->user()->id;
         if($scoreType == 'car')
             $score->car_id = request('car_id');
