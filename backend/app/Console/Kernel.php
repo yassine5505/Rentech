@@ -27,7 +27,10 @@ class Kernel extends ConsoleKernel
     {
         $schedule->command('reservation:sendReviewForm')->hourly();
         $schedule->command('reservation:cancel_after_2_hours')->hourlyAt(15);
-        // ->between('8:00', '17:00');
+        // Cancel expired ad and send mails if necesary
+        $schedule->command('ad:cancelexpired')->hourlyAt(15);
+        // For presentation purpose, we can run command every 10 min / everyFiveMinutes()
+        // $schedule->command('ad:cancelexpired')->everyTenMinutes();
     }
 
     /**

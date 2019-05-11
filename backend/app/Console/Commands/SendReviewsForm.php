@@ -24,25 +24,6 @@ class SendReviewsForm extends Command
      */
     protected $description = 'Send the review form by mail to the client and partner when the ads period ends.';
 
-
-    /**
-     *  Users we want to send mails to
-     * @var array
-     */
-    public $usersMail = [];
-
-    /**
-     *   The date/period
-     * @var string
-     */
-    public $period;
-
-    /**
-     *   The date/period
-     * @var string
-     */
-    public $message;
-
     /**
      * Create a new command instance.
      *
@@ -80,8 +61,8 @@ class SendReviewsForm extends Command
                 $reservation->ad->status = 2;
                 $reservation->ad->save();
                 Mail::to($reservation->reservator->email)->send(new PartnerAndCarEvaluation($reservation));
+                $this->info('Review mail have been sent to Users');
             }
         }
-        $this->info('Review mail have been sent to Users');
     }
 }

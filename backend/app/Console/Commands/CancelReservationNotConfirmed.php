@@ -55,8 +55,8 @@ class CancelReservationNotConfirmed extends Command
         foreach ($reservations as $reservation) {
             if(Carbon::now()->subHours(2)->greaterThan($reservation->created_at)){
                 $reservation = Reservation::find($reservation->id);
-                // Status = 3 for cancelled reservations    
-                $reservation->status = 3;
+                // Status = 2 for cancelled reservations    
+                $reservation->status = 2;
                 $reservation->ad->status = 0;
                 $reservation->ad->save();
                 
