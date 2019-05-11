@@ -7,9 +7,10 @@ use App\Score;
 use Illuminate\Support\Facades\Validator;
 use App\User;
 use App\Reservation;
-use App\Http\Resources\UserResource;
-use App\Http\Resources\CarResource;
-use App\Http\Resources\AdResource;
+use App\Mail\ClientEvaluationMail;
+use Illuminate\Support\Facades\Mail;
+use App\Http\Resources\ScoreResource;
+use App\Http\Resources\ScoreCollection;
 
 class ScoreController extends Controller
 {
@@ -54,6 +55,7 @@ class ScoreController extends Controller
 
 
     /**
+<<<<<<< HEAD
      * 
      * Verify if the ( car/ad_owner) | (reservation) 
      * has been scored by the current user
@@ -140,6 +142,33 @@ class ScoreController extends Controller
 
 
     /**
+||||||| merged common ancestors
+=======
+     * 
+     * Show one Score by Id
+     * 
+     * @param Score Id
+     */
+    public function show($id){
+        $score = Score::find($id);
+        if($score == null)
+            return response()->json(['message' => 'Score not found'], 404);
+        return new ScoreResource($score);
+    }
+
+
+    /**
+     * 
+     * Get all Scores
+     * 
+     */
+    public function index(){
+        return new ScoreCollection(Score::all());
+    }
+
+
+    /**
+>>>>>>> ScoreResources
      * Verify Request
      * 
      * @param Request
@@ -162,6 +191,7 @@ class ScoreController extends Controller
         $score->amount = request('amount');
         $score->positive_comment = request('positive_comment');
         $score->negative_comment = request('negative_comment');
+        $score->reservation_id = request('amount');
         $score->user_id = auth()->user()->id;
         $score->reservation_id = request('reservation_id');
         if($scoreType == 'car')
