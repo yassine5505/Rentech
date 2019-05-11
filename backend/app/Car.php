@@ -39,6 +39,14 @@ class Car extends Model
         return $this->hasMany('\App\Ad');
     }
 
+
+    /**
+     * Car relationship with Score
+     */
+    public function scores(){
+        return $this->hasMany('\App\Score');
+    }
+
     /**
      * 
      * Check if Car exists

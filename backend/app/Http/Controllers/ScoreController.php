@@ -55,7 +55,6 @@ class ScoreController extends Controller
 
 
     /**
-<<<<<<< HEAD
      * 
      * Verify if the ( car/ad_owner) | (reservation) 
      * has been scored by the current user
@@ -142,33 +141,6 @@ class ScoreController extends Controller
 
 
     /**
-||||||| merged common ancestors
-=======
-     * 
-     * Show one Score by Id
-     * 
-     * @param Score Id
-     */
-    public function show($id){
-        $score = Score::find($id);
-        if($score == null)
-            return response()->json(['message' => 'Score not found'], 404);
-        return new ScoreResource($score);
-    }
-
-
-    /**
-     * 
-     * Get all Scores
-     * 
-     */
-    public function index(){
-        return new ScoreCollection(Score::all());
-    }
-
-
-    /**
->>>>>>> ScoreResources
      * Verify Request
      * 
      * @param Request
