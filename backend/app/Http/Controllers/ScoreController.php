@@ -73,7 +73,8 @@ class ScoreController extends Controller
     public function createScore(Request $request, $scoreType = "user"){
         $score = new Score;
         $score->amount = request('amount');
-        $score->comment = request('comment');
+        $score->positive_comment = request('positive_comment');
+        $score->negative_comment = request('negative_comment');
         $score->user_id = auth()->user()->id;
         if($scoreType == 'car')
             $score->car_id = request('car_id');
@@ -93,20 +94,20 @@ class ScoreController extends Controller
         if($type == 'user'){
             return [
                 'amount' => ['required', 'integer', 'between:1,5'],
-                'comment' => ['required', 'string', 'max:191'],
+                'positive_comment' => ['string', 'max:191'],
+                'negative_comment' => ['string', 'max:191'],
                 'to_id' => ['required', 'integer', 'exists:users,id'],
                 'reservation_id' => ['required', 'integer', 'exists:reservations,id']
-
             ];
         }
 
         else if($type == 'car'){
             return [
                 'amount' => ['required', 'integer', 'between:1,5'],
-                'comment' => ['required', 'string', 'max:191'],
+                'positive_comment' => ['required', 'string', 'max:191'],
+                'negative_comment' => ['required', 'string', 'max:191'],
                 'car_id' => ['required', 'integer', 'exists:cars,id'],
                 'reservation_id' => ['required', 'integer', 'exists:reservations,id']
-
             ];
         }
     }
