@@ -166,7 +166,6 @@ class ScoreController extends Controller
 
 
     /**
->>>>>>> 1f08f0981639cf497d256ea2a9aa3d230845beb3
      * Verify Request
      * 
      * @param Request
