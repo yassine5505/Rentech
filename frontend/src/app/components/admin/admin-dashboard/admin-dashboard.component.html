@@ -1,65 +1,73 @@
 <div class="content">
+  <div class="page-header page-header-xs" data-parallax="true" style="background:rgb(252, 250, 250);">
+    <!-- <div class="filter"></div> -->
+  </div>
   <div class="container-fluid">
+    <div class="row">
+      <div class="col-12">
+        <h2>Statistiques taux d'annonces</h2>
+        <br>
+      </div>
+    </div>
     <div class="row">
       <div class="col-md-4">
         <div class="card ">
           <div class="card-header ">
-            <h4 class="card-title">Email Statistics</h4>
-            <p class="card-category">Last Campaign Performance</p>
+            <h5 class="card-title">Statistiques nombres annonces ! </h5>
+            <p class="card-category">Nombre d'annonces par region </p>
           </div>
           <div class="card-body ">
-            <div id="chartPreferences" class="ct-chart ct-perfect-fourth"><svg
-                xmlns:ct="http://gionkunz.github.com/chartist-js/ct" width="100%" height="100%" class="ct-chart-pie"
-                style="width: 100%; height: 100%;">
-                <g class="ct-series ct-series-c">
-                  <path d="M31,96.5A26,26,0,0,0,14.357,102.525L31,122.5Z" class="ct-slice-pie" ct:value="11"></path>
-                </g>
-                <g class="ct-series ct-series-b">
-                  <path d="M14.427,102.467A26,26,0,0,0,26.217,148.056L31,122.5Z" class="ct-slice-pie" ct:value="36">
-                  </path>
-                </g>
-                <g class="ct-series ct-series-a">
-                  <path d="M26.128,148.039A26,26,0,1,0,31,96.5L31,122.5Z" class="ct-slice-pie" ct:value="53"></path>
-                </g>
-                <g><text dx="43.94230553984004" dy="123.72340807314069" text-anchor="middle"
-                    class="ct-label">53%</text><text dx="18.408418905327796" dy="125.73296853314311"
-                    text-anchor="middle" class="ct-label">36%</text><text dx="26.5964070368112" dy="110.26855000359507"
-                    text-anchor="middle" class="ct-label">11%</text></g>
-              </svg></div>
-          </div>
-          <div class="card-footer ">
-            <div class="legend">
-              <i class="fa fa-circle text-info"></i> Open
-              <i class="fa fa-circle text-danger"></i> Bounce
-              <i class="fa fa-circle text-warning"></i> Unsubscribe
-            </div>
-            <hr>
-            <div class="stats">
-              <i class="fa fa-clock-o"></i> Campaign sent 2 days ago
-            </div>
+              <div id="chartContainer"  style="height: 300px; width: 100%;"></div>
           </div>
         </div>
       </div>
       <div class="col-md-8">
         <div class="card ">
           <div class="card-header ">
-            <h4 class="card-title">Users Behavior</h4>
-            <p class="card-category">24 Hours performance</p>
+              <h4 class="card-title">Nombre d'annonces au cours 12 mois récents</h4>
+              <p class="card-category">
+                Un récencement de l'évolution des publications d'annonces
+                au cours des 12 derniers mois
+              </p>
           </div>
           <div class="card-body ">
             <div id="chartHours" class="ct-chart">
-              SVG
+                <div id="chartContainer2"  style="height: 300px; width: 100%;"></div>
             </div>
           </div>
-          <div class="card-footer ">
-            <div class="legend">
-              <i class="fa fa-circle text-info"></i> Open
-              <i class="fa fa-circle text-danger"></i> Click
-              <i class="fa fa-circle text-warning"></i> Click Second Time
-            </div>
-            <hr>
-            <div class="stats">
-              <i class="fa fa-history"></i> Updated 3 minutes ago
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-12">
+        <h2>Statistiques financières</h2>
+        <br>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-4">
+        <div class="card ">
+          <div class="card-header ">
+            <h5 class="card-title">Statistiques nombres annonces ! </h5>
+            <p class="card-category">Nombre d'annonces par region </p>
+          </div>
+          <div class="card-body ">
+              <div id="chartContainer"  style="height: 300px; width: 100%;"></div>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-8">
+        <div class="card ">
+          <div class="card-header ">
+              <h4 class="card-title">Nombre d'annonces au cours 12 mois récents</h4>
+              <p class="card-category">
+                Un récencement de l'évolution des publications d'annonces
+                au cours des 12 derniers mois
+              </p>
+          </div>
+          <div class="card-body ">
+            <div id="chartHours" class="ct-chart">
+                <div id="chartContainer2"  style="height: 300px; width: 100%;"></div>
             </div>
           </div>
         </div>
@@ -69,8 +77,11 @@
       <div class="col-md-6">
         <div class="card ">
           <div class="card-header ">
-            <h4 class="card-title">2017 Sales</h4>
-            <p class="card-category">All products including Taxes</p>
+            <h4 class="card-title">Nombre d'annonces au cours 12 mois récents</h4>
+            <p class="card-category">
+              Un récencement de l'évolution des publications d'annonces
+              au cours des 12 derniers mois
+            </p>
           </div>
           <div class="card-body ">
             <div id="chartActivity" class="ct-chart">

@@ -25,6 +25,7 @@ import { CardItemDetailsComponent } from './components/ads-page/card-item-detail
 import { ReviewPageComponent } from './components/review/review-page/review-page.component';
 import { ListReviewsComponent } from './components/review/review-page/list-reviews/list-reviews.component';
 import { CreateReviewComponent } from './components/review/create-review/create-review.component';
+import { AdminDashboardComponent } from './components/admin/admin-dashboard/admin-dashboard.component';
 
 const appRoutes: Routes = [
   {
@@ -68,6 +69,15 @@ const appRoutes: Routes = [
       }
     ]
   },
+
+  // Admin zone
+  {
+    path: 'admin-dashboard',
+    component: AdminDashboardComponent,
+    canActivate: [AuthGuard],
+    data: { roles: [Role.ADMIN] }
+  },
+
   {
     path: 'login',
     component: LoginComponent,
