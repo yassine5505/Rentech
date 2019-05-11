@@ -71,6 +71,11 @@ export class LoginComponent implements OnInit {
       this.router.navigateByUrl('/ads');
       return;
     }
+
+    if (user.role === Role.ADMIN) {
+      this.router.navigateByUrl('/admin-dashboard');
+      return;
+    }
     this.router.navigateByUrl('/profile');
   }
 

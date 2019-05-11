@@ -48,6 +48,7 @@ import { CreateReviewComponent } from './components/review/create-review/create-
 import { ReviewPageComponent } from './components/review/review-page/review-page.component';
 import { ListReviewsComponent } from './components/review/review-page/list-reviews/list-reviews.component';
 import { ReviewItemComponent } from './components/shared/review-item/review-item.component';
+import { AdminDashboardComponent } from './components/admin/admin-dashboard/admin-dashboard.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -76,7 +77,8 @@ import { ReviewItemComponent } from './components/shared/review-item/review-item
     CreateReviewComponent,
     ReviewPageComponent,
     ListReviewsComponent,
-    ReviewItemComponent
+    ReviewItemComponent,
+    AdminDashboardComponent
   ],
   imports: [
     BrowserModule,

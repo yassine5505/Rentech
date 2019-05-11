@@ -140,7 +140,33 @@ class ScoreController extends Controller
   }
 
 
+
     /**
+     * 
+     * Show one Score by Id
+     * 
+     * @param Score Id
+     */
+    public function show($id){
+        $score = Score::find($id);
+        if($score == null)
+            return response()->json(['message' => 'Score not found'], 404);
+        return new ScoreResource($score);
+    }
+
+
+    /**
+     * 
+     * Get all Scores
+     * 
+     */
+    public function index(){
+        return new ScoreCollection(Score::all());
+    }
+
+
+    /**
+>>>>>>> 1f08f0981639cf497d256ea2a9aa3d230845beb3
      * Verify Request
      * 
      * @param Request
