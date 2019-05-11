@@ -1,0 +1,107 @@
+<div class="container-fluid as-full">
+  <h2>Formulaire d'évaluation du niveau de satisfaction !</h2>
+  <div class="row" *ngIf="showUserVoteZone || showCarVoteZone">
+    <div class="col-12">
+      <p>
+        Cette étape intervient suite à la fin de la prestation réalisée entre vous et 
+        <i>{{ toInfo.role }}</i> <b> {{toInfo.name}} </b> 
+        . Prestation faite du <b><time> {{adInfo.start_date | date:'dd/MM/yyyy HH:mm' }} </time> </b>  au
+        <b> <time> {{adInfo.end_date | date:'dd/MM/yyyy HH:mm' }} </time> </b>. 
+        <br>
+        <span>
+            Veuillez remplir et soumettre les informations ci-dessous:
+        </span>
+      </p>
+    </div>
+  </div>
+  <div class="row" *ngIf="error || success">
+      <div class="col-12">
+          <div class="card">
+              <div class="form-group" *ngIf="success">
+                <div class="alert alert-success" role="alert" style="width: 100% !important;">
+                  {{success }}
+                </div>
+              </div>
+              <div class="form-group" *ngIf="error">
+                <div class="alert alert-danger" role="alert" style="width: 100% !important;">
+                  {{error }}
+                </div>
+              </div>
+              
+          </div>
+      </div>
+  </div>
+  
+  <div class="row">
+    <div class="col-6 align-self-center" *ngIf="showUserVoteZone">
+      <div class="card"  style="background: rgb(226, 182, 231);">
+        <div class="card-body">
+         
+          <form (ngSubmit)="onSubmitUserScore()" [formGroup]="userScoreForm">
+            <div class="form-group">
+             
+                  <star-rating labelText="Note du {{toInfo.role}} :"
+                  (ratingChange)="onUserRatingChange($event)"
+                   size="large" [starType]="'svg'"
+                   speed="slow"
+                   [hoverEnabled]="true"
+                   direction="ltr"></star-rating>
+            </div>
+            <div class="form-group">
+              <label for="userQuality" class="label">
+                Qualité de votre expérience
+              </label>
+              <select name="userQuality" formControlName="type"  class="form-control" id="userQuality">
+                <option value="1">BIEN</option>
+                <option value="0">PAS BIEN</option>
+              </select>
+            </div>
+           
+            <div class="form-group">
+              <textarea name="userComment" id="userComment" 
+              formControlName="comment"
+              placeholder="Descrivez votre expérience avec cet utilisateur (comportement, reactivité ,... )" style="width: 100%" rows="6">
+              </textarea>
+            </div>
+            <button type="submit" class="col-md-12 btn btn-primary">Soumettre</button>
+          </form>
+        </div>
+      </div>
+    </div>
+    <div class="col-6 align-self-center" *ngIf="showCarVoteZone">
+      <div class="card" style="background: #D8E4F0;">
+        <div class="card-body">
+          <form (ngSubmit)="onSubmitCarScore()" [formGroup]="carScoreForm">
+              <div class="form-group">
+               
+                    <star-rating labelText="Note de la voiture :"
+                    (ratingChange)="onCarRatingChange($event)" 
+                     size="large" [starType]="'svg'"
+                     speed="slow"
+                     [hoverEnabled]="true"
+                     direction="ltr"></star-rating>
+              </div>
+              <div class="form-group">
+                <label for="carQuality" class="label">
+                  Qualité de la voiture
+                </label>
+                <select name="carQuality" formControlName="type"  class="form-control" id="carQuality">
+                  <option value="1">BONNE</option>
+                  <option value="0">MAUVAISE</option>
+                </select>
+              </div>
+             
+              <div class="form-group">
+                <textarea name="carComment" id="carComment" 
+                formControlName="comment"
+                placeholder="Descrivez votre expérience avec cette voiture" style="width: 100%" rows="6">
+                </textarea>
+              </div>
+              <button type="submit" class="col-md-12 btn btn-primary">Soumettre</button>
+            </form>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>

@@ -55,7 +55,7 @@ export class AdCreateComponent implements OnInit, OnDestroy {
         price: [100, [
           Validators.required,
           Validators.min(100),
-          Validators.max(2000)
+          Validators.max(10000)
         ]],
         car_id: [null, Validators.required],
         status: true
