@@ -48,19 +48,16 @@
                    direction="ltr"></star-rating>
             </div>
             <div class="form-group">
-              <label for="userQuality" class="label">
-                Qualité de votre expérience
-              </label>
-              <select name="userQuality" formControlName="type"  class="form-control" id="userQuality">
-                <option value="1">BIEN</option>
-                <option value="0">PAS BIEN</option>
-              </select>
+              <textarea name="userCommentNegative" class="negative_comment" id="userCommentNegative" 
+              formControlName="negative_comment"
+              placeholder="Décrivez les défauts rencontrés avec ce client ..." style="width: 100%" rows="4">
+              </textarea>
             </div>
            
             <div class="form-group">
-              <textarea name="userComment" id="userComment" 
-              formControlName="comment"
-              placeholder="Descrivez votre expérience avec cet utilisateur (comportement, reactivité ,... )" style="width: 100%" rows="6">
+              <textarea name="userCommentPositive" class="positive_comment" id="userCommentPositive" 
+              formControlName="positive_comment"
+              placeholder="Décrivez les qualités de cet utilisateur (comportement, reactivité ,... )" style="width: 100%" rows="4">
               </textarea>
             </div>
             <button type="submit" class="col-md-12 btn btn-primary">Soumettre</button>
@@ -82,21 +79,19 @@
                      direction="ltr"></star-rating>
               </div>
               <div class="form-group">
-                <label for="carQuality" class="label">
-                  Qualité de la voiture
-                </label>
-                <select name="carQuality" formControlName="type"  class="form-control" id="carQuality">
-                  <option value="1">BONNE</option>
-                  <option value="0">MAUVAISE</option>
-                </select>
+                <textarea name="carCommentNegative" class="negative_comment" id="carCommentNegative" 
+                formControlName="negative_comment"
+                placeholder="Décrivez les défauts rencontrés avec ce vehicule ..." style="width: 100%" rows="4">
+                </textarea>
               </div>
              
               <div class="form-group">
-                <textarea name="carComment" id="carComment" 
-                formControlName="comment"
-                placeholder="Descrivez votre expérience avec cette voiture" style="width: 100%" rows="6">
+                <textarea name="carCommentPositive" class="positive_comment" id="carCommentPositive" 
+                formControlName="positive_comment"
+                placeholder="Décrivez les éléments positifs de votre expérience avec cette voiture" style="width: 100%" rows="4">
                 </textarea>
               </div>
+              
               <button type="submit" class="col-md-12 btn btn-primary">Soumettre</button>
             </form>
         </div>

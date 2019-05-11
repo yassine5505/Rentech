@@ -1,5 +1,5 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
+import { FormGroup, Validators, FormControl } from '@angular/forms';
 import { ScoreService } from './../../../services/score/score.service';
 import { Subscription } from 'rxjs';
 import { ActivatedRoute, ParamMap } from '@angular/router';
@@ -37,8 +37,7 @@ export class CreateReviewComponent implements OnInit, OnDestroy {
   constructor(
     private scoreService: ScoreService,
     private route: ActivatedRoute,
-    private authService: AuthService,
-    private formBuilder: FormBuilder
+    private authService: AuthService
   ) { }
 
   ngOnInit() {
@@ -58,8 +57,8 @@ export class CreateReviewComponent implements OnInit, OnDestroy {
         amount: new FormControl(2),
         to_id: new FormControl('', [Validators.required]),
         reservation_id: new FormControl('', [Validators.required]),
-        comment: new FormControl('', [ Validators.maxLength(150)]),
-        type:  new FormControl( 0 , [Validators.required]),
+        negative_comment: new FormControl('', [ Validators.maxLength(150)]),
+        positive_comment: new FormControl('', [ Validators.maxLength(150)])
       }
     );
 
@@ -68,8 +67,8 @@ export class CreateReviewComponent implements OnInit, OnDestroy {
         amount: new FormControl(2),
         car_id: new FormControl(2, [Validators.required]),
         reservation_id: new FormControl(2, [Validators.required]),
-        comment: new FormControl('', [ Validators.maxLength(150)]),
-        type:  new FormControl( 0 , [Validators.required]),
+        negative_comment: new FormControl('', [ Validators.maxLength(150)]),
+        positive_comment: new FormControl('', [ Validators.maxLength(150)])
       }
     );
 

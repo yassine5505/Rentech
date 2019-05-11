@@ -7,7 +7,6 @@ use App\Score;
 use Illuminate\Support\Facades\Validator;
 use App\User;
 use App\Reservation;
-use Illuminate\Support\Facades\Mail;
 use App\Http\Resources\UserResource;
 use App\Http\Resources\CarResource;
 use App\Http\Resources\AdResource;
@@ -164,7 +163,6 @@ class ScoreController extends Controller
         $score->positive_comment = request('positive_comment');
         $score->negative_comment = request('negative_comment');
         $score->user_id = auth()->user()->id;
-        $score->type = request('type');
         $score->reservation_id = request('reservation_id');
         if($scoreType == 'car')
             $score->car_id = request('car_id');
