@@ -76,3 +76,39 @@ serif;
 
     }
 }
+
+
+
+/* Review zone */
+.review-wrap {
+    margin-bottom: 10px;
+    background: #F4F7FA;
+    min-height: 50px;
+    height: auto;
+    position: relative;
+    padding: 10px;
+  
+  .review-wrap:last-of-type {
+    margin-bottom: 0;
+  }
+  .author {
+    margin-bottom: 5px;
+  }
+  .author-img {
+    float: left;
+    margin-right: 10px;
+    max-width: 40px;
+    transition: filter ease-in-out .3s;
+    border-radius: 50%;
+  }
+  .author-img:hover {
+    filter: brightness(2);
+  }
+  .author-name {
+    font-weight: 700;
+  }
+  .review {
+    position: relative;
+  }
+
+}

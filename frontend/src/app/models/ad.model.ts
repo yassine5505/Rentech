@@ -1,4 +1,5 @@
 import { Car , City , Score } from './';
+import { User } from './user.model';
 export class Ad {
 
   constructor(
@@ -11,10 +12,11 @@ export class Ad {
     // tslint:disable-next-line:variable-name
     public end_date: Date,
     // tslint:disable-next-line:variable-name
-    public score_average: Date,
+    public score_average: number,
     public price: number,
     public status: number,
     public car: Car,
+    public user: User,
     public city: City,
     public score: Score,
     // tslint:disable-next-line:variable-name

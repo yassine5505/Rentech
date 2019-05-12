@@ -1,7 +1,6 @@
 <div class="col-xs-12 col-sm-12">
   <br>
-  <h3>Mes informations personnelles </h3>
-  <br>
+  <h3 class="projTitle">Mes informations personnelles </h3>
   <ngb-alert *ngIf="!currentUser.status" [type]="'danger'"  [dismissible]="false">
       <div class="container">
         Votre compte est incomplet/inactif  !  <a [routerLink]="['/profile/edit']" class="btn btn-info">Editer !</a>
@@ -57,10 +56,8 @@
         </span>
       </div>
     </div>
-
   </div>
-  <br>
-  <h3>Les commentaires sur moi !</h3>
+  <h3 class="projTitle" >Mes évaluations</h3>
   <div class="profile-user-info">
     <app-preview-item></app-preview-item>
     <app-preview-item></app-preview-item>

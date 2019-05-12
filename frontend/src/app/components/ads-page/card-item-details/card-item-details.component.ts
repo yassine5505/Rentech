@@ -39,7 +39,6 @@ export class CardItemDetailsComponent implements OnInit,  OnDestroy {
     });
     this.adSubscription = this.adService.get(this.adId).subscribe(
       (data) => {
-        console.log(data);
         this.adInfo = data;
       },
       (error) => {

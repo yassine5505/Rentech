@@ -122,36 +122,6 @@ button {
     margin: 15px 0px;
 }
 
-/* Review zone */
-    .review-wrap {
-    margin-bottom: 20px;
-  }
-  .review-wrap:last-of-type {
-    margin-bottom: 0;
-  }
-  .author {
-    margin-bottom: 15px;
-  }
-  .author-img {
-    float: left;
-    margin-right: 10px;
-    max-width: 40px;
-    transition: filter ease-in-out .3s;
-    border-radius: 50%;
-  }
-  .author-img:hover {
-    filter: brightness(2);
-  }
-  .author-name {
-    font-weight: 700;
-  }
-  .rating i {
-    color: gold;
-    padding-right: 2px;
-  }
-  .review {
-    float: lef;
-  }
 
 @media (max-width:500px) {
     #product_layout_3 .product_image {

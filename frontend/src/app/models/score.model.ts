@@ -1,4 +1,6 @@
 import { Ad } from './ad.model';
+import { User } from './user.model';
+import { Booking } from './booking.model';
 
 export class Score {
 
@@ -19,6 +21,11 @@ export class Score {
     public score_count: number,
     // tslint:disable-next-line:variable-name
     public score_average: number,
+    public scores: Score[],
+    // tslint:disable-next-line:variable-name
+    public reservation: Booking,
+    // tslint:disable-next-line:variable-name
+    public user_info: User,
     // tslint:disable-next-line:variable-name
     public created_at: Date,
     // tslint:disable-next-line:variable-name

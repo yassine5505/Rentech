@@ -2,28 +2,33 @@
 <div class="wrapper" >
   <div class="container-fluid ">
       <div class="row ">
-        <div class="col-lg-10 col-md-12  col-md-offset-5">
+        <div class="col-lg-12 col-md-12 col-md-offset-5">
           
-          <form (ngSubmit)="onSubmit()" style="" [formGroup]="registerForm" class="register-form">
-            <h3 class="title" style="color: #334d4d;"> <b> Modifier mes informations personnelles : </b></h3>
+          <form (ngSubmit)="onSubmit()"  [formGroup]="updateForm" class="register-form">
+            <h3 class="projTitle" style="color: #334d4d;">
+               Modifier mes informations personnelles 
+            </h3>
             <br>
-            <div class="form-group" *ngIf="error.length > 0">
-              <div *ngFor="let message of error" role="alert" class="alert alert-danger" style="width: 100% !important">
-                {{message | titlecase}}</div>
-            </div>
+            <div class="form-group" *ngIf="success !== null">
+                <div class="alert alert-success" role="alert" style="width: 100% !important;">{{success | titlecase}}</div>
+              </div>
+              <div class="form-group" *ngIf="error  !== null">
+                  <div class="alert alert-danger" role="alert" style="width: 100% !important;">{{error | titlecase}}</div>
+              </div>
+
             
             <div class="form-group">
-              <label for="inputNom" class="control-label">Téléphone :</label>
-              <input id="inputNom" formControlName="name" class="form-control"
-                [ngClass]="{ 'is-invalid': submitted && f.name.errors }" type="text" style="background-color: rgb(173, 235, 235,0.750);">
+              <label for="inputPhone" class="control-label">Numéro  de téléphone :</label>
+              <input id="imputPhone" formControlName="phone" class="form-control"
+                [ngClass]="{ 'is-invalid': submitted && f.phone.errors }" type="text" style="background-color: rgb(173, 235, 235,0.750);">
             </div>
 
 
             <div class="row form-group">
               
               <div class="col-md-6">
-                <label for="inputCategory" class="col-sm-12 control-label">Addresse de résidence:</label>
-                <input type="text" name="cin" class="form-control" style="background-color: rgb(173, 235, 235,0.750);">
+                <label for="inputAdress" class="col-sm-12 control-label">Addresse de résidence:</label>
+                <input type="text" formControlName="address" class="form-control" style="background-color: rgb(173, 235, 235,0.750);">
               </div>
               <div class="col-md-6">
 
@@ -35,19 +40,23 @@
                 </select>
               </div>
             </div>
-
-
-
             <div class="form-group" >
-                <label for="inputPassword">  Nouveau Password : </label>
+                <label for="inputOldPassword">  Ancien mot de passe : </label>
                   <div class="input-group-prepend">
                     <span class="input-group-text">
                       <i class="nc-icon nc-key-25"></i>
                     </span>
-                  <input type="password" formControlName="password" id="inputPassword" class="form-control" placeholder="Password" style="background-color: rgb(173, 235, 235,0.750);">
+                  <input type="password" formControlName="old_password" id="inputOldPassword" class="form-control" placeholder="Ancien mot de passe" style="background-color: rgb(173, 235, 235,0.750);">
                 </div>
-              
-        
+            </div>
+            <div class="form-group" >
+                <label for="inputPassword">  Nouveau mot de passe : </label>
+                  <div class="input-group-prepend">
+                    <span class="input-group-text">
+                      <i class="nc-icon nc-key-25"></i>
+                    </span>
+                  <input type="password" formControlName="password" id="inputPassword" class="form-control" placeholder="Nouveau mot de passe" style="background-color: rgb(173, 235, 235,0.750);">
+                </div>
             </div>
 
 <br>

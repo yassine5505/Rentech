@@ -1,4 +1,7 @@
 import { Role } from './role.model';
+import { Car } from './car.model';
+import { City } from './city.model';
+import { Score } from './score.model';
 
 export class User {
 
@@ -15,7 +18,13 @@ export class User {
     public name: string,
     public role: Role,
     public status: boolean,
-    public telephone: string
+    public telephone: string,
+    // tslint:disable-next-line:variable-name
+    public cars?: Car[],
+    public city?: City,
+    // tslint:disable-next-line:variable-name
+    public score_average?: number,
+    public scores?: Score
     ) {
 
   }
