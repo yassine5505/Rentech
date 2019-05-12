@@ -7,6 +7,8 @@ use App\Http\Resources\CityResource;
 use App\User;
 use App\Http\Resources\CarCollection;
 use App\Http\Resources\ImageResource;
+use App\Http\Resources\Scoreollection;
+
 class UserResource extends JsonResource
 {
     /**
@@ -31,6 +33,7 @@ class UserResource extends JsonResource
             "telephone" => $this->telephone,
             "role" => $this->role,
             "status" => $this->status,
+            "scores" => new ScoreCollection(ScoreCollection::$ALL, $this->latestScores($this->id)),
             "city" => new CityResource($this->city),
             "image" => new ImageResource($this->image),
             "cars" => $cars,

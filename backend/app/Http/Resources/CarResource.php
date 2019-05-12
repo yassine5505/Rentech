@@ -34,7 +34,7 @@ class CarResource extends JsonResource
             'centralized' => $this->centralized,
             'abs' => $this->abs,
             'images' => new ImageCollection($this->images),
-            'score' => new ScoreCollection('single', $this->scores)
+            'score' => new ScoreCollection(ScoreCollection::$ALL, $this->latestScores($this->id))
         ];
     }
 }

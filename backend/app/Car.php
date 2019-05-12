@@ -6,11 +6,11 @@ use Illuminate\Database\Eloquent\Model;
 
 class Car extends Model
 {
-    protected $fillable = ["user_id", "brand", "model", "driving_license_number", "production_year", "color", "mileage"];
-
+    //protected $fillable = ["user_id", "brand", "model", "driving_license_number", "production_year", "color", "mileage"];
+    protected $guarded = [];
 
     // Custom Model Methods
-
+    public $scores;
     /*
      * Get Car Image
      * 
@@ -58,4 +58,16 @@ class Car extends Model
         return true;
     }
 
+
+    /**
+     * 
+     * Return 5 Latest Scores that belong to a Car
+     * @return Score
+     */
+    public function latestScores($id){
+        return Score::where('car_id', '=', $id)
+                      ->orderBy('created_at', 'desc')
+                      ->limit(10)
+                      ->get();
+    }
 }

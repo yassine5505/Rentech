@@ -154,7 +154,7 @@ class ScoreController extends Controller
         $score = Score::find($id);
         if($score == null)
             return response()->json(['message' => 'Score not found'], 404);
-        return new ScoreResource($score);
+        return new ScoreResource(ScoreCollection::$ALL, $score);
     }
 
 
@@ -164,7 +164,7 @@ class ScoreController extends Controller
      * 
      */
     public function index(){
-        return new ScoreCollection(Score::all());
+        return new ScoreCollection(ScoreCollection::$ALL, Score::all());
     }
 
 

@@ -1,3 +1,64 @@
-<p>
-  profile-edit works!
-</p>
+
+<div class="wrapper" >
+  <div class="container-fluid ">
+      <div class="row ">
+        <div class="col-lg-10 col-md-12  col-md-offset-5">
+          
+          <form (ngSubmit)="onSubmit()" style="" [formGroup]="registerForm" class="register-form">
+            <h3 class="title" style="color: #334d4d;"> <b> Modifier mes informations personnelles : </b></h3>
+            <br>
+            <div class="form-group" *ngIf="error.length > 0">
+              <div *ngFor="let message of error" role="alert" class="alert alert-danger" style="width: 100% !important">
+                {{message | titlecase}}</div>
+            </div>
+            
+            <div class="form-group">
+              <label for="inputNom" class="control-label">Téléphone :</label>
+              <input id="inputNom" formControlName="name" class="form-control"
+                [ngClass]="{ 'is-invalid': submitted && f.name.errors }" type="text" style="background-color: rgb(173, 235, 235,0.750);">
+            </div>
+
+
+            <div class="row form-group">
+              
+              <div class="col-md-6">
+                <label for="inputCategory" class="col-sm-12 control-label">Addresse de résidence:</label>
+                <input type="text" name="cin" class="form-control" style="background-color: rgb(173, 235, 235,0.750);">
+              </div>
+              <div class="col-md-6">
+
+                <label for="inputCity" class="col-sm-12 control-label">Ville de résidence : </label>
+                <select id="inputCity" formControlName="city_id" class="col-sm-12 form-control" style="background-color: rgb(173, 235, 235,0.750);">
+                  <option *ngFor="let city of cities" [ngValue]="city.id" [selected]="city.id == 1">
+                    {{ city.name }}
+                  </option>
+                </select>
+              </div>
+            </div>
+
+
+
+            <div class="form-group" >
+                <label for="inputPassword">  Nouveau Password : </label>
+                  <div class="input-group-prepend">
+                    <span class="input-group-text">
+                      <i class="nc-icon nc-key-25"></i>
+                    </span>
+                  <input type="password" formControlName="password" id="inputPassword" class="form-control" placeholder="Password" style="background-color: rgb(173, 235, 235,0.750);">
+                </div>
+              
+        
+            </div>
+
+<br>
+<br>
+
+            <div class="text-center row ">
+              <button class="btn btn-success btn-block btn-round" type="submit">MODIFIER</button>
+            </div>
+
+          </form>
+        </div>
+        </div>
+    </div>
+  </div>

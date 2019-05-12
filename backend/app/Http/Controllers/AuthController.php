@@ -84,8 +84,20 @@ class AuthController extends Controller
      * @return \Illuminate\Http\JsonResponse
      */
     public function update(Request $request){
-        $this->validateRequest($request, "update");
-        dd(auth()->user());
+        $validator = $this->validateRequest($request, "update");
+        if($validator != true)
+            return $validator;
+        auth()->user()->address = $request->address;
+        auth()->user()->telephone = $request->telephone;
+        if(!is_null($request->password) and ! is_null($request->city_id)){
+            auth()->user()->password = $request->password;
+            auth()->user()->city_id = $request->city_id;
+        }
+            
+        if(auth()->user()->save())  
+            return response()->json(['message' => 'Profile updated successfully'], 200);
+        return response()->json(['message' => 'Error while updating profile'], 500);
+        
     }
 
 
@@ -156,17 +168,10 @@ class AuthController extends Controller
         }
         else if ($validationType == "update"){
             $rule = [
-                'image' => ['mimes:jpg,jpeg,png,svg'],
-                'cin' => ['string', 'max:191'],
-                'name' => ['string', 'max:191'],
-                'driving_license_number' => ['string', 'max:191'],
                 'address' => ['string' , 'max:191'],
                 'telephone' => ['string', 'max:191'],
-                'role' => ['string', 'max:191'],
-                'status' => ['boolean'],
                 'city_id' => ['int'],
-                'email' => ['required', 'string', 'email', 'max:191', 'unique:users'],
-                'password' => ['string']
+                'password' => ['string' , 'max:191']
             ];
         }
 
