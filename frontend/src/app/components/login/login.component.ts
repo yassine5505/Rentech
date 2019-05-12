@@ -49,17 +49,7 @@ export class LoginComponent implements OnInit {
   handleResponse(data) {
     this.Token.handle(data.access_token);
     this.Auth.changeAuthStatus(true);
-    const user = new User(
-      data.user.address,
-      data.user.city_id,
-      data.user.driving_license_number,
-      data.user.email,
-      data.user.id,
-      data.user.image,
-      data.user.name,
-      User.dealingRole(data.user.role),
-      !!data.user.status,
-      data.user.telephone);
+    const user = data.user;
     this.Auth.changeCurrentUserSubject(user);
 
     if (user.role === Role.PARTNER) {

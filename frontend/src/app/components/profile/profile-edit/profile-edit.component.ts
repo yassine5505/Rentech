@@ -50,69 +50,73 @@ export class ProfileEditComponent implements OnInit, OnDestroy {
           this.loaderService.stopLoading();
       },
       (error) => {
-          console.log(error);
+          this.error = error.message || 'Une erreur est survenue durant la liaison avec le serveur';
           this.loaderService.stopLoading();
-      },
-      () => this.loaderService.stopLoading()
+      }
     );
     this.updateForm = this.formBuilder.group(
       {
-        phone: new FormControl('', [Validators.minLength(5), Validators.maxLength(150), Validators.required]),
+        telephone: new FormControl('', [Validators.minLength(5), Validators.maxLength(150), Validators.required]),
         address: new FormControl('', [ Validators.minLength(5), Validators.maxLength(70), Validators.required] ),
         city_id: new FormControl('', [Validators.required]),
-        email: new FormControl('', [ Validators.minLength(5), Validators.email,  Validators.maxLength(25), Validators.required ]),
+        email: new FormControl('', [ Validators.minLength(5), Validators.email,  Validators.maxLength(55), Validators.required ]),
         old_password: new FormControl('', [Validators.minLength(5), Validators.maxLength(150)]),
         password: new FormControl('', [Validators.minLength(5), Validators.maxLength(150)])
       }
     );
 
+    this.updateForm.patchValue(
+      {
+        city_id: this.user.city.id ,
+        telephone: this.user.telephone,
+        address: this.user.address,
+        email: this.user.email,
+      });
+
+    console.log(this.user);
   }
 
   onSubmit() {
     this.submitted = true;
     // stop here if form is invalid
     if (this.updateForm.invalid) {
-      this.error = [];
-      this.error.push('Certaines informations du formulaire sont invalides !');
+      this.success = null;
+      console.log(this.updateForm);
+      this.error = 'Certaines informations du formulaire sont invalides !';
       return;
     }
-    this.authenticationService.signup(this.updateForm.value).subscribe(
-      data => {
+    this.loaderService.startLoading();
+    this.authenticationService.update(this.updateForm.value).subscribe(
+      (data) => {
         this.handleResponse(data);
+        this.loaderService.stopLoading();
       },
-      error => {
+      (error) => {
         this.handleError(error);
-      },
-      () => {
+        this.loaderService.stopLoading();
       }
-
     );
   }
 
   handleResponse(data) {
-    /*this.Auth.changeAuthStatus(true);
-    const user = new User(
-    data.user.address,
-    data.user.city_id,
-    data.user.driving_license_number,
-    data.user.email,
-    data.user.id,
-    data.user.image,
-    data.user.name,
-    User.dealingRole(data.user.role),
-    !!data.user.status,
-    data.user.telephone);
-    this.Auth.changeCurrentUserSubject(user);
 
-    if (user.role === Role.PARTNER) {
-    this.router.navigateByUrl('/home');
+    this.error = null;
+    this.authService.changeAuthStatus(true);
+
+    this.user.telephone = this.updateForm.controls.telephone.value;
+    this.user.email = this.updateForm.controls.email.value;
+    this.user.address = this.updateForm.controls.address.value;
+    if (!this.user.status) {
+      this.user.status = true;
     }
-    this.router.navigateByUrl('/profile');
-    */
+    this.success = data.message || 'Profile updated successfully';
+    this.authService.changeCurrentUserSubject(this.user);
+
   }
 
   handleError(error) {
-    this.error = error.message;
+    this.success = null;
+    this.error = error.message || 'An error occured during update !';
   }
 
   // convenience getter for easy access to form fields
@@ -120,6 +124,7 @@ export class ProfileEditComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.citySubscription.unsubscribe();
+    this.userSubscription.unsubscribe();
   }
 
 }
