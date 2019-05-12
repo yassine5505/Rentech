@@ -5,7 +5,7 @@
         <div class="col-lg-10 col-md-12  col-md-offset-5 ">
           <div class="card card-register">
           <form (ngSubmit)="onSubmit()" style="" [formGroup]="registerForm" class="register-form">
-            <h3 class="title">Inscription</h3>
+            <h3 class="projTitle">Inscription</h3>
             <br>
             <div class="form-group" *ngIf="error.length > 0">
               <div *ngFor="let message of error" role="alert" class="alert alert-danger" style="width: 100% !important">

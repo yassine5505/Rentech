@@ -10,6 +10,9 @@ use App\Reservation;
 use App\Mail\ClientEvaluationMail;
 use Illuminate\Support\Facades\Mail;
 use App\Http\Resources\ScoreResource;
+use App\Http\Resources\UserResource;
+use App\Http\Resources\CarResource;
+use App\Http\Resources\AdResource;
 use App\Http\Resources\ScoreCollection;
 
 class ScoreController extends Controller

@@ -7,6 +7,7 @@ import { Ad } from './../../../models/ad.model';
 import { BookingService } from './../../../services/book/booking.service';
 import { Subscription } from 'rxjs';
 import { environment } from './../../../../environments/environment';
+import * as moment from 'moment';
 
 @Component({
   selector: 'app-card-item',
@@ -39,6 +40,10 @@ export class CardItemComponent implements OnInit, OnDestroy {
     setTimeout(() => {
       this.visibled = false;
     }, 3000);
+  }
+
+  isNew(adInfo: Ad): boolean {
+    return moment(moment().format('YYYY-MM-DD')).isSame(moment(adInfo.start_date).format('YYYY-MM-DD')) ;
   }
   bookAd() {
     if (!this.user) {
@@ -82,8 +87,7 @@ export class CardItemComponent implements OnInit, OnDestroy {
   }
 
   showAdDetails(adId: number) {
-    console.log(adId);
-    this.router.navigate([ adId, {}], { relativeTo: this.activatedRoute});
+    this.router.navigate([ adId ], { relativeTo : this.activatedRoute  });
   }
 
   getImage(image) {

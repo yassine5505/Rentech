@@ -1,100 +1,162 @@
 <div class="wrapper" style="background: #F4F7FA;">
-  <div class="page-header page-header-xs" data-parallax="true" style="background:rgb(19, 8, 8);">
-    <div class="filter"></div>
+  <div class="page-header page-header-xs" data-parallax="true" style="background:rgb(255, 255, 255);">
   </div>
   <div class="container">
     <div class="row">
       <div id="wrap">
-        <div id="product_layout_3">
+        <div id="product_layout_3" *ngIf="adInfo">
           <div class="product_image">
             <div class="main_image">
               <ngb-carousel>
-                <ng-template ngbSlide>
-                  <img src="./assets/img/car-renting.jpg" alt="Random first slide">
-                  <div class="carousel-caption">
-                    <p>Hyper Robuste</p>
-                  </div>
-                </ng-template>
-                <ng-template ngbSlide>
-                  <img src="./assets/img/nos-vehicules.jpg" alt="Random first slide">
-                  <div class="carousel-caption">
-                    <p>Une autre voiture spéciale</p>
-                  </div>
-                </ng-template>
-                <ng-template ngbSlide>
-                  <img src="./assets/img/nos-vehicules.jpg" alt="Random first slide">
-                  <div class="carousel-caption">
-                    <p>Une autre voiture spéciale</p>
-                  </div>
-                </ng-template>
-                <ng-template ngbSlide>
-                  <img src="./assets/img/nos-vehicules.jpg" alt="Random first slide">
-                  <div class="carousel-caption">
-                    <p>Une autre voiture spéciale</p>
-                  </div>
+                <ng-template ngbSlide *ngFor="let image of adInfo.car.images.images">
+                  <img src="{{ getImage(image) }}">
                 </ng-template>
               </ngb-carousel>
             </div>
-          </div>
-          <div class="product_desc">
-            <h1>Mercedes Benz <span class="model">Model(ALDX-2500)</span></h1>
-            <span class="sale_price">
-              MAD
-              <span class="unit">15</span>
-              / heure
-            </span>
-            <div class="rating">
-                <span class="stars">
-                  <i class="fa fa-star"></i>
-                  <i class="fa fa-star"></i>
-                  <i class="fa fa-star"></i>
-                  <i class="fa fa-star"></i>
-                </span>
-              
+            <div class="product_options">
+              <span title="{{ adInfo.car.motor}}" class="badge badge-info" style="margin-left: 3px;">
+                Moteur {{ adInfo.car.motor}}</span>
+              <span title="{{!adInfo.car.airbag ? 'INDISPONIBLE' : 'DISPONIBLE'}}" style="margin-left: 2px;"
+                class="badge" [ngClass]="{'badge-danger': !adInfo.car.airbag, 'badge-success': !!adInfo.car.airbag }">
+                Airbag</span>
+              <span title="{{!adInfo.car.abs ? 'INDISPONIBLE' : 'DISPONIBLE'}}" style="margin-left: 1px;" class="badge"
+                [ngClass]="{'badge-danger': !adInfo.car.abs, 'badge-success': !!adInfo.car.abs }">
+                ABS</span>
+              <span title="{{!adInfo.car.centralized ? 'INDISPONIBLE' : 'DISPONIBLE'}}" style="margin-left: 2px;"
+                class="badge"
+                [ngClass]="{'badge-danger': !adInfo.car.centralized, 'badge-success': !!adInfo.car.centralized }">
+                Centralisation</span>
             </div>
-           <div class="product_options">
-              <span class="badge badge-dark">
-                <i class="fa fa-suitcase fa-inverse"></i>
-                Airbag
-              </span>
-              <span class="badge badge-dark">
-                TRANSMISSION AUTO
-              </span>
-            </div>
-            <table class="table">
-              
-              <tbody>
-                <tr>
-                  <th scope="row">De</th>
-                  <td> {{ '12-03-2018 ' | date: 'MM/yyyy'  }}</td>
-                </tr>
-                <tr>
-                  <th scope="row">À</th>
-                  <td>Mardi 23 Avril 2019 à 15H</td>
-                </tr>
-                <tr>
-                  <th scope="row">Ville</th>
-                  <td>
-                    <i class="fa fa-marker"></i>
-                    Tetouan</td>
-                </tr>
-               
-              </tbody>
-            </table>
-           
-            <div class="description">
-              <h4>Description</h4>
-              <p>Une description de notre annonce ! </p>
-              
-            </div>
-            <div class="social">
+            <div class="social" style="padding: 10px">
               <span class="share">Partager :</span>
               <span class="buttons">
                 <img src="" /></span>
             </div>
           </div>
+          <div class="product_desc">
+            <h1>{{ adInfo.car.brand }} <span class="model">Model({{adInfo.car.model}})</span></h1>
+            <span class="sale_price">
+              MAD
+              <span class="unit">{{adInfo.price}}</span>
+            </span>
+            <div class="rating">
+              <span class="stars">
+                <star-rating size="large" [starType]="'svg'" speed="slow" [readOnly]="true"
+                  [rating]="adInfo.car.score.score_average" direction="ltr"></star-rating>
+              </span>
+            </div>
+            <br>
+
+            <table class="table">
+
+              <tbody>
+                <tr>
+                  <th scope="row">Date de début:</th>
+                  <td>
+                    <b>
+                      <time class="date-field">{{adInfo.start_date | date:'dd/MM/yyyy HH:mm' }}</time>
+                    </b>
+                  </td>
+                </tr>
+                <tr>
+                  <th scope="row">Date de fin:</th>
+                  <td>
+                    <b>
+                      <time class="date-field">{{adInfo.end_date | date:'dd/MM/yyyy HH:mm' }}</time>
+                    </b>
+                  </td>
+                </tr>
+                <tr>
+                  <th scope="row">Ville</th>
+                  <td>
+                    <b>
+                      <span style='padding: 2px; font-size: 1em' class='badge badge-info'>
+                        {{adInfo.city.name}}
+                      </span>
+                    </b>
+                  </td>
+                </tr>
+
+              </tbody>
+            </table>
+
+            <br>
+            <div class="action-zone">
+                <div class="form-group" *ngIf="success !== null">
+                  <div class="alert alert-success" role="alert" style="width: 100% !important;">{{success | titlecase}}</div>
+                </div>
+                <div class="form-group" *ngIf="error  !== null">
+                    <div class="alert alert-danger" role="alert" style="width: 100% !important;">{{error | titlecase}}</div>
+                </div>
+
+                <button *ngIf="adInfo.status == 0" type="button" (click)="bookAd()" title="Reserver" class="button btn-cart">
+                    <span>
+                      <i class="fa fa-car"></i> &nbsp;
+                      <span>Reserver</span>
+                    </span>
+                  </button>
+            </div>
+
+            <div class="description">
+              <h4>Description</h4>
+              <p *ngIf="adInfo.description">{{ adInfo.description }} </p>
+              <p *ngIf="!adInfo.description">
+                <span style='margin-left: 2px;' class='badge badge-danger'>Description indisponible </span>
+              </p>
+
+            </div>
+
+          </div>
+
         </div>
-        
+      </div>
+    </div>
+    <div class="row bg-white" *ngIf="adInfo">
+      <div class="col-md-6">
+        <h3 class="projTitle"> Notes du propriétaire 
+          <span>
+              <star-rating size="medium" [starType]="'svg'" speed="slow" [readOnly]="true"
+              [rating]="adInfo.car.score.score_average" direction="ltr"></star-rating>
+          </span> 
+        </h3>
+        <br>
+        <div class="col-md-12" id="car-reviews">
+          <div class='review-wrap'>
+            <div class="author">
+              <img class="author-img" src="./../../../../assets/img/faces/default-profile.jpg" alt="v.author_name" />
+              <div class="author-name">Valdor</div>
+              <star-rating size="medium" [starType]="'svg'" speed="slow" [readOnly]="true"
+                [rating]="adInfo.car.score.score_average" direction="ltr"></star-rating>
+
+            </div>
+            <div class="review">
+              Très belle voiture et fonctionnelle 
+            </div>
+          </div>;
+        </div>
+      </div>
+      <div class="col-md-6">
+        <h3 class="projTitle"> Notes de la voiture 
+            <span>
+                <star-rating size="medium" [starType]="'svg'" speed="slow" [readOnly]="true"
+                [rating]="adInfo.car.score.score_average" direction="ltr"></star-rating>
+            </span> 
+        </h3>
+        <br>
+        <div class="col-md-12" id="car-reviews">
+          <div class='review-wrap'>
+            <div class="author">
+              <img class="author-img" src="./../../../../assets/img/faces/default-profile.jpg" alt="v.author_name" />
+              <div class="author-name">Valdor</div>
+              <star-rating size="medium" [starType]="'svg'" speed="slow" [readOnly]="true"
+                [rating]="adInfo.car.score.score_average" direction="ltr"></star-rating>
+
+            </div>
+            <div class="review">
+              Très belle voiture et fonctionnelle
+            </div>
+          </div>;
+        </div>
       </div>
     </div>
   </div>

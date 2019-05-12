@@ -1,5 +1,5 @@
 <div class="card" #adBox *ngIf="visibled">
-  <app-ribon text="New" ></app-ribon>
+  <app-ribon text="new" *ngIf="isNew(adInfo)" ></app-ribon>
   <div class="image">
     <img src={{getImage(adInfo.car.images.images[0])}}>
     <div class="slider__ribon">
@@ -8,26 +8,22 @@
   </div>
   <div class="body">
     <div class="ad-info">
-       <!--  <span class="post-date">
-            {{adInfo.start_date | date:'dd/MM/yyyy HH:mm' }} -
-            {{adInfo.end_date | date:'dd/MM/yyyy HH:mm' }} 
-        </span> -->
+      
       <span class="rating">
-        <i class="fa fa-star"></i>
-        <i class="fa fa-star"></i>
-        <i class="fa fa-star"></i>
-        <i class="fa fa-star"></i>
-        <i class="fa fa-star"></i>
+          <star-rating 
+           size="medium" [starType]="'svg'"
+           speed="slow"
+           [readOnly]="true"
+           [rating]="adInfo.car.score.score_average"
+           direction="ltr"></star-rating>
       </span>
       <h3 class="productname" [title]="adInfo.car.brand + '('+ adInfo.car.model +')'">
         {{ (adInfo.car.brand || 'Ferrari') | slice:0:10 }} 
         <span class="model">(
           {{ (adInfo.car.model || 'ModXA-6') | slice:0:8 }} )
         </span>
-      </h3><!-- 
-      <span class="description">
-          {{ ( adInfo.description || 'Une description par default !') | slice:0:25  }} 
-      </span> -->
+      </h3>
+      
       <br>
       <ul class="some-spec">
         <li>
@@ -75,7 +71,7 @@
         <div class="spinner"></div>
       </button>
      
-      <button type="button" (click)="showAdDetails(1)" title="Afficher plus de details" class="button btn-view">
+      <button type="button" (click)="showAdDetails(adInfo.id)" title="Afficher plus de details" class="button btn-view">
         <span>
           <i class="fa fa-eye"></i>
           &nbsp;

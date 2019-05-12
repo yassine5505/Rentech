@@ -136,12 +136,11 @@
       </div>
 
       <div class="container-fluid articles">
-
-        <div class="row ad-items">
-          <h2>
-            Offres spéciales
-          </h2>
-          <div class="section">
+        <h3 class="projTitle">
+          Offres spéciales
+        </h3>
+        <div class="row" style="padding: 10px;">
+          <div class="col-md-12">
             <div class="row ad-items">
               <app-card-item *ngFor="let ad of filteredAds" [adInfo]="ad" ></app-card-item>
             </div>

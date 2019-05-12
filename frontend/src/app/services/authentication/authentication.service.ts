@@ -10,6 +10,10 @@ export class AuthenticationService {
     return this.http.post(`${environment.api_url}/auth/signup`, data);
   }
 
+  update(data) {
+    return this.http.post(`${environment.api_url}/auth/update`, data);
+  }
+
   login(data) {
     return this.http.post(`${environment.api_url}/auth/login`, data);
   }

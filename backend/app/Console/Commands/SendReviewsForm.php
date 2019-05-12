@@ -54,7 +54,7 @@ class SendReviewsForm extends Command
         foreach ($reservations as $reservation) {
             $reservation = Reservation::find($reservation->id);
             if(
-                Carbon::now()->greaterThan($reservation->ad->start_date)
+                Carbon::now()->greaterThan($reservation->ad->end_date)
             ){
                 Mail::to($reservation->ad->user->email)->send(new ClientEvaluationMail($reservation));
                 // Mark the ad as finished (status == 2) 

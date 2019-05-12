@@ -53,3 +53,26 @@
 @import "paper-kit/plugins/datetimepicker";
 @import "paper-kit/social-buttons";
 @import "paper-kit/examples";
+$fontSans : 'Montserrat',
+sans-serif;
+$fontSerif : 'Droid Serif',
+serif;
+
+.projTitle {
+    font-family: $fontSans;
+    font-weight: bold;
+    text-align: center;
+    padding: 1em 0;
+    border-bottom: 1px solid #dadada;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+
+    span {
+        font-family: $fontSerif;
+        font-weight: normal;
+        font-style: italic;
+        text-transform: lowercase;
+        color: #777;
+
+    }
+}

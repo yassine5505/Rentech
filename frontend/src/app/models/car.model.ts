@@ -1,3 +1,5 @@
+import { Score } from './score.model';
+
 export class Car {
 
   public static brands = [
@@ -74,6 +76,7 @@ export class Car {
     public matricule?: string,
     public transmission?: string,
     public motor?: string,
+    public score?: Score,
     ) {
 
   }

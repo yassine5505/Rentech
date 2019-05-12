@@ -5,3 +5,4 @@ export * from './booking.model';
 export * from './car.model';
 export * from './review.model';
 export * from './ad.model';
+export * from './score.model';

@@ -26,8 +26,8 @@ export class AdService {
     );
   }
 
-  get(id): Observable<Ad> {
-    return this.apiService.post(`${this.adResourcePrefix}/${id}`, {});
+  get(data): Observable<Ad> {
+    return this.apiService.post(`${this.adResourcePrefix}/${data}/show`,  {} );
   }
 
   add(data): Observable<any>  {
