@@ -10,7 +10,7 @@ class AdminStatResource extends JsonResource
 {
 
     /**
-     * Override parent Construcor
+     * Override parent Construcor 
      */
     public function __construct(){
 
@@ -32,7 +32,9 @@ class AdminStatResource extends JsonResource
             'total_revenues' => Ad::totalRevenues(),
             'lost_revenues' => Ad::lostRevenues(),
             'entreprise_revenue' => Ad::entrepriseRevenue(),
-            'ads' => Ad::adStat()
+            'ads' => Ad::adStat(),
+            'revenues_stats' => Ad::revenueStat(2), // 2 = Finished ads
+            'lost_revenues_stats' => Ad::revenueStat(3), // 3 = Finished ads status
         ];
     }
 

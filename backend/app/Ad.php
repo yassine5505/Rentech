@@ -41,9 +41,15 @@ class Ad extends Model
      * 
      * Get total revenue(Price) from Completed Ads
      */
-    public static function totalRevenues(){
-        return  Ad::where('status', '=', 2)
+    public static function totalRevenues($userId = null){
+        $total =   Ad::where('status', '=', 2)
                   ->sum('price');
+        if(! is_null($userId)){
+            $total = Ad::where('status', '=', 2)
+                    ->where('user_id', '=', $userId)
+                    ->sum('price');
+        }
+        return $total;
     }
 
 
@@ -52,9 +58,15 @@ class Ad extends Model
      * Lost Revenue (From Canceled Ads)
      * @return int
      */
-    public static function lostRevenues(){
-        return  Ad::where('status', '=', 3)
+    public static function lostRevenues($userId = null){
+        $total = Ad::where('status', '=', 3)
                   ->sum('price');
+        if(! is_null($userId)){
+            $total = Ad::where('status', '=', 3)
+                ->where('user_id', '=', $userId)
+                ->sum('price');
+        }
+        return $total;
     }
 
 
@@ -71,25 +83,26 @@ class Ad extends Model
      * Number of finished Ads from past year
      * @return int
      */
-    public static function adStat(){
+    public static function adStat($userId = null){
         $from = Carbon::now()->subYear();
         $to = Carbon::now();
         $finishedAds = Ad::whereBetween('start_date', [$from, $to])
                           ->orderBy('start_date', 'desc')
                           ->get();
-        
-        // Current Dates
+        if(! is_null($userId)){
+            $finishedAds = Ad::whereBetween('start_date', [$from, $to])
+                          ->where('user_id', '=', $userId)
+                          ->orderBy('start_date', 'desc')
+                          ->get();
+        }
         $month = (int)date('m') - 1;
         $year = date('Y');
-        // Array to return
         $finishedAdsAssoc = array();
-        // Init first element with current month
         $finishedAdsAssoc[Ad::monthFR(Carbon::now()) . '-' . $year] =  [
             'finished_ads' => 0,
             'canceled_ads' => 0 
         ];
         
-        // Initialize all elements starting from current month
         for($i = 1; $i < 12; $i++, $month--){
             if($month == 0) {
                 $month = 12;
@@ -102,8 +115,6 @@ class Ad extends Model
             ];
         }
         foreach($finishedAds as $ad){
-            // Map ads to the corresponding month
-            // 
             if($ad->status == 2)
                 $finishedAdsAssoc[Ad::monthFR($ad->start_date) . '-' . $ad->year()]['finished_ads']++;
             else if($ad->status == 3)
@@ -112,6 +123,38 @@ class Ad extends Model
         return $finishedAdsAssoc;
     }
 
+
+    /**
+     * Revenues from past 12 months
+     * 
+     */
+    public static function revenueStat($adStatus, $userId = null){
+        // Select all Completed Ads ehrre date between now and one year ago
+        $from = Carbon::now()->subYear();
+        $to = Carbon::now();
+        $finishedAds = Ad::whereBetween('start_date', [$from, $to])
+                          ->where('status', '=', $adStatus)
+                          ->orderBy('start_date', 'desc')
+                          ->get();
+        if(! is_null($userId)){
+            $finishedAds = Ad::whereBetween('start_date', [$from, $to])
+                          ->where('status', '=', $adStatus)
+                          ->where('user_id', '=', $userId)
+                          ->orderBy('start_date', 'desc')
+                          ->get();
+        }
+        // Array to return 
+        $finishedAdsArray = array();
+        $i = 0;
+        foreach($finishedAds as $ad){
+            $finishedAdsArray[$i] = [
+                'x' => [(int)date('Y'), (int)date('m'), (int)date('d')],
+                'y' => $ad->price
+            ];
+            $i++;
+        }
+        return $finishedAdsArray;
+    }
     /**
      * Get Ad month
      * @return int

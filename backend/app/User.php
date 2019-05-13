@@ -152,7 +152,7 @@ class User extends Authenticatable implements JWTSubject
      public static function totalUsers(){
          return User::totalPartners() + User::totalClients();
     }
-
+    
 
     /**
      * Get the identifier that will be stored in the subject claim of the JWT.

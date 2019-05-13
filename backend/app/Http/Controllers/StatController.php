@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\User;
 use App\Http\Resources\AdminStatResource;
+use App\Http\Resources\PartnerStatResource;
 class StatController extends Controller
 {
     /**
@@ -17,7 +18,7 @@ class StatController extends Controller
         if(auth()->user()->hasRole(User::$ROLES['admin']))
             return new AdminStatResource();
         else if(auth()->user()->hasRole(User::$ROLES['partner']))
-            return new PartnerStatResource();
+            return new PartnerStatResource(auth()->user()->id);
 
     }
 }
