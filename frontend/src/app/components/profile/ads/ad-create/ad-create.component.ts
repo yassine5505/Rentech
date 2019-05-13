@@ -145,7 +145,6 @@ export class AdCreateComponent implements OnInit, OnDestroy {
       },
       error => {
         this.handleError(error);
-        this.error.push('Une erreur est survenue lors de l inscritption !');
         this.loaderService.stopLoading();
       },
       () => {
@@ -160,6 +159,7 @@ export class AdCreateComponent implements OnInit, OnDestroy {
   }
 
   handleError(error) {
+    console.log(error);
     if (error.message) {
       const errors = error.message;
       if ( errors.start_date || errors.end_date ) {

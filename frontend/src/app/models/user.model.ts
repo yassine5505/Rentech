@@ -20,8 +20,8 @@ export class User {
     public status: boolean,
     public telephone: string,
     // tslint:disable-next-line:variable-name
-    public cars?: Car[],
     public city?: City,
+    public cars?: Car[],
     // tslint:disable-next-line:variable-name
     public score_average?: number,
     public scores?: Score

@@ -18,9 +18,9 @@
            direction="ltr"></star-rating>
       </span>
       <h3 class="productname" [title]="adInfo.car.brand + '('+ adInfo.car.model +')'">
-        {{ (adInfo.car.brand || 'Ferrari') | slice:0:10 }} 
-        <span class="model">(
-          {{ (adInfo.car.model || 'ModXA-6') | slice:0:8 }} )
+        {{ (adInfo.car.brand || 'Ferrari') | slice:0:8 }} 
+        <span class="model">
+          {{ (adInfo.car.model || 'ModXA-6') | slice:0:6 }}
         </span>
       </h3>
       

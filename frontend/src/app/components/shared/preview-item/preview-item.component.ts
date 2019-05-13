@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
+import { Score } from './../../../models/score.model';
 
 @Component({
   selector: 'app-preview-item',
@@ -7,6 +8,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class PreviewItemComponent implements OnInit {
 
+  @Input() score: Score;
   constructor() { }
 
   ngOnInit() {

@@ -43,9 +43,6 @@ export class CardItemDetailsComponent implements OnInit,  OnDestroy {
       },
       (error) => {
         this.error = error.message || 'Erreur survenue';
-      },
-      () => {
-
       }
     );
   }

@@ -14,8 +14,19 @@
               </ngb-carousel>
             </div>
             <div class="product_options">
+              <span class="badge badge-dark">
+                {{ adInfo.car.transmission}}
+              </span>
+              <span class="badge badge-dark" title="KM au compteur">
+                {{adInfo.car.mileage}} KM
+              </span>
+              <span class="badge badge-dark" title="KM au compteur">
+                {{adInfo.car.matricule}}
+              </span>
               <span title="{{ adInfo.car.motor}}" class="badge badge-info" style="margin-left: 3px;">
                 Moteur {{ adInfo.car.motor}}</span>
+
+              <br>
               <span title="{{!adInfo.car.airbag ? 'INDISPONIBLE' : 'DISPONIBLE'}}" style="margin-left: 2px;"
                 class="badge" [ngClass]="{'badge-danger': !adInfo.car.airbag, 'badge-success': !!adInfo.car.airbag }">
                 Airbag</span>
@@ -82,19 +93,21 @@
 
             <br>
             <div class="action-zone">
-                <div class="form-group" *ngIf="success !== null">
-                  <div class="alert alert-success" role="alert" style="width: 100% !important;">{{success | titlecase}}</div>
+              <div class="form-group" *ngIf="success !== null">
+                <div class="alert alert-success" role="alert" style="width: 100% !important;">{{success | titlecase}}
                 </div>
-                <div class="form-group" *ngIf="error  !== null">
-                    <div class="alert alert-danger" role="alert" style="width: 100% !important;">{{error | titlecase}}</div>
-                </div>
+              </div>
+              <div class="form-group" *ngIf="error  !== null">
+                <div class="alert alert-danger" role="alert" style="width: 100% !important;">{{error | titlecase}}</div>
+              </div>
 
-                <button *ngIf="adInfo.status == 0" type="button" (click)="bookAd()" title="Reserver" class="button btn-cart">
-                    <span>
-                      <i class="fa fa-car"></i> &nbsp;
-                      <span>Reserver</span>
-                    </span>
-                  </button>
+              <button *ngIf="adInfo.status == 0" type="button" (click)="bookAd()" title="Reserver"
+                class="button btn-cart">
+                <span>
+                  <i class="fa fa-car"></i> &nbsp;
+                  <span>Reserver</span>
+                </span>
+              </button>
             </div>
 
             <div class="description">
@@ -113,36 +126,36 @@
     </div>
     <div class="row bg-white" *ngIf="adInfo">
       <div class="col-md-12">
-        <h3 class="projTitle"> Notes du propriétaire 
+        <h3 class="projTitle"> Notes du propriétaire
           <span>
-              <star-rating size="medium" [starType]="'svg'" speed="slow" [readOnly]="true"
+            <star-rating size="medium" [starType]="'svg'" speed="slow" [readOnly]="true"
               [rating]="adInfo.user.scores.score_average" direction="ltr"></star-rating>
-          </span> 
+          </span>
         </h3>
         <br>
         <div class="col-md-9" id="car-reviews" *ngIf="adInfo.user.scores.score_count > 0">
           <div class="review-wrap" *ngFor="let score of adInfo.user.scores.scores">
             <div class="author">
               <img class="author-img" src="./../../../../assets/img/faces/default-profile.jpg" alt="v.author_name" />
-              <div class="author-name"  style="float: left">
+              <div class="author-name" style="float: left">
                 {{score.user_info.name | slice:0:1}}**********{{score.user_info.name | slice:score.user_info.name.length-2:score.user_info.name.length}}
               </div>
               &nbsp;
               <span style="float: left;">
-                    <star-rating size="medium" [starType]="'svg'" speed="slow" [readOnly]="true"
-                    [rating]="score.amount" direction="ltr"></star-rating>
-                 </span>
-                 
-              <span style="float: right;"> ( Reservation du : 
+                <star-rating size="medium" [starType]="'svg'" speed="slow" [readOnly]="true" [rating]="score.amount"
+                  direction="ltr"></star-rating>
+              </span>
+
+              <span style="float: right;"> ( Reservation du :
                 <b>
                   <time>{{score.reservation.created_at }}</time>
                 </b> )
               </span>
-             
+
             </div>
             <div class="review">
               <span class="badge badge-success">
-                  {{score.positive_comment}}
+                {{score.positive_comment}}
               </span>
               <span class="badge badge-warning">
                 {{score.negative_comment}}
@@ -153,14 +166,14 @@
         </div>
         <div class="col-md-12" id="car-reviews" *ngIf="adInfo.user.scores.score_count == 0">
           <div class="review-wrap">
-            
+
             <div class="review negative">
               <span class="badge badge-danger">Aucun commentaire pour le moment !</span>
             </div>
           </div>
         </div>
       </div>
-     <!--  <div class="col-md-6">
+      <!--  <div class="col-md-6">
         <h3 class="projTitle"> Notes de la voiture 
             <span>
                 <star-rating size="medium" [starType]="'svg'" speed="slow" [readOnly]="true"

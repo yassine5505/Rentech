@@ -74,7 +74,7 @@ class AuthController extends Controller
      */
     public function me()
     {
-        return response()->json(auth()->user()->only(['id', 'name', 'email', 'driving_license_number', 'address', 'telephone', 'role', 'status', 'image', 'city']));
+        return response()->json(new UserResource(auth()->user()));
     }
 
 
@@ -89,11 +89,13 @@ class AuthController extends Controller
             return $validator;
         auth()->user()->address = $request->address;
         auth()->user()->telephone = $request->telephone;
-        if(!is_null($request->password) and ! is_null($request->city_id)){
+        if(!is_null($request->password) and !is_null($request->city_id)){
             auth()->user()->password = $request->password;
             auth()->user()->city_id = $request->city_id;
         }
-            
+        if (!is_null($request->address) && !is_null($request->telephone)) {
+            auth()->user()->status = true;
+        }   
         if(auth()->user()->save())  
             return response()->json(['message' => 'Profile updated successfully'], 200);
         return response()->json(['message' => 'Error while updating profile'], 500);
@@ -136,7 +138,7 @@ class AuthController extends Controller
             'access_token' => $token,
             'token_type' => 'bearer',
             'expires_in' => auth()->factory()->getTTL() * 300,
-            'user' => auth()->user()->only(['id', 'name', 'email', 'driving_license_number', 'address', 'telephone', 'role', 'status', 'city', 'image']),
+            'user' => new UserResource(auth()->user()),
         ]);
     }
 

@@ -17,7 +17,7 @@ import {ReservationSearchComponent} from './../shared/reservation-search/reserva
         RouterModule,
         ReservationSearchComponent
     ],
-    declarations: [ HomeComponent ],
+    declarations: [ HomeComponent, ReservationSearchComponent ],
     exports: [ HomeComponent ],
     providers: []
 })

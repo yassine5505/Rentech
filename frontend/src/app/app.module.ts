@@ -49,6 +49,7 @@ import { ReviewPageComponent } from './components/review/review-page/review-page
 import { ListReviewsComponent } from './components/review/review-page/list-reviews/list-reviews.component';
 import { ReviewItemComponent } from './components/shared/review-item/review-item.component';
 import { AdminDashboardComponent } from './components/admin/admin-dashboard/admin-dashboard.component';
+import { FooterComponent } from './components/shared/footer/footer.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -78,7 +79,8 @@ import { AdminDashboardComponent } from './components/admin/admin-dashboard/admi
     ReviewPageComponent,
     ListReviewsComponent,
     ReviewItemComponent,
-    AdminDashboardComponent
+    AdminDashboardComponent,
+    FooterComponent
   ],
   imports: [
     BrowserModule,

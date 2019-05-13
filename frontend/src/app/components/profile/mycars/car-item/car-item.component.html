@@ -3,12 +3,11 @@
   <div class="col-md-5" style="padding: 0px 5px;">
     <ngb-carousel *ngIf="car && car.images && car.images.images">
       <div *ngFor="let img of car.images.images">
-        <ng-template  ngbSlide>
+        <ng-template ngbSlide>
           <img src={{getImage(img)}} alt="Random first slide">
-         
         </ng-template>
       </div>
-        
+
     </ngb-carousel>
   </div>
 
@@ -19,58 +18,61 @@
 
       <!-- Body -->
       <div class="card-body">
-        <h1 class="card-heading card-custom-heading">{{ car.brand }} - ({{ car.model }})</h1>
+        <h1 class="card-heading card-custom-heading">
+          {{ car.brand }} - ({{ car.model }})
+        </h1>
         <br>
         <div class="row">
-            <table class="table">
-                <tbody>
-                  <tr>
-                    <th scope="row">Catégorie</th>
-                    <td>
-                      {{car.category}}
-                      <i title="Couleur du vehicule" class="ace-icon fa fa-circle smaller-80 align-middle"
-                        [ngStyle]="{color: car.color}">
-                        </i>
-                    </td>
-                  </tr>
-                
-                  <tr>
-                    <th scope="row">Moteur</th>
-                    <td>{{car.motor}}</td>
-                  </tr>
-                
-                </tbody>
-              </table>
-              <div>
-                    
-                    <span title="{{!car.airbag ? 'INDISPONIBLE' : 'DISPONIBLE'}}" 
-                    class="badge"
-                    [ngClass]="{'badge-danger': !car.airbag, 'badge-success': !!car.airbag }" >
-                    Status Airbag</span>
-                    <span title="{{!car.abs ? 'INDISPONIBLE' : 'DISPONIBLE'}}" 
-                    class="badge"
-                    [ngClass]="{'badge-danger': !car.abs, 'badge-success': !!car.abs }" >
-                    Status ABS</span>
-                    <span title="{{!car.centralized ? 'INDISPONIBLE' : 'DISPONIBLE'}}" 
-                    class="badge"
-                    [ngClass]="{'badge-danger': !car.centralized, 'badge-success': !!car.centralized }" >
-                    Status Centralisation</span>
-              </div>
+          <div class="col-12">
+            <span style="float: left">
+              <star-rating size="medium" [starType]="'svg'" speed="slow" [readOnly]="true"
+                [rating]="car.score.score_average" direction="ltr"></star-rating>
+            </span>
+          </div>
+          <div class="col-12">
+            <span class="badge badge-dark">
+              {{car.category}}
+              <i title="Couleur du vehicule" class="ace-icon fa fa-circle smaller-80 align-middle"
+                [ngStyle]="{color: car.color}">
+              </i>
+            </span>
+            <span class="badge badge-dark">
+              {{car.transmission}}
+            </span>
+            <span class="badge badge-dark" title="KM au compteur">
+              {{car.mileage}} KM
+            </span>
+            <span class="badge badge-dark" title="KM au compteur">
+              {{car.matricule}}
+            </span>
+          </div>
+          <div>
+
+            <span title="{{!car.airbag ? 'INDISPONIBLE' : 'DISPONIBLE'}}" class="badge"
+              [ngClass]="{'badge-danger': !car.airbag, 'badge-success': !!car.airbag }">
+              Status Airbag</span>
+            <span title="{{!car.abs ? 'INDISPONIBLE' : 'DISPONIBLE'}}" class="badge"
+              [ngClass]="{'badge-danger': !car.abs, 'badge-success': !!car.abs }">
+              Status ABS</span>
+            <span title="{{!car.centralized ? 'INDISPONIBLE' : 'DISPONIBLE'}}" class="badge"
+              [ngClass]="{'badge-danger': !car.centralized, 'badge-success': !!car.centralized }">
+              Status Centralisation</span>
+          </div>
 
         </div>
 
       </div>
 
       <div class="card-footer card-custom-footer text-center px-2">
-            <a  (click)="announceCar(car.id)" class="btn btn-success">
-                <i class="fa fa-shopping-cart"></i> Annoncer
-            </a>
-            <a href="" class="btn btn-warning">
-                <i class="fa fa-shopping-cart"></i> Editer
-            </a>
-            <a href="" class="btn btn-danger">
-                <i class="fa fa-shopping-cart"></i> Supprimer
-            </a>
+        <a (click)="announceCar(car.id)" class="btn btn-success">
+          <i class="fa fa-shopping-cart"></i> Annoncer
+        </a>
+        <a href="" class="btn btn-warning">
+          <i class="fa fa-shopping-cart"></i> Editer
+        </a>
+        <a href="" class="btn btn-danger">
+          <i class="fa fa-shopping-cart"></i> Supprimer
+        </a>
       </div>
 
     </div>
