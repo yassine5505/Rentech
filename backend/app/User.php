@@ -127,7 +127,32 @@ class User extends Authenticatable implements JWTSubject
     }
 
 
-    // Rest omitted for brevity
+    /**
+     * Get Total Partners
+     * @return int
+     */
+    public static function totalPartners(){
+        $partners = User::where('role', '=', User::$ROLES['partner'])->get();
+        return count($partners);
+    }
+ 
+    /**
+     * Get Total Clients
+     * @return int
+     */
+     public static function totalClients(){
+         $clients = User::where('role', '=', User::$ROLES['client'])->get();
+         return count($clients);
+    }
+ 
+    /**
+     * Get total Users
+     * @return int
+     */
+     public static function totalUsers(){
+         return User::totalPartners() + User::totalClients();
+    }
+    
 
     /**
      * Get the identifier that will be stored in the subject claim of the JWT.

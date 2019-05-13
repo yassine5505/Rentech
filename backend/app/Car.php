@@ -70,4 +70,16 @@ class Car extends Model
                       ->limit(10)
                       ->get();
     }
+
+    /**
+     * Count Cars
+     */
+    public static function totalCars($partner_id = null){
+        $total =  count(Car::all());
+        if(! is_null($partner_id)){
+            // Get all cars belonging to this partner
+            $total  = count(Car::where('user_id', '=', $partner_id)->get());
+        }
+        return $total;
+    }
 }
