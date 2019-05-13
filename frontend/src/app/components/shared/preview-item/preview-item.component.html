@@ -1,3 +1,29 @@
-<p>
-  Un commentaire sur moi !! +++
-</p>
+<div class="review-wrap">
+    <div class="author">
+      <img class="author-img" src="./../../../../assets/img/faces/default-profile.jpg" alt="v.author_name" />
+      <div class="author-name"  style="float: left">
+        {{score.user_info.name }}
+      </div>
+      &nbsp;
+      <span style="float: left;">
+            <star-rating size="medium" [starType]="'svg'" speed="slow" [readOnly]="true"
+            [rating]="score.amount" direction="ltr"></star-rating>
+         </span>
+         
+      <span style="float: right;"> ( Reservation du : 
+        <b>
+          <time>{{score.reservation.created_at }}</time>
+        </b> )
+      </span>
+     
+    </div>
+    <div class="review">
+      <span class="badge badge-success">
+          {{score.positive_comment}}
+      </span>
+      <span class="badge badge-warning">
+        {{score.negative_comment}}
+      </span>
+      <br>
+    </div>
+  </div>
