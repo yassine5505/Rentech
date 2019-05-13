@@ -8,6 +8,7 @@ import { RouterModule } from '@angular/router';
 import { HomeComponent } from './home.component';
 import {ReservationSearchComponent} from './../shared/reservation-search/reservation-search.component';
 
+import { NgxDaterangepickerMd } from 'ngx-daterangepicker-material';
 @NgModule({
     imports: [
         NgbModule,
@@ -15,7 +16,8 @@ import {ReservationSearchComponent} from './../shared/reservation-search/reserva
         BrowserModule,
         FormsModule,
         RouterModule,
-        ReservationSearchComponent
+        ReservationSearchComponent,
+        NgxDaterangepickerMd.forRoot()
     ],
     declarations: [ HomeComponent, ReservationSearchComponent ],
     exports: [ HomeComponent ],

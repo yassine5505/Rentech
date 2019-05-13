@@ -1,35 +1,44 @@
 import { Component, OnInit } from '@angular/core';
-import { NgbDateStruct } from '@ng-bootstrap/ng-bootstrap';
-
+import { CityService } from './../../../services/shared/city/city.service';
+import { Router } from '@angular/router';
+import { Subscription } from 'rxjs';
+import { AdService } from './../../../services/shared/ad/ad.service';
+import { Car , City , User } from './../../../models';
+import { DatePipe } from '@angular/common';
+import { AuthService } from './../../../services/authentication/auth.service';
 @Component({
   selector: 'app-reservation-search',
   templateUrl: './reservation-search.component.html',
   styleUrls: ['./reservation-search.component.scss'],
 })
 export class ReservationSearchComponent implements OnInit {
-  public model1: NgbDateStruct;
-  public model2: NgbDateStruct;
-  selected: {startdDate: Date, endDate: Date};
-  constructor() { }
-  isWeekend(date: NgbDateStruct) {
-    const d = new Date(date.year, date.month - 1, date.day);
-    return d.getDay() === 0 || d.getDay() === 6;
+  // tslint:disable-next-line:variable-name
+  public from_date;
+  // tslint:disable-next-line:variable-name
+  public city_id;
+  cities: City[] = [];
+  citySubscription: Subscription;
+  constructor(
+    private router: Router,
+    private cityService: CityService,
+  ) { }
+
+  ngOnInit() {
+    this.citySubscription = this.cityService.getAll().subscribe(
+      (data) => {
+        this.cities = data;
+      },
+      (error) => {
+        console.log(error);
+      }
+    );
   }
 
-  isDisabled(date: NgbDateStruct, current: {month: number}) {
-      return date.month !== current.month;
+  searchAds() {
+    this.router.navigate(
+      ['/ads'],
+     {queryParams: {city : this.city_id , from_date : this.from_date.endDate}}
+    );
   }
-  ngOnInit() {
-    const inputGroupFocus = document.getElementsByClassName('form-control');
-    const inputGroup = document.getElementsByClassName('input-group');
-    // tslint:disable-next-line:prefer-for-of
-    for (let i = 0; i < inputGroup.length; i++) {
-        inputGroup[i].children[0].addEventListener('focus',  () => {
-            inputGroup[i].classList.add('input-group-focus');
-        });
-        inputGroup[i].children[0].addEventListener('blur', () => {
-            inputGroup[i].classList.remove('input-group-focus');
-        });
-    }
-}
+
 }

@@ -142,6 +142,9 @@ export class AdCreateComponent implements OnInit, OnDestroy {
       data => {
         this.handleResponse(data);
         this.newAdForm.reset();
+        this.newAdForm.patchValue({
+          car_id : this.selectedCar.id
+        });
       },
       error => {
         this.handleError(error);
