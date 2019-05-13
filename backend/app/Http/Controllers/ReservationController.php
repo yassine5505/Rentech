@@ -99,7 +99,7 @@ class ReservationController extends Controller
         $reservation = Reservation::find($id);
         if($reservation == null)
             return response()->json(["message" => "Reservation was not found"], 404);
-        $ad = $reservation->first()->ad;
+        $ad = $reservation->ad;
         if($ad == null)
             return response()->json(["message" => "Ad was not found"], 404);
         if(!auth()->user()->ads->contains($ad))

@@ -1,76 +1,42 @@
-
-
-					<div class="booking-form ">
-						<div class="form-header">
-							<h2>Reservez votre voiture !</h2>
-							<p>
-								Recherchez les offres spéciales juste pour vous .
-							</p>
-						</div>
-						<form>
-							<div class="row">
-								<div class="col-md-6">
-									<div class="form-group">
-										<span class="form-label">Date de début</span>
-										<div class="input-group date" [ngClass]="{'input-group-focus':focus===true}">
-											<input class="form-control" style="color: rgb(83, 65, 42);" placeholder="yyyy-mm-dd"
-											name="dp" [(ngModel)]="model1" ngbDatepicker #d1="ngbDatepicker" (click)="d1.toggle()" (focus)="focus=true" (blur)="focus=false" />
-											<div class="input-group-append">
-												<span class="glyphicon glyphicon-calendar input-group-text">
-													<i class="fa fa-calendar" aria-hidden="true"></i>
-												</span>
-											</div>
-										</div>
-									</div>
-								</div>
-								<div class="col-md-6">
-									<div class="form-group">
-										<span class="form-label">Date de fin</span>
-										<div class="input-group date" [ngClass]="{'input-group-focus':focus===true}">
-												<input class="form-control" style="color: rgb(83, 65, 42);" placeholder="yyyy-mm-dd"
-												name="dp" [(ngModel)]="model2" ngbDatepicker #d2="ngbDatepicker" (click)="d2.toggle()" (focus)="focus=true" (blur)="focus=false" />
-												<div class="input-group-append">
-													<span class="glyphicon glyphicon-calendar input-group-text">
-														<i class="fa fa-calendar" aria-hidden="true"></i>
-													</span>
-												</div>
-											</div>
-									</div>
-								</div>
-							</div>
-							<div class="row">
-								<div class="col-md-6">
-									<div class="form-group">
-										<span class="form-label">Heure début</span>
-										<input [ngxTimepicker]="picker1" type="text" class="form-control" >
-										<ngx-material-timepicker #picker1></ngx-material-timepicker>
-									</div>
-								</div>
-								<div class="col-md-6">
-									<div class="form-group">
-										<span class="form-label">Heure fin</span>
-										<input [ngxTimepicker]="picker2" type="text" class="form-control" >
-										<ngx-material-timepicker #picker2></ngx-material-timepicker>
-									</div>
-								</div>
-							</div>
-							<!-- <div class="row">
-								<div class="col-md-12">
-									<div class="form-group">
-										<span class="form-label">Rooms</span>
-										<select class="form-control">
-											<option>1</option>
-											<option>2</option>
-											<option>3</option>
-										</select>
-										<span class="select-arrow"></span>
-									</div>
-								</div>
-							</div> -->
-							<div class="form-btn">
-								<button class="submit-btn btn-outline-danger" id="search-btn">Rechercher</button>
-							</div>
-						</form>
-					</div>
-					
-
+<div class="booking-form ">
+  <div class="form-header">
+    <h2>Reservez votre voiture !</h2>
+    <p>
+      Recherchez les offres spéciales juste pour vous .
+    </p>
+  </div>
+  <form>
+    <div class="row">
+      <div class="col-md-12">
+        <div class="form-group">
+          <span class="form-label">A PARTIR DU :</span>
+          <div class="input-group date" [ngClass]="{'input-group-focus':focus===true}">
+              <input type="text" ngxDaterangepickerMd name="from_date" [timePicker]="true"
+              [locale]="{format: 'YYYY/MM/DD HH:mm', firstDay: 1}" [(ngModel)]="from_date"
+              [singleDatePicker]="true" [autoApply]="true" class="form-control" />
+            <div class="input-group-append">
+              <span class="glyphicon glyphicon-calendar input-group-text">
+                <i class="fa fa-calendar" aria-hidden="true"></i>
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-12">
+          <div class="form-group">
+            <span class="form-label">VILLE :</span>
+            <div class="input-group date" [ngClass]="{'input-group-focus':focus===true}">
+              <select class="form-control" [(ngModel)]="city_id" name="city" id="citySearch">
+                  <option *ngFor="let city of cities" [ngValue]="city.id">{{city.name }}</option>
+              </select>
+              
+            </div>
+          </div>
+        </div>
+    </div>
+  
+    <div class="form-btn">
+      <button class="submit-btn btn-outline-danger" (click)="searchAds()" id="search-btn">Rechercher</button>
+    </div>
+  </form>
+</div>

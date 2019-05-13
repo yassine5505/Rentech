@@ -59,7 +59,6 @@ export class ProfileEditComponent implements OnInit, OnDestroy {
         telephone: new FormControl('', [Validators.minLength(5), Validators.maxLength(150), Validators.required]),
         address: new FormControl('', [ Validators.minLength(5), Validators.maxLength(70), Validators.required] ),
         city_id: new FormControl('', [Validators.required]),
-        email: new FormControl('', [ Validators.minLength(5), Validators.email,  Validators.maxLength(55), Validators.required ]),
         old_password: new FormControl('', [Validators.minLength(5), Validators.maxLength(150)]),
         password: new FormControl('', [Validators.minLength(5), Validators.maxLength(150)])
       }
@@ -69,8 +68,7 @@ export class ProfileEditComponent implements OnInit, OnDestroy {
       {
         city_id: this.user.city.id ,
         telephone: this.user.telephone,
-        address: this.user.address,
-        email: this.user.email,
+        address: this.user.address
       });
 
     console.log(this.user);
@@ -104,7 +102,6 @@ export class ProfileEditComponent implements OnInit, OnDestroy {
     this.authService.changeAuthStatus(true);
 
     this.user.telephone = this.updateForm.controls.telephone.value;
-    this.user.email = this.updateForm.controls.email.value;
     this.user.address = this.updateForm.controls.address.value;
     if (!this.user.status) {
       this.user.status = true;

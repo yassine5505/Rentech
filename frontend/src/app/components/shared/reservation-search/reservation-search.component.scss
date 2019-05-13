@@ -21,10 +21,11 @@
 	max-width: 642px;
 	width: 100%;
 	margin: 100px;
+	box-shadow: 2px 3px 10px rgba(51, 47, 47, 0.918);
 }
 
 .booking-form .form-header {
-	/* background-image: url('../img/background.jpg'); */
+	background: #FF5C5C;
 	background-size: cover;
 	background-position: center;
 	padding: 20px 25px 25px;
@@ -39,7 +40,7 @@
 	right: 0;
 	bottom: 0;
 	top: 0;
-	background: rgba(81, 81, 81, 0.8);
+	background: rgba(81, 81, 81, 0.7);
 	z-index: -1;
 }
 
@@ -52,8 +53,9 @@
 	margin-top: 0;
 	margin-bottom: 15px;
 	color: #fff;
-	font-size: 40px;
-	text-transform: capitalize;
+	font-size: 45px;
+	font-weight: 600;
+
 }
 
 .booking-form .form-header p {
@@ -149,13 +151,14 @@
 }
 
 .booking-form .form-label {
-	color: #ff9000;
+	color: #FF5C5C;
 	text-transform: uppercase;
 	line-height: 24px;
 	height: 24px;
-	font-size: 14px;
-	font-weight: 400;
-	margin-left: 20px;
+	padding: 10px;
+	font-size: 1em;
+	font-weight: 500;
+	margin-left: 10px;
 }
 
 .booking-form .form-btn {
@@ -164,7 +167,7 @@
 
 .booking-form .form-btn>button {
 	color: #fff;
-	background-color: #ff9000;
+	background-color: #FF5C5C ;
 	font-weight: 700;
 	height: 55px;
 	font-size: 18px;
@@ -197,21 +200,21 @@
 
 
 @keyframes flash {  
-    0% { box-shadow: 0 0 3px #ff0a; }
-    50% { box-shadow: 0 0 6px rgba(70, 70, 42, 0.667); }
-    100% { box-shadow: 0 0 10px rgba(250, 153, 9, 0.651); }
+    0% { box-shadow: 0 0 3px rgb(241, 186, 186) }
+    50% { box-shadow: 0 0 6px rgb(145, 82, 82) }
+    100% { box-shadow: 0 0 10px #FF5C5C }
 }
 
 //Firefox 1+
 @-webkit-keyframes flash {  
-	0% { box-shadow: 0 0 3px #ff0a; }
-    50% { box-shadow: 0 0 6px rgba(70, 70, 42, 0.667); }
-    100% { box-shadow: 0 0 10px rgba(250, 153, 9, 0.651); }
+    0% { box-shadow: 0 0 3px rgb(241, 186, 186) }
+    50% { box-shadow: 0 0 6px rgb(122, 89, 89) }
+    100% { box-shadow: 0 0 10px #FF5C5C }
 }
 
 //Safari 3-4
 @-moz-keyframes flash {  
-	0% { box-shadow: 0 0 3px #ff0a; }
-    50% { box-shadow: 0 0 6px rgba(70, 70, 42, 0.667); }
-    100% { box-shadow: 0 0 10px rgba(250, 153, 9, 0.651); }
+    0% { box-shadow: 0 0 3px rgb(241, 186, 186) }
+    50% { box-shadow: 0 0 6px rgb(119, 99, 99) }
+    100% { box-shadow: 0 0 10px #FF5C5C }
 }
