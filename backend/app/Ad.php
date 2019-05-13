@@ -115,12 +115,20 @@ class Ad extends Model
             ];
         }
         foreach($finishedAds as $ad){
-            if($ad->status == 2)
+            if($ad->status == 2){
                 $finishedAdsAssoc[Ad::monthFR($ad->start_date) . '-' . $ad->year()]['finished_ads']++;
+            }
             else if($ad->status == 3)
                 $finishedAdsAssoc[Ad::monthFR($ad->start_date) . '-' . $ad->year()]['canceled_ads']++;
         }
-        return $finishedAdsAssoc;
+        $ads = array();
+        foreach($finishedAdsAssoc as $k => $v){
+            $ads[] = [$k => [
+                'finished_ads' => $v['finished_ads'],
+                'canceled_ads' => $v['canceled_ads'],
+            ]];
+        }
+        return $ads;
     }
 
 
