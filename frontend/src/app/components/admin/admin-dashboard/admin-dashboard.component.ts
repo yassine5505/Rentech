@@ -1,13 +1,28 @@
-import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef, OnDestroy } from '@angular/core';
 import * as CanvasJS from './../../../../assets/js/canvasjs.min';
+import { StatService } from './../../../services/stat/stat.service';
+import { Subscription } from 'rxjs';
 @Component({
   selector: 'app-admin-dashboard',
   templateUrl: './admin-dashboard.component.html',
   styleUrls: ['./admin-dashboard.component.scss']
 })
-export class AdminDashboardComponent implements OnInit {
-  constructor() { }
+export class AdminDashboardComponent implements OnInit, OnDestroy {
+  public allStats: any;
+  public statSubscription: Subscription;
+  constructor(
+    private statService: StatService
+  ) { }
   ngOnInit() {
+    this.statSubscription = this.statService.getGlobalStatistics().subscribe(
+      (data) => {
+        console.log(data);
+      },
+      (error) => {
+        console.log(error);
+        alert('Erreur survenue');
+      }
+    );
     this.loadGraph1();
     this.loadGraph2();
   }
@@ -58,5 +73,8 @@ export class AdminDashboardComponent implements OnInit {
       }]
     });
     chart.render();
+  }
+  ngOnDestroy(): void {
+    this.statSubscription.unsubscribe();
   }
 }

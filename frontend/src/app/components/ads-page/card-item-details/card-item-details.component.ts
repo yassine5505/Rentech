@@ -81,7 +81,7 @@ export class CardItemDetailsComponent implements OnInit,  OnDestroy {
   }
 
   getImage(image) {
-    return  environment.api_url  + '/image/' + image.id;
+    return image ? environment.api_url  + '/image/' + image.id : './assets/img/logo.png';
   }
 
   ngOnDestroy() {

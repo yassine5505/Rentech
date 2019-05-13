@@ -42,7 +42,7 @@ export class AdsComponent implements OnInit , OnDestroy {
   }
 
   getImage(image) {
-    return  environment.api_url + '/image/' + image.id;
+    return  image ? environment.api_url  + '/image/' + image.id : './assets/img/logo.png';
   }
 
   validateReservation(clientReservation: Booking , reservation: HTMLElement) {
