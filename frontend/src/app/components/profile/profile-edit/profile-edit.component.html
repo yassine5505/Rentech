@@ -1,70 +1,74 @@
-
-<div class="wrapper" >
+<div class="wrapper">
   <div class="container-fluid ">
-      <div class="row ">
-        <div class="col-lg-12 col-md-12 col-md-offset-5">
-          
-          <form (ngSubmit)="onSubmit()"  [formGroup]="updateForm" class="register-form">
-            <h3 class="projTitle" style="color: #334d4d;">
-               Modifier mes informations personnelles 
-            </h3>
-            <br>
-            <div class="form-group" *ngIf="success !== null">
-                <div class="alert alert-success" role="alert" style="width: 100% !important;">{{success}}</div>
-              </div>
-              <div class="form-group" *ngIf="error !== null">
-                <div class="alert alert-danger" role="alert" style="width: 100% !important;">{{error}}</div>
-              </div>
+    <div class="row ">
+      <div class="col-lg-12 col-md-12 col-md-offset-5">
 
-            
-            <div class="form-group">
-              <label for="inputPhone" class="control-label">Numéro  de téléphone :</label>
-              <input id="imputPhone" formControlName="telephone" class="form-control"
-                [ngClass]="{ 'is-invalid': submitted && f.telephone.errors }" type="text" style="background-color: rgb(173, 235, 235,0.750);">
+        <form (ngSubmit)="onSubmit()" [formGroup]="updateForm" class="register-form">
+          <h3 class="projTitle" style="color: #334d4d;">
+            Modifier mes informations personnelles
+          </h3>
+          <br>
+          <div class="form-group" *ngIf="success !== null">
+            <div class="alert alert-success" role="alert" style="width: 100% !important;">{{success}}</div>
+          </div>
+          <div class="form-group" *ngIf="error !== null">
+            <div class="alert alert-danger" role="alert" style="width: 100% !important;">{{error}}</div>
+          </div>
+
+
+          <div class="form-group">
+            <label for="inputPhone" class="control-label">Numéro de téléphone :</label>
+            <input id="imputPhone" formControlName="telephone" class="form-control"
+              [ngClass]="{ 'is-invalid': submitted && f.telephone.errors }" type="text"
+              style="background-color: rgb(173, 235, 235,0.750);">
+          </div>
+
+
+          <div class="row form-group">
+
+            <div class="col-md-6">
+              <label for="inputAdress" class="col-sm-12 control-label">Addresse de résidence:</label>
+              <input type="text" formControlName="address" class="form-control"
+                style="background-color: rgb(173, 235, 235,0.750);">
             </div>
+            <div class="col-md-6">
 
-
-            <div class="row form-group">
-              
-              <div class="col-md-6">
-                <label for="inputAdress" class="col-sm-12 control-label">Addresse de résidence:</label>
-                <input type="text" formControlName="address" class="form-control" style="background-color: rgb(173, 235, 235,0.750);">
-              </div>
-              <div class="col-md-6">
-
-                <label for="inputCity" class="col-sm-12 control-label">Ville de résidence : </label>
-                <select id="inputCity" formControlName="city_id" class="col-sm-12 form-control" style="background-color: rgb(173, 235, 235,0.750);">
-                  <option *ngFor="let city of cities" [ngValue]="city.id" [selected]="city.id == user.city.id">
-                    {{ city.name }}
-                  </option>
-                </select>
-              </div>
+              <label for="inputCity" class="col-sm-12 control-label">Ville de résidence : </label>
+              <select id="inputCity" formControlName="city_id" class="col-sm-12 form-control"
+                style="background-color: rgb(173, 235, 235,0.750);">
+                <option *ngFor="let city of cities" [ngValue]="city.id" [selected]="city.id == user.city.id">
+                  {{ city.name }}
+                </option>
+              </select>
             </div>
-            <div class="form-group" >
-                <label for="inputOldPassword">  Ancien mot de passe : </label>
-                  <div class="input-group-prepend">
-                    <span class="input-group-text">
-                      <i class="nc-icon nc-key-25"></i>
-                    </span>
-                  <input type="password" formControlName="old_password" id="inputOldPassword" class="form-control" placeholder="Ancien mot de passe" style="background-color: rgb(173, 235, 235,0.750);">
-                </div>
+          </div>
+          <div class="form-group">
+            <label for="inputOldPassword"> Ancien mot de passe : </label>
+            <div class="input-group-prepend">
+              <span class="input-group-text">
+                <i class="nc-icon nc-key-25"></i>
+              </span>
+              <input type="password" formControlName="old_password" id="inputOldPassword" class="form-control"
+                placeholder="Ancien mot de passe" style="background-color: rgb(173, 235, 235,0.750);">
             </div>
-            <div class="form-group" >
-                <label for="inputPassword">  Nouveau mot de passe : </label>
-                  <div class="input-group-prepend">
-                    <span class="input-group-text">
-                      <i class="nc-icon nc-key-25"></i>
-                    </span>
-                  <input type="password" formControlName="password" id="inputPassword" class="form-control" placeholder="Nouveau mot de passe" style="background-color: rgb(173, 235, 235,0.750);">
-                </div>
+          </div>
+          <div class="form-group">
+            <label for="inputPassword"> Nouveau mot de passe : </label>
+            <div class="input-group-prepend">
+              <span class="input-group-text">
+                <i class="nc-icon nc-key-25"></i>
+              </span>
+              <input type="password" formControlName="password" id="inputPassword" class="form-control"
+                placeholder="Nouveau mot de passe" style="background-color: rgb(173, 235, 235,0.750);">
             </div>
+          </div>
 
-            <div class="text-center row ">
-              <button class="btn btn-success btn-block btn-round" type="submit">MODIFIER</button>
-            </div>
+          <div class="text-center row ">
+            <button class="btn btn-success btn-block btn-round" type="submit">MODIFIER</button>
+          </div>
 
-          </form>
-        </div>
-        </div>
+        </form>
+      </div>
     </div>
   </div>
+</div>

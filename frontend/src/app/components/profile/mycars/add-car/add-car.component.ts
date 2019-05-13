@@ -138,6 +138,7 @@ validateImages(): boolean {
 }
 
 handleResponse(data) {
+  this.error = [];
   this.success = data.message;
 }
 
