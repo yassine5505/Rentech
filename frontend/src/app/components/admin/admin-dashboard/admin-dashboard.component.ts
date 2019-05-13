@@ -14,19 +14,22 @@ export class AdminDashboardComponent implements OnInit, OnDestroy {
     private statService: StatService
   ) { }
   ngOnInit() {
-    this.statSubscription = this.statService.getGlobalStatistics().subscribe(
-      (data) => {
-        console.log(data);
-      },
-      (error) => {
-        console.log(error);
-        alert('Erreur survenue');
-      }
-    );
+    this.loadData();
     this.loadGraph1();
     this.loadGraph2();
   }
-
+  loadData() {
+    this.statSubscription = this.statService.getGlobalStatistics().subscribe(
+      (data) => {
+        console.log(data);
+        this.allStats = data;
+      },
+      (error) => {
+        console.log(error);
+        alert('Erreur survenue sur la plateforme !');
+      }
+    );
+  }
   loadGraph1() {
     const chart = new CanvasJS.Chart('chartContainer' , {
       theme: 'light2', // "light1", "light2", "dark1", "dark2"
@@ -54,7 +57,7 @@ export class AdminDashboardComponent implements OnInit, OnDestroy {
   }
 
   loadGraph2() {
-    const chart = new CanvasJS.Chart('chartContainer2', {
+    const chart = new CanvasJS.Chart('chartContainer1', {
       animationEnabled: true,
       exportEnabled: true,
       data: [{
