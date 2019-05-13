@@ -24,6 +24,7 @@ class AdminStatResource extends JsonResource
      */
     public function toArray($request)
     {
+        
         return [
             'total_partners' => User::totalPartners(),
             'total_clients' => User::totalClients(),
