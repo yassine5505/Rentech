@@ -73,13 +73,15 @@ Route::group(['middleware' => 'api'], function () {
     });
 
 
+    // Image Route
     Route::get('image/{id}', function($id){
         $url = \App\Image::find($id)->url;
         $type = Storage::mimeType($url);
         $file = Storage::get($url);
         return Response::make($file,200)->header('Content-type', $type);
-
     });
     
 
+    // Stat Routes
+    Route::post('stat', 'StatController@stat');
 });

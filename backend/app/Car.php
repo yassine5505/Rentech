@@ -70,4 +70,11 @@ class Car extends Model
                       ->limit(10)
                       ->get();
     }
+
+    /**
+     * Count Cars
+     */
+    public static function totalCars(){
+        return count(Car::all());
+    }
 }
