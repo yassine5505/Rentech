@@ -1,21 +1,22 @@
-<div class="content">
+<div class="wrapper">
   <div class="page-header page-header-xs" data-parallax="true" style="background:rgb(252, 250, 250);">
     <!-- <div class="filter"></div> -->
   </div>
 
-  <div class="bg-light position-relative" >
+  <div class="bg-light position-relative">
     <div class="p-3 h-100 position-relative z-index-2 overflow-auto  py-3">
       <div class="row" *ngIf="allStats">
         <h3 class="display-4 p-3">
           Indicateurs de la <span class="text-muted">plateforme<br> Rentech</span>
         </h3>
-        <!--       Revenue  indicator -->
+        <!-- Revenue entreprise indicator -->
         <div class="p-2 bg-white rounded p-3 m-3 shadow-sm animated flipInX delay-3">
           <div class="text-uppercase text-tracked text-muted mb-2">
             REVENUE ENTREPRISE
           </div>
-          <div class="badge badge-success text-size-2 text-monospace mx-auto">{{allStats.entreprise_revenue}}<span
-              class="opacity-50 small">.00</span></div>
+          <div class="badge badge-success text-size-2 text-monospace mx-auto">
+            {{allStats.entreprise_revenue | currency:'MAD':'MAD':'2.0-0'}}<span class="opacity-50 small">.00</span>
+          </div>
           <div class="text-muted small mt-1">
             <span class="text-danger">
               <i class="fas fa fa-long-arrow-alt-down"></i>
@@ -24,36 +25,38 @@
           </div>
         </div>
 
-        <!--       Revenue  indicator -->
+        <!-- Revenue partenaire indicator -->
         <div class="p-2 bg-white rounded p-3 m-3 shadow-sm animated flipInX delay-3">
           <div class="text-uppercase text-tracked text-muted mb-2">
             REVENUE PARTENAIRES
           </div>
-          <div class="badge badge-warning text-size-2 text-monospace mx-auto">{{ allStats.total_revenues - allStats.entreprise_revenue}}<span
-              class="opacity-50 small">.00%</span></div>
+          <div class="badge badge-warning text-size-2 text-monospace mx-auto">
+            {{ allStats.total_revenues - allStats.entreprise_revenue | currency:'MAD':'MAD':'2.0-2' }}
+            <span class="opacity-50 small">.00</span></div>
           <div class="text-muted small mt-1">
             <span class="text-danger">
               <i class="fas fa fa-long-arrow-alt-down"></i>
-              5%
-            </span> vs moyenne
+              {{(allStats.total_revenues - allStats.entreprise_revenue )/allStats.total_revenues | percent }}
+            </span> des revenues globaux
           </div>
         </div>
 
-        <!--       Perte warning -->
+        <!-- Perte warning -->
         <div
           class="p-2 bg-warning text-black rounded m-3 p-3 shadow-sm text-center position-relative animated flipInX delay-1 overflow-hidden">
           <div class="text-uppercase text-tracked mb-2">PERTES FINANCIÈRES</div>
-          <div class="badge badge-danger text-size-2 text-monospace mx-auto">MAD98<span
-              class="opacity-50 small">.00</span></div>
+          <div class="badge badge-danger text-size-2 text-monospace mx-auto">
+            {{allStats.lost_revenues | currency:'MAD':'MAD':'2.2-3'}}
+          </div>
         </div>
 
-        <!--       Partner users indicator -->
+        <!-- Partner total indicator -->
         <div class="d-flex flex-column p-3 m-3 bg-white shadow-sm rounded animated flipInX delay-4">
           <div class="text-uppercase text-tracked text-muted mb-2">PARTENAIRES</div>
 
           <div class="d-flex justify-content-between">
             <div>
-              <span class="text-size-2 text-monospace">31</span>
+              <span class="text-size-2 text-monospace">{{allStats.total_partners}}</span>
             </div>
             <div class="text-success pl-3 pt-1">
               <i class="fas fa fa-long-arrow-alt-up"></i>
@@ -63,13 +66,13 @@
           </div>
         </div>
 
-        <!--       Partner users indicator -->
+        <!--  Clients total indicator -->
         <div class="d-flex flex-column p-3 m-3 bg-white shadow-sm rounded animated flipInX delay-4">
           <div class="text-uppercase text-tracked text-muted mb-2">CLIENTS</div>
 
           <div class="d-flex justify-content-between">
             <div>
-              <span class="text-size-2 text-monospace">421</span>
+              <span class="text-size-2 text-monospace">{{allStats.total_clients}}</span>
             </div>
             <div class="text-success pl-3 pt-1">
               <i class="fas fa fa-long-arrow-alt-up"></i>
@@ -79,70 +82,51 @@
           </div>
         </div>
 
-        <!--       Bounce rate indicator -->
+        <!--  Total of cars  -->
         <div class="d-flex flex-column p-3 m-3 bg-white shadow-sm rounded animated flipInX delay-5">
           <div class="text-uppercase text-tracked text-muted mb-2">TOTAL VOITURES</div>
 
           <div class="d-flex align-items-center text-size-3">
             <i class="fas fa fa-door-open opacity-25 mr-2"></i>
             <div class="text-monospace">
-              <span class="text-size-2 ">43</span>
+              <span class="text-size-2 ">{{allStats.total_cars}}</span>
             </div>
             <i class="fas fa fa-arrow-up text-danger ml-2"></i>
           </div>
         </div>
-
-
       </div>
-
-    </div>
-    <div class="container-fluid">
-      <div class="row bg-white">
-        <div class="col-md-12">
-            <h3 class="projTitle text-center">
-                Indicateurs graphiques de finance
-            </h3>
-            <div id="revenuesContainer">
-
-            </div>
-        </div>
-      </div>
-      <div class="row">
-        <div class="col-12">
-          <h3 class="projTitle text-center">Statistiques taux d'annonces</h3>
-          <br>
-        </div>
-      </div>
-      <div class="row">
-        <div class="col-md-4">
-          <div class="card ">
-            <div class="card-header ">
-              <h5 class="card-title">Statistiques nombres annonces ! </h5>
-              <p class="card-category">Nombre d'annonces par region </p>
-            </div>
-            <div class="card-body ">
-              <div id="chartContainer" style="height: 300px; width: 100%;"></div>
-            </div>
-          </div>
-        </div>
-        <div class="col-md-8">
-          <div class="card ">
-            <div class="card-header ">
-              <h4 class="card-title">Nombre d'annonces au cours 12 mois récents</h4>
-              <p class="card-category">
-                Un récencement de l'évolution des publications d'annonces
-                au cours des 12 derniers mois
-              </p>
-            </div>
-            <div class="card-body ">
-              <div id="chartHours" class="ct-chart">
-                <div id="chartContainer1" style="height: 300px; width: 100%;"></div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-     
-
     </div>
   </div>
+  <div class="position-relative">
+    <div class="container">
+      <div class="row bg-white">
+        <div class="col-md-12">
+          <h3 class="projTitle text-center">
+            Indicateurs graphiques de finance
+          </h3>
+        </div>
+        <div class="col-md-12">
+          <div id="revenuesContainer" style="height: 300px; width: 100%;" >
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="position-relative">
+    <div class="container">
+      <div class="row bg-white">
+        <div class="col-md-12">
+          <h3 class="projTitle text-center">
+            Indicateurs graphiques de finance
+          </h3>
+        </div>
+        <div class="col-md-12">
+          <div id="revenuesContainer">
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+</div>
