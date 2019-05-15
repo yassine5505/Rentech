@@ -2,6 +2,7 @@ import { Component, OnInit, ViewChild, ElementRef, OnDestroy } from '@angular/co
 import * as CanvasJS from './../../../../assets/js/canvasjs.min';
 import { StatService } from './../../../services/stat/stat.service';
 import { Subscription } from 'rxjs';
+import * as moment from 'moment';
 @Component({
   selector: 'app-admin-dashboard',
   templateUrl: './admin-dashboard.component.html',
@@ -27,35 +28,75 @@ export class AdminDashboardComponent implements OnInit, OnDestroy {
         alert('Erreur survenue sur la plateforme !');
       },
       () => {
-        // this.loadGraph1();
+        this.loadAdRateGraph();
         this.loadRevenuesGraph();
+        this.getAnnoncesTerminated();
       }
     );
   }
-  loadGraph1() {
-    const chart = new CanvasJS.Chart('chartContainer', {
+  loadAdRateGraph() {
+    const chart = new CanvasJS.Chart('tauxAnonceContainer', {
       theme: 'light2', // "light1", "light2", "dark1", "dark2"
       exportEnabled: true,
       animationEnabled: true,
-
-      data: [{
-        type: 'pie',
-        startAngle: 25,
-        toolTipContent: '<b>{label}</b>: <span>{y}%</span>',
-        showInLegend: 'true',
-        legendText: '{label}',
-        indexLabelFontSize: 14,
-        indexLabel: '{label} - {y}%',
-        dataPoints: [
-          { y: 51.08, label: 'Tetouan' },
-          { y: 27.34, label: 'Rabat' },
-          { y: 10.62, label: 'Casablanca' },
-          { y: 5.02, label: 'Tanger' },
-          { y: 12.07, label: 'Fes' }
-        ]
-      }]
+      axisX: {
+        title: 'Mois'
+      },
+      axisY: {
+        title: 'Nombre d\'annonces ',
+        titleFontColor: '#4F81BC',
+        lineColor: '#F08080',
+        labelFontColor: '#4F81BC',
+        tickColor: '#F08080'
+      },
+      toolTip: {
+        shared: true
+      },
+      data: [
+        {
+          type: 'column',
+          name: 'Annonces correctement terminées',
+          showInLegend: true,
+          yValueFormatString: '#,##0.# Units',
+          dataPoints: this.getAnnoncesTerminated()
+        },
+        {
+          type: 'column',
+          name: 'Annonces annulées',
+          showInLegend: true,
+          yValueFormatString: '#,##0.# Units',
+          dataPoints:  this.getAnnoncesCancelled()
+        },
+      ]
     });
     chart.render();
+  }
+
+
+  getAnnoncesTerminated() {
+    const annonces = [];
+    // tslint:disable-next-line:prefer-for-of
+    for (let index = 0; index < this.allStats.ads.length; index++) {
+      const  element = this.allStats.ads[index];
+      const elt = { label: '',  y: 0 };
+      elt.label = Object.keys(element)[0];
+      elt.y = Object.values(element)[0].finished_ads;
+      annonces.push(elt);
+    }
+    return annonces;
+  }
+
+  getAnnoncesCancelled() {
+    const annonces = [];
+    // tslint:disable-next-line:prefer-for-of
+    for (let index = 0; index < this.allStats.ads.length; index++) {
+      const  element = this.allStats.ads[index];
+      const elt = { label: '',  y: 0 };
+      elt.label = Object.keys(element)[0];
+      elt.y = Object.values(element)[0].canceled_ads;
+      annonces.push(elt);
+    }
+    return annonces;
   }
 
   loadRevenuesGraph() {
@@ -110,11 +151,15 @@ export class AdminDashboardComponent implements OnInit, OnDestroy {
     for (let index = 0; index < this.allStats.revenues_stats.length; index++) {
       const element = this.allStats.revenues_stats[index];
       const elt = {x : new Date() , y : 0};
-      elt.x = new Date(element.x[0], element.x[1] , element.x[2]);
-      elt.y = element.y;
-      revenuePositive.push(elt);
+      const dataStat = new Date(element.x[0], element.x[1] - 1 , element.x[2]);
+      if ( index > 0 && moment(revenuePositive[revenuePositive.length - 1].x).isSame(moment(dataStat))) {
+        elt.y += element.y;
+      } else {
+        elt.x = dataStat;
+        elt.y = element.y;
+        revenuePositive.push(elt);
+      }
     }
-    console.log(revenuePositive);
     return revenuePositive;
   }
 
@@ -124,11 +169,15 @@ export class AdminDashboardComponent implements OnInit, OnDestroy {
     for (let index = 0; index < this.allStats.lost_revenues_stats.length; index++) {
       const element = this.allStats.lost_revenues_stats[index];
       const elt = {x : new Date() , y : 0};
-      elt.x = new Date(element.x[0] , element.x[1] , element.x[2]);
-      elt.y = element.y;
-      revenueNegative.push(elt);
+      const dataStat = new Date(element.x[0], element.x[1] - 1 , element.x[2]);
+      if ( index > 0 && moment(revenueNegative[revenueNegative.length - 1].x).isSame(moment(dataStat))) {
+        elt.y += element.y;
+      } else {
+        elt.x = dataStat;
+        elt.y = element.y;
+        revenueNegative.push(elt);
+      }
     }
-    console.log(revenueNegative);
     return revenueNegative;
   }
 

@@ -85,39 +85,60 @@
               <li>
                 <input class="filter" class="form-control" data-filter=".check1" type="checkbox" id="checkbox1">
                 <label class="checkbox-label" for="checkbox1">
-                  <span *ngFor="let score of [1 , 2 , 2 , 2 , 0]" class="fa fa-star checked"></span>
-                  <span *ngFor="let score of  []" class="fa fa-star"></span>
-
+                  <star-rating 
+                    size="medium" [starType]="'svg'"
+                    speed="slow"
+                    [readOnly]="true"
+                    [rating]="5"
+                    direction="ltr"></star-rating>
                 </label>
               </li>
               <li>
                 <input class="filter" class="form-control" data-filter=".check2" type="checkbox" id="checkbox2">
                 <label class="checkbox-label" for="checkbox2">
-                  <span *ngFor="let score of [1 , 2 , 2 , 2 ]" class="fa fa-star checked"></span>
-                  <span *ngFor="let score of  [1]" class="fa fa-star"></span>
+                  <star-rating 
+                    size="medium" [starType]="'svg'"
+                    speed="slow"
+                    [readOnly]="true"
+                    [rating]="4"
+                    direction="ltr"></star-rating>
                 </label>
               </li>
               <li>
                 <input class="filter" class="form-control" data-filter=".check3" type="checkbox" id="checkbox3">
                 <label class="checkbox-label" for="checkbox3">
-                  <span *ngFor="let score of [1 , 2 , 2 ]" class="fa fa-star checked"></span>
-                  <span *ngFor="let score of  [1, 2]" class="fa fa-star"></span>
+                  <star-rating 
+                    size="medium" [starType]="'svg'"
+                    speed="slow"
+                    [readOnly]="true"
+                    [rating]="3"
+                    direction="ltr"></star-rating>
                 </label>
               </li>
               <li>
                 <input class="filter" class="form-control" data-filter=".check3" type="checkbox" id="checkbox4">
                 <label class="checkbox-label" for="checkbox4">
-                  <span *ngFor="let score of [1 , 2  ]" class="fa fa-star checked"></span>
-                  <span *ngFor="let score of  [1, 2 , 3]" class="fa fa-star"></span>
+                  <star-rating 
+                    size="medium" [starType]="'svg'"
+                    speed="slow"
+                    [readOnly]="true"
+                    [rating]="2"
+                    direction="ltr"></star-rating>
                 </label>
               </li>
+             
               <li>
                 <input class="filter" class="form-control" data-filter=".check3" type="checkbox" id="checkbox4">
                 <label class="checkbox-label" for="checkbox4">
-                  <span *ngFor="let score of [1 ]" class="fa fa-star checked"></span>
-                  <span *ngFor="let score of  [1, 2 , 3 , 4]" class="fa fa-star"></span>
+                  <star-rating 
+                    size="medium" [starType]="'svg'"
+                    speed="slow"
+                    [readOnly]="true"
+                    [rating]="1"
+                    direction="ltr"></star-rating>
                 </label>
               </li>
+             
             </ul>
             <!-- cd-filter-content -->
           </div>

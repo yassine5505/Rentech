@@ -16,7 +16,7 @@ class AdCollection extends ResourceCollection
     public function toArray($request)
     {
         return [
-            'ads' => AdResource::collection($this->collection)->sortBy('start_date'),
+            'ads' => AdResource::collection($this->collection)->sortBy('start_date')->toArray(),
             'ad_count' => $this->collection->count(),
         ];
     }

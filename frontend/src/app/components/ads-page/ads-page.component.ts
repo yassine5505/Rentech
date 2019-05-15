@@ -10,7 +10,6 @@ import { LoadingScreenService } from './../../services/shared/loading-screen/loa
   styleUrls: ['./ads-page.component.scss']
 })
 export class AdsPageComponent implements OnInit, OnDestroy {
-  
   // Reference to filter box Component
   @ViewChild('filterBox') filterBox: ElementRef;
 
