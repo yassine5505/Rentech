@@ -155,8 +155,11 @@ class Ad extends Model
         $finishedAdsArray = array();
         $i = 0;
         foreach($finishedAds as $ad){
+            // x => [date->year, date->month, date->day]
             $finishedAdsArray[$i] = [
-                'x' => [(int)date('Y'), (int)date('m'), (int)date('d')],
+                'x' => [(int)date('Y', strtotime($ad->start_date)), 
+                        (int)date('m', strtotime($ad->start_date)), 
+                        (int)date('d', strtotime($ad->start_date))],
                 'y' => $ad->price
             ];
             $i++;
