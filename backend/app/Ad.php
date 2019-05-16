@@ -155,7 +155,7 @@ class Ad extends Model
                           ->select(DB::raw("SUM(price) as totalprice, start_date"))
                           ->whereBetween('start_date', [$from, $to])
                           ->where('status', '=', $adStatus)
-                          ->where('user_id', '=', $user_id)
+                          ->where('user_id', '=', $userId)
                           ->orderBy('start_date', 'desc')
                           ->groupBy('start_date')
                           ->get();

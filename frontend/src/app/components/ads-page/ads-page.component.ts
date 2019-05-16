@@ -3,6 +3,7 @@ import { Ad } from './../../models/ad.model';
 import { AdService } from './../../services/shared/ad/ad.service';
 import { Subscription } from 'rxjs';
 import { LoadingScreenService } from './../../services/shared/loading-screen/loading-screen.service';
+import { ActivatedRoute, ParamMap } from '@angular/router';
 
 @Component({
   selector: 'app-ads-page',
@@ -16,15 +17,27 @@ export class AdsPageComponent implements OnInit, OnDestroy {
   fromMinimun = new Date().toLocaleDateString();
   filteredAds: Ad[] = [];
   adSubscription: Subscription;
+  // Fiter for search
+  filter = {
+    city_id:  null,
+    from_date: null
+  };
   error: string[] = [];
   constructor(
     private adService: AdService,
+    private route: ActivatedRoute,
     private loaderService: LoadingScreenService,
   ) { }
 
   ngOnInit() {
     this.loaderService.startLoading();
     this.fromMinimun = new Date().toLocaleDateString();
+    this.route.paramMap.subscribe(
+      (params: ParamMap) => {
+        this.filter.city_id = +params.get('reservationCode');
+        this.filter.from_date = +params.get('reservationCode');
+      }
+    );
     this.adSubscription = this.adService.getActive().subscribe(
       (data) => {
         console.log(data);
@@ -35,7 +48,9 @@ export class AdsPageComponent implements OnInit, OnDestroy {
         this.handleError(error);
         this.loaderService.stopLoading();
       },
-      () => {}
+      () => {
+        
+      }
     );
   }
 

@@ -53,48 +53,22 @@
                     <i class="glyphicon glyphicon-ok"></i>
                     Mes voitures </a>
                 </li>
+                <li *ngIf="currentUser.role == 'PARTNER'">
+                  <a [routerLink]="['/profile/cars']" routerLinkActive="active">
+                    <i class="glyphicon glyphicon-ok"></i>
+                    Mes annonces </a>
+                </li>
+                <li *ngIf="currentUser.role == 'PARTNER'">
+                  <a [routerLink]="['/profile/partner-dashboard']" routerLinkActive="active">
+                    <i class="glyphicon glyphicon-ok"></i>
+                    Mes statistiques </a>
+                </li>
                 <li *ngIf="currentUser.role == 'CLIENT'">
                   <a [routerLink]="['/profile/history']" routerLinkActive="active">
                     <i class="glyphicon glyphicon-flag"></i>
                     Mon historique </a>
                 </li>
               </ul>
-            </div>
-            <!-- END MENU -->
-
-            <div class="portlet light bordered">
-              <!-- STAT -->
-              <div class="row list-separated profile-stat">
-                <div class="col-md-4 col-sm-4 col-xs-6">
-                  <div class="uppercase profile-stat-title"> 37 </div>
-                  <div class="uppercase profile-stat-text"> Stat1 </div>
-                </div>
-                <div class="col-md-4 col-sm-4 col-xs-6">
-                  <div class="uppercase profile-stat-title"> 51 </div>
-                  <div class="uppercase profile-stat-text"> Clients </div>
-                </div>
-                <div class="col-md-4 col-sm-4 col-xs-6">
-                  <div class="uppercase profile-stat-title"> 6100 </div>
-                  <div class="uppercase profile-stat-text"> DHS </div>
-                </div>
-              </div>
-              <!-- END STAT -->
-              <div>
-                <h4 class="profile-desc-title">About Jason Davis</h4>
-                <span class="profile-desc-text"> Une petite description </span>
-                <div class="margin-top-20 profile-desc-link">
-                  <i class="fa fa-plus"></i>
-                  <a href="">+212 00....</a>
-                </div>
-                <div class="margin-top-20 profile-desc-link">
-                  <i class="fa fa-plus"></i>
-                  <a href="">Tetouan</a>
-                </div>
-                <div class="margin-top-20 profile-desc-link">
-                  <i class="fa fa-plus"></i>
-                  <a href="">*********</a>
-                </div>
-              </div>
             </div>
           </div>
         </div>

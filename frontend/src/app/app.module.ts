@@ -50,6 +50,7 @@ import { ListReviewsComponent } from './components/review/review-page/list-revie
 import { ReviewItemComponent } from './components/shared/review-item/review-item.component';
 import { AdminDashboardComponent } from './components/admin/admin-dashboard/admin-dashboard.component';
 import { FooterComponent } from './components/shared/footer/footer.component';
+import { PartnerDashboardComponent } from './components/profile/partner-dashboard/partner-dashboard.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -80,7 +81,8 @@ import { FooterComponent } from './components/shared/footer/footer.component';
     ListReviewsComponent,
     ReviewItemComponent,
     AdminDashboardComponent,
-    FooterComponent
+    FooterComponent,
+    PartnerDashboardComponent
   ],
   imports: [
     BrowserModule,

@@ -3,12 +3,13 @@ import * as CanvasJS from './../../../../assets/js/canvasjs.min';
 import { StatService } from './../../../services/stat/stat.service';
 import { Subscription } from 'rxjs';
 import * as moment from 'moment';
+
 @Component({
-  selector: 'app-admin-dashboard',
-  templateUrl: './admin-dashboard.component.html',
-  styleUrls: ['./admin-dashboard.component.scss']
+  selector: 'app-partner-dashboard',
+  templateUrl: './partner-dashboard.component.html',
+  styleUrls: ['./partner-dashboard.component.scss']
 })
-export class AdminDashboardComponent implements OnInit, OnDestroy {
+export class PartnerDashboardComponent implements OnInit {
   public allStats: any;
   public statSubscription: Subscription;
   constructor(
@@ -182,7 +183,4 @@ export class AdminDashboardComponent implements OnInit, OnDestroy {
     return revenueNegative;
   }
 
-  ngOnDestroy(): void {
-    this.statSubscription.unsubscribe();
-  }
 }

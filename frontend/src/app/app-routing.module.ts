@@ -1,6 +1,6 @@
 import { NgModule, Component } from '@angular/core';
 import { CommonModule, } from '@angular/common';
-import { BrowserModule  } from '@angular/platform-browser';
+import { BrowserModule } from '@angular/platform-browser';
 
 import { RouterModule, Routes } from '@angular/router';
 import { LoginComponent } from './components/login/login.component';
@@ -26,6 +26,7 @@ import { ReviewPageComponent } from './components/review/review-page/review-page
 import { ListReviewsComponent } from './components/review/review-page/list-reviews/list-reviews.component';
 import { CreateReviewComponent } from './components/review/create-review/create-review.component';
 import { AdminDashboardComponent } from './components/admin/admin-dashboard/admin-dashboard.component';
+import { PartnerDashboardComponent } from './components/profile/partner-dashboard/partner-dashboard.component';
 
 const appRoutes: Routes = [
   {
@@ -50,14 +51,14 @@ const appRoutes: Routes = [
     path: 'score',
     component: ReviewPageComponent,
     canActivate: [AuthGuard],
-    data: { roles: [Role.PARTNER , Role.CLIENT] },
+    data: { roles: [Role.PARTNER, Role.CLIENT] },
     children: [
       // Getting all my scores
       {
         path: '',
         component: ListReviewsComponent,
         canActivate: [AuthGuard],
-        data: { roles: [Role.PARTNER , Role.CLIENT] }
+        data: { roles: [Role.PARTNER, Role.CLIENT] }
       },
 
       // giving a score to someone
@@ -65,7 +66,7 @@ const appRoutes: Routes = [
         path: 'evaluer',
         component: CreateReviewComponent,
         canActivate: [AuthGuard],
-        data: { roles: [Role.PARTNER , Role.CLIENT] }
+        data: { roles: [Role.PARTNER, Role.CLIENT] }
       }
     ]
   },
@@ -101,13 +102,13 @@ const appRoutes: Routes = [
         path: 'overview',
         component: OverviewComponent,
         canActivate: [AuthGuard],
-        data: { roles: [Role.PARTNER , Role.CLIENT, Role.ADMIN] }
+        data: { roles: [Role.PARTNER, Role.CLIENT, Role.ADMIN] }
       },
       {
         path: 'edit',
         component: ProfileEditComponent,
         canActivate: [AuthGuard],
-        data: { roles: [Role.PARTNER , Role.CLIENT, Role.ADMIN] }
+        data: { roles: [Role.PARTNER, Role.CLIENT, Role.ADMIN] }
       },
       {
         path: 'cars',
@@ -136,6 +137,14 @@ const appRoutes: Routes = [
         component: ClientHistoryComponent,
         canActivate: [AuthGuard],
         data: { roles: [Role.CLIENT] }
+      },
+
+      // Partner zone
+      {
+        path: 'partner-dashboard',
+        component: PartnerDashboardComponent,
+        canActivate: [AuthGuard],
+        data: { roles: [Role.PARTNER] }
       },
 
     ]
