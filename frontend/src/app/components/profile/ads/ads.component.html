@@ -3,7 +3,7 @@
 </div>
 <div class="wrap cf">
   <div class="heading cf">
-    <a href="#" class="continue">Aller aux annonces !</a>
+    <a [routerLink]="['/profile/my-ads']"   class="continue">Aller aux annonces !</a>
   </div>
   <div class="cart">
     <ul class="cartWrap"  *ngIf="reservations && reservations.length">
@@ -15,7 +15,7 @@
             <h3>Réservée par {{reservation.reservator.name}}</h3>
             <p><b>De</b> {{reservation.ad.start_date}} </p> --
             <p><b> à</b> {{reservation.ad.end_date}}  </p>
-            <p class="stockStatus" [ngClass]="{out: reservation.status === 0 || reservation.status === 0  }" >
+            <p class="stockStatus" [ngClass]="{out: reservation.status === 2  }" >
               {{ reservation.status === 0 ? 'EN ATTENTE': '' }}
               {{ reservation.status === 1 ? 'DEJA VALIDÉE': '' }}
               {{ reservation.status === 2  ? 'ANNULÉE': '' }}

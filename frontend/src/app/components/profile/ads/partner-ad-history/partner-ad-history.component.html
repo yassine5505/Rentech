@@ -1,0 +1,67 @@
+<div class="wrap cf">
+  <h1 class="projTitle">Mon historique d'annonces</h1>
+ 
+  <div class="cart">
+    
+    <ul class="cartWrap" *ngIf="myAds && myAds.length">
+      <li class="items" [ngClass]="{even: i%2}" #reserId *ngFor="let ad of myAds; let i = index">
+        <div class="infoWrap">
+          <div class="cartSection">
+            <img [src]="getImage(ad.car.images.images[0])" alt="" class="itemImg" />
+            
+            <h3>
+              Berline ACl-SS2
+              <p class="stockStatus" [ngClass]="{out: ad.status === 1 || ad.status === 3}" >
+                  {{ ad.status === 0 ? 'ACTIVE': '' }}
+                  {{ ad.status === 1 ? 'DEJA RESERVÉE': '' }}
+                  {{ ad.status === 2  ? 'TERMINÉE': '' }}
+                  {{ ad.status === 3  ? 'ANNULÉE': '' }}
+              </p>
+            </h3> 
+            <p><b>De</b> {{ad.start_date}} </p> --
+            <p><b> à</b> {{ad.end_date}}  </p>
+            <br>
+            <p> 
+               
+            <span title="{{ ad.car.motor}}" class="badge badge-info" style="margin-left: 3px;" >
+                Moteur {{ ad.car.motor}}</span>
+            <span title="{{!ad.car.airbag ? 'INDISPONIBLE' : 'DISPONIBLE'}}"   style="margin-left: 2px;"
+            class="badge"
+            [ngClass]="{'badge-danger': !ad.car.airbag, 'badge-success': !!ad.car.airbag }" >
+            Airbag</span>
+            <span title="{{!ad.car.abs ? 'INDISPONIBLE' : 'DISPONIBLE'}}"  style="margin-left: 1px;"
+            class="badge"
+            [ngClass]="{'badge-danger': !ad.car.abs, 'badge-success': !!ad.car.abs }" >
+             ABS</span>
+            <span title="{{!ad.car.centralized ? 'INDISPONIBLE' : 'DISPONIBLE'}}"  style="margin-left: 2px;"
+            class="badge"
+            [ngClass]="{'badge-danger': !ad.car.centralized, 'badge-success': !!ad.car.centralized }" >
+             Centralisation</span>
+            </p>
+
+            
+          </div>
+
+
+          <div class="prodTotal cartSection">
+            <p>{{ad.price | currency:'MAD'}} </p>
+          </div>
+          <div class="cartSection removeWrap" *ngIf="ad.status === 1">
+            <button class="btn btn-danger" [routerLink]="['/profile/reservations']">Voir reservation</button>
+          </div>
+        </div>
+      </li>
+    
+
+    </ul>
+    <ul class="cartWrap" *ngIf="myAds && !myAds.length">
+        <li class="items" >
+            <div class="special">
+              <div class="specialContent">
+                <span class="alert alert-danger">Aucune annonce pour le moment !</span>
+              </div></div>  
+        </li>
+      </ul>
+  </div>
+
+</div>

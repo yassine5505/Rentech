@@ -30,7 +30,7 @@
             <!-- SIDEBAR BUTTONS -->
             <div class="profile-userbuttons">
                 <star-rating size="medium" [starType]="'svg'" speed="slow" [readOnly]="true"
-                [rating]="4" direction="ltr"></star-rating>
+                [rating]="currentUser.scores.score_average" direction="ltr"></star-rating>
                 <br>
                 <a [routerLink]="['/profile/edit']" class="btn btn-info">Editer mon profil</a>
             </div>
@@ -54,7 +54,7 @@
                     Mes voitures </a>
                 </li>
                 <li *ngIf="currentUser.role == 'PARTNER'">
-                  <a [routerLink]="['/profile/cars']" routerLinkActive="active">
+                  <a [routerLink]="['/profile/my-ads']" routerLinkActive="active">
                     <i class="glyphicon glyphicon-ok"></i>
                     Mes annonces </a>
                 </li>

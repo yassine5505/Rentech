@@ -27,6 +27,7 @@ import { ListReviewsComponent } from './components/review/review-page/list-revie
 import { CreateReviewComponent } from './components/review/create-review/create-review.component';
 import { AdminDashboardComponent } from './components/admin/admin-dashboard/admin-dashboard.component';
 import { PartnerDashboardComponent } from './components/profile/partner-dashboard/partner-dashboard.component';
+import { PartnerAdHistoryComponent } from './components/profile/ads/partner-ad-history/partner-ad-history.component';
 
 const appRoutes: Routes = [
   {
@@ -143,6 +144,12 @@ const appRoutes: Routes = [
       {
         path: 'partner-dashboard',
         component: PartnerDashboardComponent,
+        canActivate: [AuthGuard],
+        data: { roles: [Role.PARTNER] }
+      },
+      {
+        path: 'my-ads',
+        component: PartnerAdHistoryComponent,
         canActivate: [AuthGuard],
         data: { roles: [Role.PARTNER] }
       },
