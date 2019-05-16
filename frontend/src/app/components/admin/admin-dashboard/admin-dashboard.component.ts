@@ -86,19 +86,18 @@ export class AdminDashboardComponent implements OnInit, OnDestroy {
         dockInsidePlotArea: true,
       },
       data: [{
-        type: 'line',
+        type: 'spline',
         showInLegend: true,
-        name: 'Total Visit',
-        markerType: 'square',
+        name: 'Revenues entreprise',
         xValueFormatString: 'DD MMM, YYYY',
-        color: '#F08080',
+        color: '#008000',
         dataPoints: this.getPositiveRevenue()
       },
       {
-        type: 'line',
+        type: 'spline',
         showInLegend: true,
-        name: 'Unique Visit',
-        lineDashType: 'dash',
+        name: 'Gains perdus',
+        color: '#F08080',
         dataPoints: this.getNegativeRevenue()
       }]
     });
@@ -115,6 +114,7 @@ export class AdminDashboardComponent implements OnInit, OnDestroy {
       elt.y = element.y;
       revenuePositive.push(elt);
     }
+    console.log(revenuePositive);
     return revenuePositive;
   }
 
@@ -128,6 +128,7 @@ export class AdminDashboardComponent implements OnInit, OnDestroy {
       elt.y = element.y;
       revenueNegative.push(elt);
     }
+    console.log(revenueNegative);
     return revenueNegative;
   }
 
