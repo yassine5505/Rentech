@@ -162,6 +162,7 @@ class ReservationController extends Controller
             ->join('ads', 'ads.id', '=', 'reservations.ad_id')
             ->select('reservations.*')
             ->where('ads.user_id', '=', auth()->user()->id)
+            ->orderBy('ads.start_date', 'desc')
             ->get();
             foreach($reservations as $reservation){
                 $reservation->ad = new AdResource(Ad::find($reservation->ad_id));

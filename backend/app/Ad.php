@@ -4,6 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\DB;
 
 class Ad extends Model
 {
@@ -140,18 +141,26 @@ class Ad extends Model
         // Select all Completed Ads ehrre date between now and one year ago
         $from = Carbon::now()->subYear();
         $to = Carbon::now();
-        $finishedAds = Ad::whereBetween('start_date', [$from, $to])
+        
+        $finishedAds = DB::table('ads')
+                          ->select(DB::raw("SUM(price) as totalprice, start_date"))
+                          ->whereBetween('start_date', [$from, $to])
                           ->where('status', '=', $adStatus)
                           ->orderBy('start_date', 'desc')
+                          ->groupBy('start_date')
                           ->get();
+
         if(! is_null($userId)){
-            $finishedAds = Ad::whereBetween('start_date', [$from, $to])
+            $finishedAds = DB::table('ads')
+                          ->select(DB::raw("SUM(price) as totalprice, start_date"))
+                          ->whereBetween('start_date', [$from, $to])
                           ->where('status', '=', $adStatus)
-                          ->where('user_id', '=', $userId)
+                          ->where('user_id', '=', $user_id)
                           ->orderBy('start_date', 'desc')
+                          ->groupBy('start_date')
                           ->get();
+
         }
-        // Array to return 
         $finishedAdsArray = array();
         $i = 0;
         foreach($finishedAds as $ad){
@@ -160,7 +169,7 @@ class Ad extends Model
                 'x' => [(int)date('Y', strtotime($ad->start_date)), 
                         (int)date('m', strtotime($ad->start_date)), 
                         (int)date('d', strtotime($ad->start_date))],
-                'y' => $ad->price
+                'y' => $ad->totalprice
             ];
             $i++;
         }
