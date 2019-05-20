@@ -4,6 +4,7 @@ import { AdService } from './../../services/shared/ad/ad.service';
 import { Subscription } from 'rxjs';
 import { LoadingScreenService } from './../../services/shared/loading-screen/loading-screen.service';
 import { ActivatedRoute, ParamMap } from '@angular/router';
+import * as  moment from 'moment';
 
 @Component({
   selector: 'app-ads-page',
@@ -32,10 +33,10 @@ export class AdsPageComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.loaderService.startLoading();
     this.fromMinimun = new Date().toLocaleDateString();
-    this.route.paramMap.subscribe(
+    this.route.queryParamMap.subscribe(
       (params: ParamMap) => {
-        this.filter.city_id = +params.get('reservationCode');
-        this.filter.from_date = +params.get('reservationCode');
+        this.filter.city_id = +params.get('city');
+        this.filter.from_date = +params.get('from_date');
       }
     );
     this.adSubscription = this.adService.getActive().subscribe(
@@ -49,7 +50,20 @@ export class AdsPageComponent implements OnInit, OnDestroy {
         this.loaderService.stopLoading();
       },
       () => {
-        
+        if (this.filter.city_id || this.filter.from_date) {
+          this.filteredAds = this.filteredAds.filter((ad: Ad) => {
+            if (this.filter.city_id && this.filter.from_date) {
+              return ad.city.id === this.filter.city_id
+              && moment(ad.start_date).isSameOrAfter(moment(this.filter.from_date));
+            }
+            if (this.filter.city_id) {
+              return ad.city.id === this.filter.city_id;
+            }
+            if (this.filter.from_date) {
+              return moment(ad.start_date).isSameOrAfter(moment(this.filter.from_date));
+            }
+          });
+        }
       }
     );
   }
